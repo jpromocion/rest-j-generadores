@@ -17,6 +17,11 @@ Se utiliza spring intializr https://start.spring.io/ con las opciones:
   - Package name: es.jortri.generadores
   - packaging: jar
   - Java: 17
+- Dependencias:
+  - Spring Web
+  - Spring Boot DevTools
+  - Spring Data JPA
+  - H2 Database (por si necesitamos guardar datos)
 
 NOTA: Necesitaremos un JDK 17 instalado en pc y en eclipse para este proyecto.
 
