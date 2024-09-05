@@ -47,9 +47,9 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 
 ## API especificación
 
-- /demo/hola
+- **/demo/hola**
 	- Devuelve la cadena "Hola Mundo"
-- /doi/nif
+- **/doi/nif**
 	- Devuelve una lista de NIFs
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
@@ -61,12 +61,12 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 		    "81692150Z"
 		]
 		```	
-- /doi/validatenif
+- **/doi/validatenif**
 	- Comprueba si un NIF es válido
 	- Parámetros:
 		- nif: NIF a validar
 	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.		
-- /doi/nie
+- **/doi/nie**
 	- Devuelve una lista de NIEs
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
@@ -78,12 +78,12 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 		    "X7570499A"
 		]
 		```	
-- /doi/validatenie
+- **/doi/validatenie**
 	- Comprueba si un NIE es válido
 	- Parámetros:
 		- nie: NIE a validar
 	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.		
-- /doi/cif
+- **/doi/cif**
 	- Devuelve una lista de CIFs
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
@@ -96,7 +96,7 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 		    "G81294811"
 		]
 		```	
-- /doi/validatecif
+- **/doi/validatecif**
 	- Comprueba si un CIF es válido
 	- Parámetros:
 		- cif: CIF a validar

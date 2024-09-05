@@ -3,19 +3,21 @@ package es.jortri.generadores.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.jortri.generadores.services.DoiService;
 import es.jortri.generadores.util.CommonUtil;
-import es.jortri.generadores.util.DoiUtil;
 
 @RestController
 @RequestMapping("/doi")
 public class DoiController {
 
-	private DoiUtil doiUtil = new DoiUtil();
+	@Autowired
+	private DoiService doiService;	
 
 
 
@@ -35,7 +37,7 @@ public class DoiController {
 
 		List<String> listaNif = new ArrayList<String>();
 		for (int i = 0; i < resultsInt; i++) {
-			listaNif.add(doiUtil.getNif());
+			listaNif.add(doiService.getNif());
 		}
 
 		return listaNif;
@@ -51,7 +53,7 @@ public class DoiController {
 	public String validatenif(@RequestParam String nif) {
 		String resultado = CommonUtil.RESULTADO_ERROR;
 
-		if (doiUtil.validarNif(nif)) {
+		if (doiService.validarNif(nif)) {
 			resultado = CommonUtil.RESULTADO_OK;
 		}
 
@@ -71,7 +73,7 @@ public class DoiController {
 
 		List<String> listaNie = new ArrayList<String>();
 		for (int i = 0; i < resultsInt; i++) {
-			listaNie.add(doiUtil.getNie());
+			listaNie.add(doiService.getNie());
 		}
 
 		return listaNie;
@@ -87,7 +89,7 @@ public class DoiController {
 	public String validatenie(@RequestParam String nie) {
 		String resultado = CommonUtil.RESULTADO_ERROR;
 
-		if (doiUtil.validarNie(nie)) {
+		if (doiService.validarNie(nie)) {
 			resultado = CommonUtil.RESULTADO_OK;
 		}
 
@@ -110,17 +112,17 @@ public class DoiController {
 
 		// Nos quedamos con la letra de CIF indicada si es valida. Sino dejamos un 0
 		// para saber la situacion
-		char letraCifSele = DoiUtil.LETRA_CIF_NO_ASIGNADA;
+		char letraCifSele = DoiService.LETRA_CIF_NO_ASIGNADA;
 		if (custom_letter != null && !custom_letter.isEmpty() && custom_letter.length() == 1) {
 			letraCifSele = custom_letter.charAt(0);
-			if (new String(DoiUtil.LETRASCIF).indexOf(letraCifSele) == -1) {
-				letraCifSele = DoiUtil.LETRA_CIF_NO_ASIGNADA;
+			if (new String(DoiService.LETRASCIF).indexOf(letraCifSele) == -1) {
+				letraCifSele = DoiService.LETRA_CIF_NO_ASIGNADA;
 			}
 		}
 
 		List<String> listaCifs = new ArrayList<String>();
 		for (int i = 0; i < resultsInt; i++) {
-			listaCifs.add(doiUtil.getCif(letraCifSele));
+			listaCifs.add(doiService.getCif(letraCifSele));
 		}
 
 		return listaCifs;
@@ -136,7 +138,7 @@ public class DoiController {
 	public String validatecif(@RequestParam String cif) {
 		String resultado = CommonUtil.RESULTADO_ERROR;
 		
-		if (doiUtil.validarCIF(cif)) {
+		if (doiService.validarCIF(cif)) {
 			resultado = CommonUtil.RESULTADO_OK;
 		}
 				
