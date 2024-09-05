@@ -1,5 +1,9 @@
 package es.jortri.generadores.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class CommonUtil {
 	
 	//Devolver un resultado sencillo de OK/ERROR en el servicio
@@ -148,5 +152,49 @@ public class CommonUtil {
 
 		return suma;
 	}	
+	
+	/**
+	 * Obtener una fecha aleatoria entre dos margenes
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return
+	 */
+	public static Date getFechaAleatoria(Date fechaInicio, Date fechaFin) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fechaInicio);	
+		//getYear getMonth y getDate estan deprecated... forma altenativaa?
+		long start = cal.getTimeInMillis();
+		cal.setTime(fechaFin);
+		long end = cal.getTimeInMillis();
+		long ms = start + (long) (Math.random() * (end - start));
+		cal.setTimeInMillis(ms);
+		return cal.getTime();
+	}
+	
+	/**
+	 * Fecha en formato DD/MM/YYYY
+	 * @param fecha
+	 * @return
+	 */
+	public static String getFechaFormateada(Date fecha) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fecha);
+		return cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR);
+	}
+	
+	/**
+	 * Calcular la edad de una persona
+	 * 
+	 * @param fechaDeNacimiento
+	 * @param fecha
+	 * @return
+	 */
+	public static int calcularEdad(Date fechaDeNacimiento, Date fecha) {	    
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+	    int d1 = Integer.parseInt(formatter.format(fechaDeNacimiento));                            
+	    int d2 = Integer.parseInt(formatter.format(fecha));                          
+	    int edad= (d2 - d1) / 10000;                                                       
+	    return edad;                                                                        
+	}
 	
 }
