@@ -101,3 +101,45 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 	- Parámetros:
 		- cif: CIF a validar
 	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.	
+	
+- **/profiles/person**	
+	- Devuelve una lista de datos de una persona generados aleatoriamente
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "nif": "52376422V",
+		        "nie": "X2920027Q",
+		        "nombre": "senaida",
+		        "apellido1": "carulla",
+		        "apellido2": "yaque",
+		        "genero": "mujer",
+		        "nombreCompleto": "senaida carulla yaque",
+		        "fechaNacimiento": "21/11/1974",
+		        "edad": "49",
+		        "telefonoMovil": "661300365",
+		        "telefonoFijo": "962833334",
+		        "login": "scarulla_338",
+		        "email": "scarulla_338@comcast.net",
+		        "password": "G&Seq4fHo>W!2I9l8S2[V",
+		        "ccaa": "Madrid, Comunidad de",
+		        "ccaaIne": "13",
+		        "provincia": "Madrid",
+		        "provinciaIne": "28",
+		        "municipio": "Carabaña",
+		        "municipioIne": "035",
+		        "direccion": "Edificio Héroes Karla Veronica Quijorna",
+		        "numerovia": "596",
+		        "codigoPostal": "28560",
+		        "iban": "ES8200757534480227770871",
+		        "bic": "POPUESMM",
+		        "tarjetaCredito": "3420158827908130",
+		        "cvc": "986",
+		        "expiracionCredito": "12/27",
+		        "tipoTarjeta": "American Express"
+		    },
+		    ...
+		]
+		```	
