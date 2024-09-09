@@ -1,6 +1,5 @@
 package es.jortri.generadores.util;
 
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -235,91 +234,6 @@ public class CommonUtil {
 		return String.format("%1$" + longitud + "s", str).replace(' ', '0');
 	}
 
-	/**
-	 * Mapeo de pesos por letra de pais del IBAN
-	 * 
-	 * @param letra
-	 * @return
-	 */
-	public static int damePesoIBAN(char letra) {
 
-		switch (letra) {
-		case 'A':
-			return 10;
-		case 'B':
-			return 11;
-		case 'C':
-			return 12;
-		case 'D':
-			return 13;
-		case 'E':
-			return 14;
-		case 'F':
-			return 15;
-		case 'G':
-			return 16;
-		case 'H':
-			return 17;
-		case 'I':
-			return 18;
-		case 'J':
-			return 19;
-		case 'K':
-			return 20;
-		case 'L':
-			return 21;
-		case 'M':
-			return 22;
-		case 'N':
-			return 23;
-		case 'O':
-			return 24;
-		case 'P':
-			return 25;
-		case 'Q':
-			return 26;
-		case 'R':
-			return 27;
-		case 'S':
-			return 28;
-		case 'T':
-			return 29;
-		case 'U':
-			return 30;
-		case 'V':
-			return 31;
-		case 'W':
-			return 32;
-		case 'X':
-			return 33;
-		case 'Y':
-			return 34;
-		case 'Z':
-			return 35;
-		}
-		return 0;
-
-	}
-
-	/**
-	 * Obtener los DC de un IBAN
-	 * 
-	 * @param entidad
-	 * @param oficina
-	 * @param dc
-	 * @param numeroCuenta
-	 * @return
-	 */
-	public static String obtenerDigitosControlIban(String entidad, String oficina, String dc, String numeroCuenta) {
-		String codigoPais = "ES";
-		String preIban = entidad + oficina + dc + numeroCuenta + damePesoIBAN(codigoPais.charAt(0))
-				+ damePesoIBAN(codigoPais.charAt(1)) + "00";
-		BigInteger ccc = new BigInteger(preIban);
-		BigInteger noventaysiete = new BigInteger("97");
-		ccc = ccc.mod(noventaysiete);
-		int dcIb = ccc.intValue();
-		dcIb = 98 - dcIb;
-		return ponCerosIzquierda(Integer.toString(dcIb), 2);
-	}
 
 }

@@ -62,6 +62,15 @@
 		    <artifactId>commons-text</artifactId>
 		    <version>1.10.0</version>
 		</dependency>		
+		
+		<!-- Para uso del IBANVAlidator de apache commons -->
+		<dependency>
+		    <groupId>commons-validator</groupId>
+		    <artifactId>commons-validator</artifactId>
+		    <version>1.7</version>
+		</dependency>
+		
+		
 	</dependencies>
 
 	<build>

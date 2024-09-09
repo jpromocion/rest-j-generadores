@@ -2,6 +2,7 @@ package es.jortri.generadores.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,16 +22,23 @@ public class ProfilesController {
 
 	@Autowired
 	private ProfilesService profilesService;
-
+	
+	/**
+	 * Obtener una lista de personas de datos aleatorios
+	 * @param results
+	 * @param gender
+	 * @return
+	 */
 	@GetMapping("/person")
-	public List<Persona> person(@RequestParam String results, @RequestParam String gender) {
+	public List<Persona> person(@RequestParam String results, @RequestParam Optional<String> gender) {
 
 		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
 		
+		String genderOP = gender.orElse("");
 		Genero genderRevi = Genero.AMBOS;
-		if (gender != null && "male".equals(gender)) {
+		if (genderOP != null && "male".equals(genderOP)) {
 			genderRevi = Genero.MALE;
-		} else if (gender != null && "female".equals(gender)) {
+		} else if (genderOP != null && "female".equals(genderOP)) {
 			genderRevi = Genero.FEMALE;
 		}
 
@@ -42,6 +50,12 @@ public class ProfilesController {
 		return listaNombres;
 	}
 	
+	/**
+	 * Obtener una lista de empresas de datos aleatorios
+	 * 
+	 * @param results
+	 * @return
+	 */
 	@GetMapping("/company")
 	public List<Empresa> company(@RequestParam String results) {
 

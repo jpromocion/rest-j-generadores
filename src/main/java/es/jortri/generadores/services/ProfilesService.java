@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.jortri.generadores.enumerados.Genero;
+import es.jortri.generadores.enumerados.PrefijoTarjeta;
 import es.jortri.generadores.model.Apellidos;
-import es.jortri.generadores.model.Bancos;
 import es.jortri.generadores.model.Ccaa;
 import es.jortri.generadores.model.Cnaes;
 import es.jortri.generadores.model.Codpostales;
@@ -26,7 +26,6 @@ import es.jortri.generadores.model.Persona;
 import es.jortri.generadores.model.Provincias;
 import es.jortri.generadores.model.Tipovias;
 import es.jortri.generadores.repository.ApellidosRepository;
-import es.jortri.generadores.repository.BancosRepository;
 import es.jortri.generadores.repository.CcaaRepository;
 import es.jortri.generadores.repository.CnaesRepository;
 import es.jortri.generadores.repository.CodpostalesRepository;
@@ -35,10 +34,7 @@ import es.jortri.generadores.repository.NombresEmpresasRepository;
 import es.jortri.generadores.repository.NombresRepository;
 import es.jortri.generadores.repository.ProvinciasRepository;
 import es.jortri.generadores.repository.TipoviasRepository;
-import es.jortri.generadores.util.CardValidationResult;
 import es.jortri.generadores.util.CommonUtil;
-import es.jortri.generadores.util.CreditCardNumberGenerator;
-import es.jortri.generadores.util.RegexCardValidator;
 
 @Service
 public class ProfilesService {
@@ -68,14 +64,14 @@ public class ProfilesService {
 	private CodpostalesRepository codpostalesRepository;
 
 	@Autowired
-	private BancosRepository bancosRepository;
-	
-	@Autowired
-	private NombresEmpresasRepository nombresEmpresasRepository;	
+	private NombresEmpresasRepository nombresEmpresasRepository;
 
 	@Autowired
 	private CnaesRepository cnaesRepository;
-	
+
+	@Autowired
+	private BankServices bankServices;
+
 	private Random semilla;
 
 	private static final int MAX_EDAD = 100;
@@ -104,9 +100,6 @@ public class ProfilesService {
 	public static String NOMBRES_COMUNES_CALLEJERO[] = { "Iglesia", "Mayor", "Fuente", "Constitución", "Real", "Nueva",
 			"San", "Héroes", "Eras", "Sol", "España" };
 
-	// 3-American Express, 4-Visa, 5-Mastercard, 6-Discover
-	public static String PREFIJO_TARJETA[] = { "3", "4", "5", "6" };
-
 	public ProfilesService() {
 		this.semilla = new Random();
 	}
@@ -124,10 +117,10 @@ public class ProfilesService {
 				generoStr = "h";
 			} else {
 				generoStr = "m";
-            }
-			
+			}
+
 			Nombres nombrePri = nombresRepository.findFirstByGeneroOrderByIdAsc(generoStr);
-			Nombres nombreUlt = nombresRepository.findFirstByGeneroOrderByIdDesc(generoStr);			
+			Nombres nombreUlt = nombresRepository.findFirstByGeneroOrderByIdDesc(generoStr);
 			boolean encontrado = false;
 			while (!encontrado) {
 				int randomSele = semilla.nextInt(nombrePri.getId(), nombreUlt.getId());
@@ -136,9 +129,8 @@ public class ProfilesService {
 					encontrado = true;
 				}
 			}
-			
+
 		}
-		
 
 		return nombre;
 	}
@@ -443,104 +435,6 @@ public class ProfilesService {
 	}
 
 	/**
-	 * Obtener los DC para los datos de banco,oficina y cuenta de un CCC NOTA:
-	 * https://github.com/rociodemula/prog11/blob/master/src/basicos/CuentaBancaria.java
-	 * 
-	 * @param entidad
-	 * @param sucursal
-	 * @param cuenta
-	 * @return
-	 */
-	public static int[] obtenerDigitosControlCCC(String entidad, String sucursal, String cuenta) {
-		// Factores multiplicadores para la operación de validación.
-		int factores[] = { 1, 2, 4, 8, 5, 10, 9, 7, 3, 6 };
-		// array para alojar los DC
-		int[] digitosControl = new int[2];
-		// Separamos en 2 cadenas para posteriores cálculos necesarios.
-		// Se sigue el procedimiento para el cálculo indicado en
-		// http://es.wikipedia.org/wiki/C%C3%B3digo_cuenta_cliente
-		String cadenaValidacion[] = { "00" + entidad + sucursal, cuenta };
-		// Declaramos las variables intermedias que necesitaremos
-		int resultado, resto;
-		// Mediante un bucle acumulamos el pre-resultado de cada dígito
-		for (int i = 0; i < digitosControl.length; i++) {
-			resultado = 0; // INicializamos el acumulador
-			for (int j = 0; j < factores.length; j++) {
-				// Vamos multiplicando cada operando y acumulando en la variable
-				resultado += factores[j] * Integer.parseInt(cadenaValidacion[i].substring(j, j + 1));
-			}
-			// Seguimos la cadena de operaciones reglamentaria, con otra variable
-			resto = resultado % 11;
-			// Guardamos cada dígito en su índice correspondiente,
-			digitosControl[i] = 11 - resto;
-			switch (digitosControl[i]) { // Retocamos en caso de ser 10 u 11.
-			case 10:
-				digitosControl[i] = 1;
-				break;
-			case 11:
-				digitosControl[i] = 0;
-				break;
-			}
-		}
-		// Devolvemos un array con ambos dígitos
-		return digitosControl;
-	}
-
-	/**
-	 * Generan un IBAN aleatorio
-	 * 
-	 * @return
-	 */
-	public String generarIbanRandom() {
-		String iban = "ES";
-
-		// el banco lo de uno de los existentes para poder localizar swfit
-		List<Bancos> listaBancos = bancosRepository.findAll();
-		int indice = 0;
-		if (listaBancos.size() > 1) {
-			indice = semilla.nextInt(0, listaBancos.size() - 1);
-		}
-		Bancos banObj = listaBancos.get(indice);
-		String banco = banObj.getCodigo();
-
-		// generamos una sucursal y cuenta aleatoria
-		String oficina = String.format("%1$" + 4 + "s", Integer.toString(semilla.nextInt(0, 9999))).replace(' ', '0');
-		String cuenta = String.format("%1$" + 10 + "s", Integer.toString(semilla.nextInt(0, 999999999))).replace(' ',
-				'0');
-		String dc = "" + Integer.toString(obtenerDigitosControlCCC(banco, oficina, cuenta)[0])
-				+ Integer.toString(obtenerDigitosControlCCC(banco, oficina, cuenta)[1]);
-
-		iban += CommonUtil.obtenerDigitosControlIban(banco, oficina, dc, cuenta) + banco + oficina + dc + cuenta;
-
-		return iban;
-	}
-
-	/**
-	 * Generar un BIC asociado a un banco
-	 * 
-	 * @param banco
-	 * @return
-	 */
-	public String generarBicAsociado(String banco) {
-		Bancos bancoObj = bancosRepository.findFirstByCodigo(banco);
-		return bancoObj.getBic();
-	}
-
-	public String generarTarjetaCredito() {
-		CreditCardNumberGenerator ccng = new CreditCardNumberGenerator();
-
-		int indice = semilla.nextInt(0, PREFIJO_TARJETA.length - 1);
-		String tipo = PREFIJO_TARJETA[indice];
-
-		return ccng.generate(tipo, 16);
-	}
-
-	public boolean validarTarjetaCredito(String tarjeta) {
-		CardValidationResult valida = RegexCardValidator.isValid(tarjeta);
-		return valida.isValid();
-	}
-
-	/**
 	 * Conformar los datos de una persona completamente aleatoria a devolver
 	 * 
 	 * @param gender genero de la persona a limitar
@@ -606,36 +500,25 @@ public class ProfilesService {
 		persona.setCodigoPostal(generarCodPostalRandom(persona.getProvinciaIne(), persona.getMunicipioIne()));
 
 		// cuenta bancaria
-		persona.setIban(generarIbanRandom());
-		persona.setBic(generarBicAsociado(persona.getIban().substring(4, 8)));
-		persona.setTarjetaCredito(generarTarjetaCredito());
-		persona.setCvc(semilla.nextInt(100, 999) + "");
-		cal = Calendar.getInstance();
-		calF = Calendar.getInstance();
-		calF.add(Calendar.YEAR, 5);
-		Date fechaCaducidad = CommonUtil.getFechaAleatoria(cal.getTime(), calF.getTime());
-		// formatearla como MM/YY
-		persona.setExpiracionCredito(CommonUtil.getFechaFormateada(fechaCaducidad, "MM/yy"));
+		persona.setIban(bankServices.generarIbanRandom());
+		persona.setBic(bankServices.generarBicAsociado(persona.getIban().substring(4, 8)));
+		persona.setTarjetaCredito(bankServices.generarTarjetaCredito(null));
+		persona.setCvc(bankServices.generarCvc());
+		persona.setExpiracionCredito(bankServices.fechaExpiracionTarjeta());
 
-		String tipoTarjeta = "";
-		// 3-American Express, 4-Visa, 5-Mastercard, 6-Discover
-		if (persona.getTarjetaCredito().startsWith("3")) {
-			tipoTarjeta = "American Express";
-		} else if (persona.getTarjetaCredito().startsWith("4")) {
-			tipoTarjeta = "Visa";
-		} else if (persona.getTarjetaCredito().startsWith("5")) {
-			tipoTarjeta = "Mastercard";
-		} else if (persona.getTarjetaCredito().startsWith("6")) {
-			tipoTarjeta = "Discover";
-		}
-		persona.setTipoTarjeta(tipoTarjeta);
+		String tipoTarjeta = persona.getTarjetaCredito().substring(0,1);
+		PrefijoTarjeta prefijo = PrefijoTarjeta.getByCodigoInicio(tipoTarjeta);
+		if (prefijo != null) {
+			persona.setTipoTarjeta(prefijo.getNombre());
+		}		
 
 		return persona;
 
 	}
-	
+
 	/**
 	 * Generar un nombre de empresa aleatorio
+	 * 
 	 * @return
 	 */
 	private NombresEmpresas generaNombreEmpresaRandom() {
@@ -643,42 +526,43 @@ public class ProfilesService {
 		NombresEmpresas nombreUlt = nombresEmpresasRepository.findFirstByOrderByIdDesc();
 		int randomSele = semilla.nextInt(nombrePri.getId(), nombreUlt.getId());
 		NombresEmpresas nombre = nombresEmpresasRepository.findById(randomSele).get();
-		
+
 		return nombre;
-	}	
-	
+	}
+
 	/**
 	 * Generar un CNAE aleatorio
+	 * 
 	 * @return
 	 */
 	private Cnaes generarCnaeRandom() {
-        Cnaes cnaePri = cnaesRepository.findFirstByOrderByIdAsc();
-        Cnaes cnaeUlt = cnaesRepository.findFirstByOrderByIdDesc();
-        boolean cnae4digitos = false;
-        Cnaes cnae = null;
-        while (!cnae4digitos) {
-            int randomSele = semilla.nextInt(cnaePri.getId(), cnaeUlt.getId());
-            cnae = cnaesRepository.findById(randomSele).get();      
+		Cnaes cnaePri = cnaesRepository.findFirstByOrderByIdAsc();
+		Cnaes cnaeUlt = cnaesRepository.findFirstByOrderByIdDesc();
+		boolean cnae4digitos = false;
+		Cnaes cnae = null;
+		while (!cnae4digitos) {
+			int randomSele = semilla.nextInt(cnaePri.getId(), cnaeUlt.getId());
+			cnae = cnaesRepository.findById(randomSele).get();
 			if (cnae.getCodigo().length() == 4) {
 				cnae4digitos = true;
 			}
-        }
-        
-        return cnae;
-     }
+		}
+
+		return cnae;
+	}
 
 	/**
 	 * Conformar los datos de una empresa completamente aleatoria a devolver
+	 * 
 	 * @return
 	 */
 	public Empresa conformarEmpresa() {
 		Empresa empresa = new Empresa();
-		
-		//identificador CIF
+
+		// identificador CIF
 		empresa.setCif(doiService.getCif(DoiService.LETRA_CIF_NO_ASIGNADA));
 		empresa.setNombre(generaNombreEmpresaRandom().getNombre());
-		
-		
+
 		// fecha creacion
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.YEAR, -100);
@@ -686,13 +570,13 @@ public class ProfilesService {
 		calF.add(Calendar.YEAR, -1);
 		Date fechaCreacion = CommonUtil.getFechaAleatoria(cal.getTime(), calF.getTime());
 		empresa.setFechaCreacion(CommonUtil.getFechaFormateada(fechaCreacion));
-		
-		//telefonos/email..
+
+		// telefonos/email..
 		empresa.setTelefono(generarNumTelefonoFijo());
 		empresa.setFax(generarNumTelefonoFijo());
-		empresa.setEmail(generarEmail(empresa.getNombre().replace(" ", "_").replaceAll("[^A-Za-z0-9_]", "")).toLowerCase());
-		
-		
+		empresa.setEmail(
+				generarEmail(empresa.getNombre().replace(" ", "_").replaceAll("[^A-Za-z0-9_]", "")).toLowerCase());
+
 		// datos de localizacion
 		Ccaa ccaa = generarCCAARandom();
 		empresa.setCcaa(ccaa.getNombre());
@@ -705,14 +589,14 @@ public class ProfilesService {
 		empresa.setMunicipioIne(muni.getCodigoine());
 		empresa.setDireccion(generaDireccionRandom());
 		empresa.setNumerovia(Integer.toString(semilla.nextInt(1, 999)));
-		empresa.setCodigoPostal(generarCodPostalRandom(empresa.getProvinciaIne(), empresa.getMunicipioIne()));		
-		
-		//actividad
+		empresa.setCodigoPostal(generarCodPostalRandom(empresa.getProvinciaIne(), empresa.getMunicipioIne()));
+
+		// actividad
 		Cnaes cnae = generarCnaeRandom();
 		empresa.setCnae(cnae.getCodigo());
 		empresa.setActividad(cnae.getNombre());
-		
+
 		return empresa;
 	}
-	
+
 }

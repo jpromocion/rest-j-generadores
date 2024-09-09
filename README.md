@@ -82,7 +82,7 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 	- Comprueba si un NIE es válido
 	- Parámetros:
 		- nie: NIE a validar
-	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.		
+	- Resultado: "OK" si nie es válido. "ERROR" en otro caso.		
 - **/doi/cif**
 	- Devuelve una lista de CIFs
 	- Parámetros:
@@ -100,7 +100,7 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 	- Comprueba si un CIF es válido
 	- Parámetros:
 		- cif: CIF a validar
-	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.	
+	- Resultado: "OK" si cif es válido. "ERROR" en otro caso.	
 	
 - **/profiles/person**	
 	- Devuelve una lista de datos de una persona generados aleatoriamente
@@ -173,4 +173,55 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 		    },
 		    ...
 		]
+		```	
+		
+- **/bank/account**	
+	- Devuelve una lista de cuentas bancarias generadas aleatoriamente
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "ccc": "01084642890907430294",
+		        "cccFormateado": "0108 4642 89 0907430294",
+		        "iban": "ES8601084642890907430294",
+		        "ibanFormateado": "ES86 0108 4642 8909 0743 0294",
+		        "bic": "SOGEESMM444",
+		        "entidad": "Société Générale"
+		    },
+		    ...
+		]
 		```			
+		
+- **/bank/card**
+	- Devuelve una lista de tarjetas de crédito generadas aleatoriamente
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- type: Opcional, en caso de generar de una marca concreta: americanexpress, visa, mastercard, discover
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "tarjeta": "4032747857055024",
+		        "tarjetaFormateada": "4032 7478 5705 5024",
+		        "expiracionCredito": "08/29",
+		        "cvc": "182",
+		        "tipoTarjeta": "Visa"
+		    },
+		    ...
+		]
+		```				
+		
+- **/bank/validateiban**
+	- Comprueba si un IBAN es valido
+	- Parámetros:
+		- iban: IBAN a validar. Ejemplo: ES8921032698618414341240
+	- Resultado: "OK" si iban es válido. "ERROR" en otro caso.	
+	
+- **/bank/validatecard**
+	- Comprueba si un número de tarjeta de crédito es valido
+	- Parámetros:
+		- card: Tarjeta a validar. Ejemplo: 4544363578091115
+	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.		
+					
