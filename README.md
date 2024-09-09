@@ -223,5 +223,19 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 	- Comprueba si un número de tarjeta de crédito es valido
 	- Parámetros:
 		- card: Tarjeta a validar. Ejemplo: 4544363578091115
-	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.		
+	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.	
+	
+- **/text/word**
+	- Devuelve una lista de palabras generadas aleatoriamente.
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- words: Opcional, número de palabras dentro de cada resultado. Por defecto 100.
+		- language: Opcional, indicar el lenguaje en el que generarse: spanish, english, latin. De no indicarse o indicarse algo erroneo se generar en castellano.
+	- Ejemplo resultado
+		```
+		[
+    		"Ministri potuit manus fundamentum palaestra massa traditio textus magnitudo vetus magnus familiaris gradus debebat auxilium facere officina aedificium valores praefectus temperatura unus regina carolus etiam",
+		    ...
+		]
+		```			
 					
