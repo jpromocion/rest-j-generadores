@@ -106,6 +106,7 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 	- Devuelve una lista de datos de una persona generados aleatoriamente
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- gender: Genero persona devolver. Defecto nulo no filtra. En otro caso: male, female
 	- Ejemplo resultado
 		```
 		[
@@ -143,3 +144,33 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 		    ...
 		]
 		```	
+		
+- **/profiles/company**	
+	- Devuelve una lista de datos de una empresa generados aleatoriamente
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "cif": "C8289952G",
+		        "nombre": "CENTRALES NUCLEARES ALMARAZ TRILLO AIE",
+		        "fechaCreacion": "14/09/1969",
+		        "telefono": "942365447",
+		        "fax": "988488624",
+		        "email": "centrales_nucleares_almaraz_trillo_aie@airmail.net",
+		        "ccaa": "Andalucía",
+		        "ccaaIne": "01",
+		        "municipio": "Tahal",
+		        "municipioIne": "090",
+		        "provincia": "Almería",
+		        "provinciaIne": "04",
+		        "direccion": "Calle Sol Emilio Alexander Bouzon",
+		        "numerovia": "167",
+		        "codigoPostal": "04274",
+		        "cnae": "1439",
+		        "actividad": "Confección de otras prendas de vestir de punto"
+		    },
+		    ...
+		]
+		```			

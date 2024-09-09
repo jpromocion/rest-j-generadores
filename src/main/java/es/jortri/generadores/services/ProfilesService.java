@@ -12,20 +12,26 @@ import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.jortri.generadores.enumerados.Genero;
 import es.jortri.generadores.model.Apellidos;
 import es.jortri.generadores.model.Bancos;
 import es.jortri.generadores.model.Ccaa;
+import es.jortri.generadores.model.Cnaes;
 import es.jortri.generadores.model.Codpostales;
+import es.jortri.generadores.model.Empresa;
 import es.jortri.generadores.model.Municipios;
 import es.jortri.generadores.model.Nombres;
+import es.jortri.generadores.model.NombresEmpresas;
 import es.jortri.generadores.model.Persona;
 import es.jortri.generadores.model.Provincias;
 import es.jortri.generadores.model.Tipovias;
 import es.jortri.generadores.repository.ApellidosRepository;
 import es.jortri.generadores.repository.BancosRepository;
 import es.jortri.generadores.repository.CcaaRepository;
+import es.jortri.generadores.repository.CnaesRepository;
 import es.jortri.generadores.repository.CodpostalesRepository;
 import es.jortri.generadores.repository.MunicipiosRepository;
+import es.jortri.generadores.repository.NombresEmpresasRepository;
 import es.jortri.generadores.repository.NombresRepository;
 import es.jortri.generadores.repository.ProvinciasRepository;
 import es.jortri.generadores.repository.TipoviasRepository;
@@ -63,7 +69,13 @@ public class ProfilesService {
 
 	@Autowired
 	private BancosRepository bancosRepository;
+	
+	@Autowired
+	private NombresEmpresasRepository nombresEmpresasRepository;	
 
+	@Autowired
+	private CnaesRepository cnaesRepository;
+	
 	private Random semilla;
 
 	private static final int MAX_EDAD = 100;
@@ -99,11 +111,35 @@ public class ProfilesService {
 		this.semilla = new Random();
 	}
 
-	private Nombres generaNombrePersonaRandom() {
-		Nombres nombrePri = nombresRepository.findFirstByOrderByIdAsc();
-		Nombres nombreUlt = nombresRepository.findFirstByOrderByIdDesc();
-		int randomSele = semilla.nextInt(nombrePri.getId(), nombreUlt.getId());
-		Nombres nombre = nombresRepository.findById(randomSele).get();
+	private Nombres generaNombrePersonaRandom(Genero gender) {
+		Nombres nombre = null;
+		if (gender == Genero.AMBOS) {
+			Nombres nombrePri = nombresRepository.findFirstByOrderByIdAsc();
+			Nombres nombreUlt = nombresRepository.findFirstByOrderByIdDesc();
+			int randomSele = semilla.nextInt(nombrePri.getId(), nombreUlt.getId());
+			nombre = nombresRepository.findById(randomSele).get();
+		} else {
+			String generoStr = "";
+			if (gender == Genero.MALE) {
+				generoStr = "h";
+			} else {
+				generoStr = "m";
+            }
+			
+			Nombres nombrePri = nombresRepository.findFirstByGeneroOrderByIdAsc(generoStr);
+			Nombres nombreUlt = nombresRepository.findFirstByGeneroOrderByIdDesc(generoStr);			
+			boolean encontrado = false;
+			while (!encontrado) {
+				int randomSele = semilla.nextInt(nombrePri.getId(), nombreUlt.getId());
+				nombre = nombresRepository.findById(randomSele).get();
+				if (generoStr.equals(nombre.getGenero())) {
+					encontrado = true;
+				}
+			}
+			
+		}
+		
+
 		return nombre;
 	}
 
@@ -146,12 +182,14 @@ public class ProfilesService {
 		int indice = semilla.nextInt(0, PREFIJOS_TLF_FIJOS.length - 1);
 		String prefijo = PREFIJOS_TLF_FIJOS[indice];
 		int maximo = 999999;
+		int relleno = 6;
 		if (prefijo.length() == 2) {
 			maximo = 9999999;
+			relleno = 7;
 		}
 
 		int restoTlfInt = semilla.nextInt(1, maximo);
-		String restoTlf = Integer.toString(restoTlfInt);
+		String restoTlf = CommonUtil.ponCerosIzquierda(Integer.toString(restoTlfInt), relleno);
 
 		return prefijo + restoTlf;
 	}
@@ -359,7 +397,7 @@ public class ProfilesService {
 		int indice = semilla.nextInt(0, NOMBRES_COMUNES_CALLEJERO.length - 1);
 		String nombreComun = NOMBRES_COMUNES_CALLEJERO[indice];
 
-		Nombres nombre = generaNombrePersonaRandom();
+		Nombres nombre = generaNombrePersonaRandom(Genero.AMBOS);
 		List<Apellidos> listaApellidosSele = generarApellidosRandom();
 
 		String nombreFinal = CommonUtil.usingStringToUpperCaseMethod(nombre.getNombre());
@@ -505,15 +543,16 @@ public class ProfilesService {
 	/**
 	 * Conformar los datos de una persona completamente aleatoria a devolver
 	 * 
+	 * @param gender genero de la persona a limitar
 	 * @return
 	 */
-	public Persona conformarPersona() {
+	public Persona conformarPersona(Genero gender) {
 		Persona persona = new Persona();
 		persona.setNif(doiService.getNif());
 		persona.setNie(doiService.getNie());
 
 		// buscamos un id de nombre aleatorio
-		Nombres nombre = generaNombrePersonaRandom();
+		Nombres nombre = generaNombrePersonaRandom(gender);
 		persona.setNombre(nombre.getNombre());
 
 		// bucamos tambien aleatoriamente los apelliudoos
@@ -594,5 +633,86 @@ public class ProfilesService {
 		return persona;
 
 	}
+	
+	/**
+	 * Generar un nombre de empresa aleatorio
+	 * @return
+	 */
+	private NombresEmpresas generaNombreEmpresaRandom() {
+		NombresEmpresas nombrePri = nombresEmpresasRepository.findFirstByOrderByIdAsc();
+		NombresEmpresas nombreUlt = nombresEmpresasRepository.findFirstByOrderByIdDesc();
+		int randomSele = semilla.nextInt(nombrePri.getId(), nombreUlt.getId());
+		NombresEmpresas nombre = nombresEmpresasRepository.findById(randomSele).get();
+		
+		return nombre;
+	}	
+	
+	/**
+	 * Generar un CNAE aleatorio
+	 * @return
+	 */
+	private Cnaes generarCnaeRandom() {
+        Cnaes cnaePri = cnaesRepository.findFirstByOrderByIdAsc();
+        Cnaes cnaeUlt = cnaesRepository.findFirstByOrderByIdDesc();
+        boolean cnae4digitos = false;
+        Cnaes cnae = null;
+        while (!cnae4digitos) {
+            int randomSele = semilla.nextInt(cnaePri.getId(), cnaeUlt.getId());
+            cnae = cnaesRepository.findById(randomSele).get();      
+			if (cnae.getCodigo().length() == 4) {
+				cnae4digitos = true;
+			}
+        }
+        
+        return cnae;
+     }
 
+	/**
+	 * Conformar los datos de una empresa completamente aleatoria a devolver
+	 * @return
+	 */
+	public Empresa conformarEmpresa() {
+		Empresa empresa = new Empresa();
+		
+		//identificador CIF
+		empresa.setCif(doiService.getCif(DoiService.LETRA_CIF_NO_ASIGNADA));
+		empresa.setNombre(generaNombreEmpresaRandom().getNombre());
+		
+		
+		// fecha creacion
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -100);
+		Calendar calF = Calendar.getInstance();
+		calF.add(Calendar.YEAR, -1);
+		Date fechaCreacion = CommonUtil.getFechaAleatoria(cal.getTime(), calF.getTime());
+		empresa.setFechaCreacion(CommonUtil.getFechaFormateada(fechaCreacion));
+		
+		//telefonos/email..
+		empresa.setTelefono(generarNumTelefonoFijo());
+		empresa.setFax(generarNumTelefonoFijo());
+		empresa.setEmail(generarEmail(empresa.getNombre().replace(" ", "_").replaceAll("[^A-Za-z0-9_]", "")).toLowerCase());
+		
+		
+		// datos de localizacion
+		Ccaa ccaa = generarCCAARandom();
+		empresa.setCcaa(ccaa.getNombre());
+		empresa.setCcaaIne(ccaa.getId());
+		Provincias provin = generarProvinciaRandom(empresa.getCcaaIne());
+		empresa.setProvincia(provin.getNombre());
+		empresa.setProvinciaIne(provin.getId());
+		Municipios muni = generarMunicipioRandom(empresa.getProvinciaIne());
+		empresa.setMunicipio(muni.getNombre());
+		empresa.setMunicipioIne(muni.getCodigoine());
+		empresa.setDireccion(generaDireccionRandom());
+		empresa.setNumerovia(Integer.toString(semilla.nextInt(1, 999)));
+		empresa.setCodigoPostal(generarCodPostalRandom(empresa.getProvinciaIne(), empresa.getMunicipioIne()));		
+		
+		//actividad
+		Cnaes cnae = generarCnaeRandom();
+		empresa.setCnae(cnae.getCodigo());
+		empresa.setActividad(cnae.getNombre());
+		
+		return empresa;
+	}
+	
 }

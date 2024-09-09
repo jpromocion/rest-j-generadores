@@ -11,5 +11,10 @@ public interface NombresRepository extends JpaRepository<Nombres, Integer> {
 	Nombres findFirstByOrderByIdAsc();
 	
 	Nombres findFirstByOrderByIdDesc();
+	
+	
+	Nombres findFirstByGeneroOrderByIdAsc(String genero);
+	
+	Nombres findFirstByGeneroOrderByIdDesc(String genero);	
 
 }

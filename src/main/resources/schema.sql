@@ -66,3 +66,21 @@ CREATE TABLE bancos(
   PRIMARY KEY (id)
 );
 
+
+
+CREATE TABLE nombres_empresas(
+  id INTEGER NOT NULL,
+  nombre VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE cnaes(
+  id INTEGER NOT NULL,
+  codigo VARCHAR(4) NOT NULL,
+  nombre VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
+
