@@ -23,23 +23,29 @@ public class CommonUtil {
 	 * @param maximo  Máximo permitido
 	 * @return
 	 */
-	public static int revisarNumResultadoMaximo(String results, int maximo) {
+	public static int revisarNumResultadoMaximo(String results, int maximo, int defecto) {
 		String numRevisar = results;
 		if (numRevisar == null || numRevisar.isEmpty()) {
-			numRevisar = "10";
+			numRevisar = defecto + "";
 		}
 		int resultsInt;
 		try {
 			resultsInt = Integer.parseInt(numRevisar);
 		} catch (NumberFormatException e) {
-			resultsInt = 10;
+			resultsInt = defecto;
 		}
-		if (resultsInt > 1000) {
-			resultsInt = 1000;
+		if (resultsInt > maximo) {
+			resultsInt = maximo;
 		}
 		return resultsInt;
+	}		
+	
+	public static int revisarNumResultadoMaximo(String results, int maximo) {
+		return revisarNumResultadoMaximo(results, maximo, 10);
 	}
 
+
+	
 	/**
 	 * Genera un array con los codigos de provincias
 	 * 

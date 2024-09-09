@@ -82,5 +82,17 @@ CREATE TABLE cnaes(
   PRIMARY KEY (id)
 );
 
+CREATE TABLE palabras(
+  id INTEGER NOT NULL,
+  castellano VARCHAR(100) NOT NULL,
+  ingles VARCHAR(100) NOT NULL,
+  latin VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
+
+
+
 
 
