@@ -1,5 +1,7 @@
 package es.jortri.generadores.services;
 
+import java.util.List;
+
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -27,6 +29,12 @@ public class AuthenticationService {
 	
 	private SecurityApìKeysRepository securityApìKeysRepository;		
 	
+	//evitar llamarla cada peticion, cargamos en el constructor todo en una lista
+	//y en repitadas llamadas solo consultamos la lista
+	//NOTA: esto probablemente hara que si cambiamos las api-keys haya que levantar la aplicacion
+	//de nuevo
+	private List<SecurityApiKeys> listaApiCargada = null;
+	
 	
     private static final String AUTH_TOKEN_HEADER_NAME = "X-API-KEY";
     //private static final String AUTH_TOKEN = "jortri0105";
@@ -34,6 +42,7 @@ public class AuthenticationService {
   
     public AuthenticationService(SecurityApìKeysRepository securityApìKeysRepository) {
         this.securityApìKeysRepository = securityApìKeysRepository;
+        this.listaApiCargada = this.securityApìKeysRepository.findAll();
     }    
     
     
@@ -42,7 +51,15 @@ public class AuthenticationService {
         //if (apiKey == null || !Arrays.asList(AUTH_TOKEN).contains(apiKey)) {
         SecurityApiKeys secApiKey = null;
         if (apiKey != null) {
-        	secApiKey = securityApìKeysRepository.findFirstByApikey(apiKey);
+        	//evitar llamarla cada peticion, cargamos en el constructor todo en una lista
+        	//y en repitadas llamadas solo consultamos la lista
+        	//secApiKey = securityApìKeysRepository.findFirstBy1Apikey(apiKey);
+        	for (SecurityApiKeys api : listaApiCargada) {
+        		if (apiKey.equals(api.getApikey())) {
+        			secApiKey = api;
+        			break;
+        		}
+        	}
         }
         if (apiKey == null || secApiKey == null || secApiKey.getId() == null) {
             throw new BadCredentialsException("¡Ah, ah, ah! ¡No has dicho la palabra mágica!"
