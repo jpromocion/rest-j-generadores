@@ -33,16 +33,11 @@ Importamos en eclipse como maven existing proyect.
 Sobre la clase "GeneradoresApplication" se lanzara la aplicación como Run as... Java applcation. Una vez desplegada, atacaremos el servicio demo con un GET en http://localhost:8080/generadores/demo/hola (POSTMAN por ejemplo).
 
 
-## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug
 
-https://cursos.alura.com.br/forum/topico-erro-com-silentexitexception-ao-executar-debug-java-e-erro-403-215211
-https://stackoverflow.com/questions/32770884/breakpoint-at-throw-new-silentexitexception-in-eclipse-spring-boot
+## Seguridad - Spring security
 
-Si lanzas la aplicación en modo debug, siempre al iniciarse lanza esa SilentExitException, aunque dandole a continuar sigue.
-
-Parece ser un bug de la version de spring-boot-devtools.
-
-Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments se ha puesto "-Dspring.devtools.restart.enabled=false".
+Se incluye Spring security para aportar una "Securing REST APIs with API Keys".
+Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, y cuyo valor deberá ser una key válida para proceder a responder la petición REST.
 
 
 ## API especificación
@@ -265,4 +260,17 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 		    ...
 		]
 		```							
+					
+
+## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
+
+https://cursos.alura.com.br/forum/topico-erro-com-silentexitexception-ao-executar-debug-java-e-erro-403-215211
+https://stackoverflow.com/questions/32770884/breakpoint-at-throw-new-silentexitexception-in-eclipse-spring-boot
+
+Si lanzas la aplicación en modo debug, siempre al iniciarse lanza esa SilentExitException, aunque dandole a continuar sigue.
+
+Parece ser un bug de la version de spring-boot-devtools.
+
+Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments se ha puesto "-Dspring.devtools.restart.enabled=false".
+
 					

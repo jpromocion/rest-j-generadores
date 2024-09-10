@@ -91,6 +91,12 @@ CREATE TABLE palabras(
 );
 
 
+CREATE TABLE security_api_keys(
+  id INTEGER NOT NULL,
+  apikey VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 
 
 

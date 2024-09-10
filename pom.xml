@@ -70,6 +70,12 @@
 		    <version>1.7</version>
 		</dependency>
 		
+		<!--Securing REST APIs with API Keys -> https://www.baeldung.com/spring-boot-api-key-secret -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>		
+		
 		
 	</dependencies>
 
