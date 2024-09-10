@@ -23,11 +23,13 @@ public class TextController {
 	
 	/**
 	 * Obtener una lista de palabras del tamaño e idioma inndicado
-	 * @param results
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @param words Opcional, número de palabras dentro de cada resultado. Por defecto 100.
+	 * @param language Opcional, indicar el lenguaje en el que generarse: spanish, english, latin. De no indicarse o indicarse algo erroneo se generar en castellano.
 	 * @return
 	 */
 	@GetMapping("/words")
-	public List<String> account(@RequestParam String results, @RequestParam Optional<String> words, @RequestParam Optional<String> language) {
+	public List<String> words(@RequestParam String results, @RequestParam Optional<String> words, @RequestParam Optional<String> language) {
 
 		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
 		
@@ -47,6 +49,64 @@ public class TextController {
 
 		return listaPalabras;
 	}	
+	
+	/**
+	 * Obtener una lista de palabras que rellenen un tamaño de carácteres indicado y en el idioma indicado
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @param characters Opcional, número de carácteres del texto final. Por defecto 100.
+	 * @param language Opcional, indicar el lenguaje en el que generarse: spanish, english, latin. De no indicarse o indicarse algo erroneo se generar en castellano.
+	 * @return
+	 */
+	@GetMapping("/characters")
+	public List<String> characters(@RequestParam String results, @RequestParam Optional<String> characters, @RequestParam Optional<String> language) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+		
+		String charactersRev = characters.orElse("");
+		int charactersInt = CommonUtil.revisarNumResultadoMaximo(charactersRev, 4000, 100);
+
+		String lenguajeParam = language.orElse("");
+		Lenguaje lengua = Lenguaje.getByValorParametro(lenguajeParam);
+		if (lengua == null) {
+			lengua = Lenguaje.SPANISH;
+		}
+		
+		List<String> listaPalabras = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaPalabras.add(textServices.conformarRistraCaracteres(charactersInt, lengua));
+		}
+
+		return listaPalabras;
+	}		
+	
+	/**
+	 * Obtener una lista de parrafos dentro de un mismo texto y en el idioma indicado
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @param paragraphs Opcional, número de parrafos del texto final. Por defecto 5.
+	 * @param language Opcional, indicar el lenguaje en el que generarse: spanish, english, latin. De no indicarse o indicarse algo erroneo se generar en castellano.
+	 * @return
+	 */
+	@GetMapping("/paragraphs")
+	public List<String> paragraphs(@RequestParam String results, @RequestParam Optional<String> paragraphs, @RequestParam Optional<String> language) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+		
+		String paragraphsRev = paragraphs.orElse("");
+		int paragraphsInt = CommonUtil.revisarNumResultadoMaximo(paragraphsRev, 20, 5);
+
+		String lenguajeParam = language.orElse("");
+		Lenguaje lengua = Lenguaje.getByValorParametro(lenguajeParam);
+		if (lengua == null) {
+			lengua = Lenguaje.SPANISH;
+		}
+		
+		List<String> listaPalabras = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaPalabras.add(textServices.conformarRistraParrafos(paragraphsInt, lengua));
+		}
+
+		return listaPalabras;
+	}		
 		
 	
 }

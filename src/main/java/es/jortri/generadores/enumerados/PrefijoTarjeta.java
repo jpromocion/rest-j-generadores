@@ -47,7 +47,7 @@ public enum PrefijoTarjeta {
 	 */
 	public static PrefijoTarjeta getByValorParametro(String valorParametro) {
 		for (PrefijoTarjeta prefijo : PrefijoTarjeta.values()) {
-			if (prefijo.getValorParametro().equals(valorParametro)) {
+			if (prefijo.getValorParametro().equals(valorParametro.toLowerCase())) {
 				return prefijo;
 			}
 		}

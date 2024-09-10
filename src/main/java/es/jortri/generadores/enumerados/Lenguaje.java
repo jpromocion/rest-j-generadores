@@ -47,7 +47,7 @@ public enum Lenguaje {
 	 */
 	public static Lenguaje getByValorParametro(String valorParametro) {
 		for (Lenguaje lenguaje : Lenguaje.values()) {
-			if (lenguaje.getValorParametro().equals(valorParametro)) {
+			if (lenguaje.getValorParametro().equals(valorParametro.toLowerCase())) {
 				return lenguaje;
 			}
 		}

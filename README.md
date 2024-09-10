@@ -237,5 +237,32 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
     		"Ministri potuit manus fundamentum palaestra massa traditio textus magnitudo vetus magnus familiaris gradus debebat auxilium facere officina aedificium valores praefectus temperatura unus regina carolus etiam",
 		    ...
 		]
-		```			
+		```		
+- **/text/characters**
+	- Devuelve una lista de palabras generadas aleatoriamente con el tamaño máximo de carácteres especificado.
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- characters: Opcional, número de carácteres de la lista de palabras final resultado. Por defecto 100.
+		- language: Opcional, indicar el lenguaje en el que generarse: spanish, english, latin. De no indicarse o indicarse algo erroneo se generar en castellano.
+	- Ejemplo resultado
+		```
+		[
+		    "Coche noche alma abrió algo físico empresarios vez qué mala utilizar golpe formas mismo juventud plantas medicina ahí finales siempre suelo sesión teoría síntomas proceso actor histórico sábado causa mesa acierto cifra semanas familia literatura sino ",
+		    ...
+		]
+		```		
+		
+- **/text/paragraphs**
+	- Devuelve una lista que contine cada elemento un texto generado aleatoriamente con el número de parráfos indicado
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- paragraphs: Opcional, número de parráfos en cada resultado. Por defecto 5. Máximo: 20.
+		- language: Opcional, indicar el lenguaje en el que generarse: spanish, english, latin. De no indicarse o indicarse algo erroneo se generar en castellano.
+	- Ejemplo resultado
+		```
+		[
+			"Campaign raul direction leave five empty produced has candidate banks another probably importance body lack differences land free formula mainly just american members negotiations waters position element material create bodies doctor june land solution note thing seven showed food first were woman face present camera then seen bedroom motif for fernandez sensation faith sound value entity construction state sculpture where part pact good forces board precisely love reach symptoms should values attempt recognition below union fits difference wrist importance use which realization you.\nNext yours knows neck just exercise all scenario enrique should read same same angel opened who event attitude only value instant services airs knowledge processes final activity identity news street spokesperson image court cultural nothing your free present construction television english professor enrique poetry full rome station purpose yes figure planned daughter relations thigh size huge face recollection socialists strong safety traditional import.\nEconomic player sequence green monday take saturday success intention kitchen meeting situation direct table choice construction also republic institution elbow reduction greater representatives information some problem instant tools maximum supposed to fifteen majority opinion commission basque letter motif art science nine difference produce operation achieve never good ensures the screen those building classes opinion from types relation york function even economic should cup skin loss bodies pact be situation.",
+		    ...
+		]
+		```							
 					
