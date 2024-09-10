@@ -278,6 +278,29 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "6110LBW"
 		]
 		```						
+			
+- **/vehicle/vin**
+	- Devuelve una lista de números de bastidor.
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "2GCEK19R3VR2PMB9N",
+		    "1FTSW31Y55PEPF1XD",
+		    "3GTGC26F5V4LX9MHS",
+		    "1GTJ5MEE7B29E3DY8",
+		    "2GTJC83121S5F8S9V",
+		    "2GTJC39G533ZAFAUH",
+		    "1G6DN57U67TLBSWKZ"
+		]
+		```							
+				
+- **/vehicle/validatevin**
+	- Comprueba si un número de bastidor es válido.
+	- Parámetros:
+		- vin: Número de bastidor. Ejemplo: 1FTWF32Y191LCYKS0
+	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.	
 					
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
