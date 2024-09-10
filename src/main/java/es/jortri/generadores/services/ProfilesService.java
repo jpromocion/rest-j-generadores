@@ -201,6 +201,7 @@ public class ProfilesService {
 
 		return login + "_" + num;
 	}
+		
 
 	/**
 	 * Generar un email a partir del login
@@ -216,6 +217,17 @@ public class ProfilesService {
 		return login + "@" + servidor;
 	}
 
+	/**
+	 * Generar un Email inventandose un login
+	 * @return
+	 */
+	public String generarEmail() {
+		String login = CommonUtil.generarLetrasAleatorias(1, CommonUtil.CARACTERES_ALFA_LATINOS)
+                + CommonUtil.generarLetrasAleatorias(24, CommonUtil.CARACTERES_EMAIL_VALIDOS);
+
+		return generarEmail(login);
+	}	
+	
 	/**
 	 * Genera un password aleatorio con caracteres especiales de la longitud indica
 	 * 
@@ -270,8 +282,19 @@ public class ProfilesService {
 	 * @return
 	 */
 	private String generateRandomCharactersAlphaNum(int length) {
-		RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange('0', 'z').build();
-		return pwdGenerator.generate(length);
+		//RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange('0', 'z').build();
+		//return pwdGenerator.generate(length);
+		
+		//Referencia: https://www.baeldung.com/java-random-string
+	    int leftLimit = 48; // numeral '0'
+	    int rightLimit = 122; // letter 'z'		
+	    String generatedString = semilla.ints(leftLimit, rightLimit + 1)
+	    	      .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+	    	      .limit(length)
+	    	      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+	    	      .toString();		
+		
+		return generatedString;
 	}
 
 	/**
@@ -280,25 +303,47 @@ public class ProfilesService {
 	 * https://www.baeldung.com/java-generate-secure-password
 	 * 
 	 * @param length longitud a generar. Minimo de 15
+	 * @param cases "y" si quiere mayusculas y minusculas 
+	 * @param number "y" si quiere numeros
+	 * @param special "y" si quiere caracteres especiales
 	 * @return
 	 */
-	public String generateCommonTextPassword(int length) {
+	public String generateCommonTextPassword(int length, String cases, String number, String special) {
 
 		int lengthFinal = length;
 		if (lengthFinal < 15) {
 			lengthFinal = 15;
 		}
 
+
 		int lengthSpecial = 2;
 		int lengthNumbers = 4;
 		int lengthUpper = 4;
 		int lengthLower = 4;
 		int lengthAlphaNum = 1 + (lengthFinal - 15);
-
+		
+		if (!"y".equals(cases)) {
+			lengthUpper += lengthLower;
+			lengthLower = 0;
+			lengthUpper += lengthAlphaNum;
+			lengthAlphaNum = 0;			
+		}		
+		if (!"y".equals(number)) {
+			lengthUpper += lengthNumbers;
+			lengthNumbers = 0;
+			lengthUpper += lengthAlphaNum;
+			lengthAlphaNum = 0;			
+		}
+		if (!"y".equals(special)) {
+			lengthUpper += lengthSpecial;
+			lengthSpecial = 0;		
+		}			
+		
 		// prepara un string
 		String pwString = generateRandomSpecialCharacters(lengthSpecial).concat(generateRandomNumbers(lengthNumbers))
 				.concat(generateRandomAlphabetUpper(lengthUpper)).concat(generateRandomAlphabetLower(lengthLower))
-				.concat(generateRandomCharactersAlphaNum(lengthAlphaNum));
+				.concat(generateRandomCharactersAlphaNum(lengthAlphaNum));		
+
 
 		// se reordenan la cadena para que no aparezcan los del mismo tipo
 		// siempre en el mismo orden
@@ -308,7 +353,12 @@ public class ProfilesService {
 				.toString();
 		return password;
 	}
-
+	
+	public String generateCommonTextPassword(int length) {
+		return generateCommonTextPassword(length, "y", "y", "y");
+	}	
+	
+	
 	/**
 	 * Generar una comunidad autonoma aleatoria
 	 * 

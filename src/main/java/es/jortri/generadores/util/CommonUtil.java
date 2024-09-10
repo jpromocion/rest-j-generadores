@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CommonUtil {
@@ -14,6 +15,10 @@ public class CommonUtil {
 
 	// maximo de resultados permitido por defecto
 	public static final int MAX_RESULTADO_PERMITIDO = 1000;
+	
+	public static final String CARACTERES_ALFA_LATINOS = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	public static final String CARACTERES_ALFANUMERICOS_LATINOS = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	public static final String CARACTERES_EMAIL_VALIDOS = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 
 	/**
 	 * Devuelve el maximo de resultados de cadena como numero si es valido. En caso
@@ -44,7 +49,30 @@ public class CommonUtil {
 		return revisarNumResultadoMaximo(results, maximo, 10);
 	}
 
-
+	/**
+	 * Revisa parametro  esperado y/n
+	 * @param results
+	 * @param maximo
+	 * @param defecto
+	 * @return
+	 */
+	public static String revisarParamYN(Optional<String> param, String defecto) {
+		String paramRev = param.orElse("").toLowerCase();
+		if (paramRev.isEmpty()) {
+			paramRev = "y";
+		} else {
+			if (!paramRev.equals("y") && !paramRev.equals("n")) {
+				paramRev = "y";
+			}
+		}
+		return paramRev;
+	}		
+	
+	public static String revisarParamYN(Optional<String> param) {
+		return revisarParamYN(param, "y");
+	}		
+		
+	
 	
 	/**
 	 * Genera un array con los codigos de provincias

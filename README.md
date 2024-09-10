@@ -303,6 +303,63 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.	
 					
 
+- **/misc/email**
+	- Devuelve una lista de emails
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "TEd94yai6X0PSXM4dK3rG52aR@libero.it",
+		    "R-_jOqMWVRJGYBwPIrT6SVu8G@terra.com",
+		    "kb8GvJjkTLBvHBhJx14GVmG-x@hotpop.com",
+		    "eNDLiOhUEd1gtRkr3EjkY7buN@yahoo.com",
+		    "EZ69ApX3gB1dBeIUr_jkRPMVB@lycos.com",
+		    "NuC9xyr6A1eNYf2pY4Bj7aOz_@comcast.net",
+		    "msbCsyk4LfplwNCjpXgwok0ST@yahoo.com"
+		]
+		```	
+		
+- **/misc/password**
+	- Devuelve una lista de passwords
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- length: Longitud del password. Minimo 15, defecto 21.
+		- cases: "y" si quiere mayusculas/minusculas, "n" solo mayusculas. Defecto: "y".
+		- number: "y" si quiere números, "n" solo mayusculas. Defecto: "y".
+		- special: "y" si quiere carácteres especiales, "n" solo mayusculas. Defecto: "y".
+	- Ejemplo resultado
+		```
+		[
+		    "TQDZoSXsLNU)OEQTCpCIIKbZ'",
+		    "HEVURWOERWXT+k%DPyJGwWFRu",
+		    "REy'EDHEbwKRLAExRVEPQPP(R",
+		    "tEXOZJSKGECgKfVT,JnF\"PVUZ",
+		    "OR#EAPOSr\"IVFOFOFamDTMhNB",
+		    "QEKBHqqSCHKbE#NUURRE,RkFA",
+		    "mWgLiN)ACRID(QCYGhTJCMCTD"
+		]
+		```			
+		
+- **/misc/phonenumber**
+	- Devuelve una lista de telefonos
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- type: "f" fijo, "m" movil. Si omite genera de ambos aleatoriamente.
+	- Ejemplo resultado
+		```
+		[
+		    "697446708",
+		    "622908884",
+		    "975127185",
+		    "668978407",
+		    "965134623",
+		    "942557223",
+		    "624322863"
+		]
+		```				
+
+
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
 
 https://cursos.alura.com.br/forum/topico-erro-com-silentexitexception-ao-executar-debug-java-e-erro-403-215211
