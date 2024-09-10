@@ -76,6 +76,15 @@
 		    <artifactId>spring-boot-starter-security</artifactId>
 		</dependency>		
 		
+		<!-- Utilidad para gestionar vin (numeros de bastidor) -->
+		<!--
+		<dependency>
+		    <groupId>com.github.mkyrychenko</groupId>
+		    <artifactId>vin-utils</artifactId>
+		    <version>1.1.0</version>
+		</dependency>
+		-->		
+		
 		
 	</dependencies>
 

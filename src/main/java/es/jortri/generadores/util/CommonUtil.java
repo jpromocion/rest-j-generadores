@@ -239,6 +239,22 @@ public class CommonUtil {
 	public static String ponCerosIzquierda(String str, int longitud) {
 		return String.format("%1$" + longitud + "s", str).replace(' ', '0');
 	}
+	
+	/**
+	 * Generar letras aleatorias
+	 * 
+	 * @param longitud
+	 * @param letras
+	 * @return
+	 */
+	public static String generarLetrasAleatorias(int longitud, String letras) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < longitud; i++) {
+			int index = (int) (letras.length() * Math.random());
+			sb.append(letras.charAt(index));
+		}
+		return sb.toString();
+	}
 
 
 

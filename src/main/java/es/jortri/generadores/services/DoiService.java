@@ -176,7 +176,7 @@ public class DoiService {
 	public String getCif(char letraInicial) {
 		int indiceLetraInicial;
 		if (letraInicial == LETRA_CIF_NO_ASIGNADA) {
-			indiceLetraInicial = semilla.nextInt(0, LETRASCIF.length - 1);
+			indiceLetraInicial = semilla.nextInt(0, LETRASCIF.length);
 			letraInicial = LETRASCIF[indiceLetraInicial];
 		} else {
 			indiceLetraInicial = new String(LETRASCIF).indexOf(letraInicial);
@@ -184,7 +184,7 @@ public class DoiService {
 
 		String numerosProvincias[] = CommonUtil.numerosProvincias();
 
-		String digitoProvincia = numerosProvincias[semilla.nextInt(0, numerosProvincias.length - 1)];
+		String digitoProvincia = numerosProvincias[semilla.nextInt(0, numerosProvincias.length)];
 
 		String restoNumeros = String.valueOf(semilla.nextInt(10000, 99999));
 

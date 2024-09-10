@@ -171,7 +171,7 @@ public class ProfilesService {
 	 */
 	public String generarNumTelefonoFijo() {
 
-		int indice = semilla.nextInt(0, PREFIJOS_TLF_FIJOS.length - 1);
+		int indice = semilla.nextInt(0, PREFIJOS_TLF_FIJOS.length);
 		String prefijo = PREFIJOS_TLF_FIJOS[indice];
 		int maximo = 999999;
 		int relleno = 6;
@@ -210,7 +210,7 @@ public class ProfilesService {
 	 */
 	public String generarEmail(String login) {
 
-		int indice = semilla.nextInt(0, SERVIDORES_EMAIL.length - 1);
+		int indice = semilla.nextInt(0, SERVIDORES_EMAIL.length);
 		String servidor = SERVIDORES_EMAIL[indice];
 
 		return login + "@" + servidor;
@@ -320,7 +320,7 @@ public class ProfilesService {
 		// si solo hay una opcion... no hay aleatoriedad posible
 		int indice = 0;
 		if (listaCCAA.size() > 1) {
-			indice = semilla.nextInt(0, listaCCAA.size() - 1);
+			indice = semilla.nextInt(0, listaCCAA.size());
 		}
 
 		return listaCCAA.get(indice);
@@ -337,7 +337,7 @@ public class ProfilesService {
 		// si solo hay una opcion... no hay aleatoriedad posible
 		int indice = 0;
 		if (listProvincias.size() > 1) {
-			indice = semilla.nextInt(0, listProvincias.size() - 1);
+			indice = semilla.nextInt(0, listProvincias.size());
 		}
 
 		return listProvincias.get(indice);
@@ -355,7 +355,7 @@ public class ProfilesService {
 		// si solo hay una opcion... no hay aleatoriedad posible
 		int indice = 0;
 		if (listMunicipios.size() > 1) {
-			indice = semilla.nextInt(0, listMunicipios.size() - 1);
+			indice = semilla.nextInt(0, listMunicipios.size());
 		}
 
 		return listMunicipios.get(indice);
@@ -372,7 +372,7 @@ public class ProfilesService {
 		// si solo hay una opcion... no hay aleatoriedad posible
 		int indice = 0;
 		if (listaTiposVia.size() > 1) {
-			indice = semilla.nextInt(0, listaTiposVia.size() - 1);
+			indice = semilla.nextInt(0, listaTiposVia.size());
 		}
 
 		return listaTiposVia.get(indice);
@@ -386,7 +386,7 @@ public class ProfilesService {
 	private String generaDireccionRandom() {
 		Tipovias tipoVia = generarTipoViaRandom();
 
-		int indice = semilla.nextInt(0, NOMBRES_COMUNES_CALLEJERO.length - 1);
+		int indice = semilla.nextInt(0, NOMBRES_COMUNES_CALLEJERO.length);
 		String nombreComun = NOMBRES_COMUNES_CALLEJERO[indice];
 
 		Nombres nombre = generaNombrePersonaRandom(Genero.AMBOS);
@@ -424,7 +424,7 @@ public class ProfilesService {
 			// si solo hay una opcion... no hay aleatoriedad posible
 			int indice = 0;
 			if (listaCodPostal.size() > 1) {
-				indice = semilla.nextInt(0, listaCodPostal.size() - 1);
+				indice = semilla.nextInt(0, listaCodPostal.size());
 			}
 
 			codPostal = listaCodPostal.get(indice).getCodpostal();

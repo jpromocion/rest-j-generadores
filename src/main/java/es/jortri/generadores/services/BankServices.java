@@ -180,7 +180,7 @@ public class BankServices {
 		List<Bancos> listaBancos = bancosRepository.findAll();
 		int indice = 0;
 		if (listaBancos.size() > 1) {
-			indice = semilla.nextInt(0, listaBancos.size() - 1);
+			indice = semilla.nextInt(0, listaBancos.size());
 		}
 		Bancos banObj = listaBancos.get(indice);
 		String banco = banObj.getCodigo();
@@ -268,7 +268,7 @@ public class BankServices {
 
 		String tipo = null;
 		if (prefijo == null || prefijo.isEmpty()) {
-			int indice = semilla.nextInt(0, PREFIJO_TARJETA.length - 1);
+			int indice = semilla.nextInt(0, PREFIJO_TARJETA.length);
 			tipo = PREFIJO_TARJETA[indice];
 		} else {
 			tipo = prefijo;
@@ -369,7 +369,7 @@ public class BankServices {
 		if (tipoTarjeta != null && !tipoTarjeta.isEmpty()) {
 			tipoTarjetaRevi = tipoTarjeta;
 		} else {
-			tipoTarjetaRevi = PREFIJO_TARJETA[semilla.nextInt(0, PREFIJO_TARJETA.length - 1)];
+			tipoTarjetaRevi = PREFIJO_TARJETA[semilla.nextInt(0, PREFIJO_TARJETA.length)];
 		}		
 		
 		tarjeta.setTarjeta(generarTarjetaCredito(tipoTarjetaRevi));

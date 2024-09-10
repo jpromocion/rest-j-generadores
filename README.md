@@ -259,7 +259,25 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 			"Campaign raul direction leave five empty produced has candidate banks another probably importance body lack differences land free formula mainly just american members negotiations waters position element material create bodies doctor june land solution note thing seven showed food first were woman face present camera then seen bedroom motif for fernandez sensation faith sound value entity construction state sculpture where part pact good forces board precisely love reach symptoms should values attempt recognition below union fits difference wrist importance use which realization you.\nNext yours knows neck just exercise all scenario enrique should read same same angel opened who event attitude only value instant services airs knowledge processes final activity identity news street spokesperson image court cultural nothing your free present construction television english professor enrique poetry full rome station purpose yes figure planned daughter relations thigh size huge face recollection socialists strong safety traditional import.\nEconomic player sequence green monday take saturday success intention kitchen meeting situation direct table choice construction also republic institution elbow reduction greater representatives information some problem instant tools maximum supposed to fifteen majority opinion commission basque letter motif art science nine difference produce operation achieve never good ensures the screen those building classes opinion from types relation york function even economic should cup skin loss bodies pact be situation.",
 		    ...
 		]
-		```							
+		```		
+		
+- **/vehicle/platenumber**
+	- Devuelve una lista de matriculas de vehiculos de España.
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- type: Opcional, indicar el tipo de matricula a generarse: t (Turismo), c (Ciclomotor), r (Remolque), e (Especial), u (Turístico), h (Histórico), tp (Temporal particular), te (Temporal empresa), d (Diplomática). De no indicarse o indicarse algo erroneo se generar para turismos.
+	- Ejemplo resultado
+		```
+		[
+		    "8453XRX",
+		    "9008QBP",
+		    "3576YTL",
+		    "1770GQJ",
+		    "9419BVB",
+		    "8419NTJ",
+		    "6110LBW"
+		]
+		```						
 					
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
