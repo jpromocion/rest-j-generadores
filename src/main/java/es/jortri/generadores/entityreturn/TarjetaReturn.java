@@ -1,6 +1,6 @@
-package es.jortri.generadores.model;
+package es.jortri.generadores.entityreturn;
 
-public class Tarjeta {
+public class TarjetaReturn {
 	
 	private String tarjeta;
 	private String tarjetaFormateada;
@@ -8,7 +8,7 @@ public class Tarjeta {
 	private String cvc;
 	private String tipoTarjeta;
 
-	public Tarjeta() {
+	public TarjetaReturn() {
 		super();
 	}
 
@@ -54,7 +54,7 @@ public class Tarjeta {
 	
 	@Override
 	public String toString() {
-		return "Tarjeta [tarjeta=" + tarjeta + ", tarjetaFormateada=" + tarjetaFormateada + ", expiracionCredito="
+		return "TarjetaReturn [tarjeta=" + tarjeta + ", tarjetaFormateada=" + tarjetaFormateada + ", expiracionCredito="
 				+ expiracionCredito + ", cvc=" + cvc + ", tipoTarjeta=" + tipoTarjeta + "]";
 	}
 	

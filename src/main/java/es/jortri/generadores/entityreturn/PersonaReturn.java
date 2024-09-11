@@ -1,6 +1,6 @@
-package es.jortri.generadores.model;
+package es.jortri.generadores.entityreturn;
 
-public class Persona {
+public class PersonaReturn {
 
 	private String nif;
 	private String nie;
@@ -32,7 +32,7 @@ public class Persona {
 	private String expiracionCredito;
 	private String tipoTarjeta;
 
-	public Persona() {
+	public PersonaReturn() {
 		super();
 	}
 
@@ -270,7 +270,7 @@ public class Persona {
 
 	@Override
 	public String toString() {
-		return "Persona [nif=" + nif + ", nie=" + nie + ", nombre=" + nombre + ", apellido1=" + apellido1
+		return "PersonaReturn [nif=" + nif + ", nie=" + nie + ", nombre=" + nombre + ", apellido1=" + apellido1
 				+ ", apellido2=" + apellido2 + ", genero=" + genero + ", nombreCompleto=" + nombreCompleto
 				+ ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", telefonoMovil=" + telefonoMovil + ", telefonoFijo=" + telefonoFijo
 				+ ", login=" + login + ", email=" + email + ", password=" + password

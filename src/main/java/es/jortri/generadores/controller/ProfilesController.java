@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.jortri.generadores.entityreturn.EmpresaReturn;
+import es.jortri.generadores.entityreturn.PersonaReturn;
 import es.jortri.generadores.enumerados.Genero;
-import es.jortri.generadores.model.Empresa;
-import es.jortri.generadores.model.Persona;
 import es.jortri.generadores.services.ProfilesService;
 import es.jortri.generadores.util.CommonUtil;
 
@@ -30,7 +30,7 @@ public class ProfilesController {
 	 * @return
 	 */
 	@GetMapping("/person")
-	public List<Persona> person(@RequestParam String results, @RequestParam Optional<String> gender) {
+	public List<PersonaReturn> person(@RequestParam String results, @RequestParam Optional<String> gender) {
 
 		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
 		
@@ -42,7 +42,7 @@ public class ProfilesController {
 			genderRevi = Genero.FEMALE;
 		}
 
-		List<Persona> listaNombres = new ArrayList<Persona>();
+		List<PersonaReturn> listaNombres = new ArrayList<PersonaReturn>();
 		for (int i = 0; i < resultsInt; i++) {
 			listaNombres.add(profilesService.conformarPersona(genderRevi));
 		}
@@ -57,12 +57,12 @@ public class ProfilesController {
 	 * @return
 	 */
 	@GetMapping("/company")
-	public List<Empresa> company(@RequestParam String results) {
+	public List<EmpresaReturn> company(@RequestParam String results) {
 
 		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
 
 
-		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
+		List<EmpresaReturn> listaEmpresas = new ArrayList<EmpresaReturn>();
 		for (int i = 0; i < resultsInt; i++) {
 			listaEmpresas.add(profilesService.conformarEmpresa());
 		}

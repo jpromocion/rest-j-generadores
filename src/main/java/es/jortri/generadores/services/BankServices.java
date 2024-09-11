@@ -10,10 +10,10 @@ import org.apache.commons.validator.routines.IBANValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.jortri.generadores.entityreturn.CuentaReturn;
+import es.jortri.generadores.entityreturn.TarjetaReturn;
 import es.jortri.generadores.enumerados.PrefijoTarjeta;
 import es.jortri.generadores.model.Bancos;
-import es.jortri.generadores.model.Cuenta;
-import es.jortri.generadores.model.Tarjeta;
 import es.jortri.generadores.repository.BancosRepository;
 import es.jortri.generadores.util.CardValidationResult;
 import es.jortri.generadores.util.CommonUtil;
@@ -340,8 +340,8 @@ public class BankServices {
 	 * Conformar los datos de una cuenta bancaria aleatoria a devolver
 	 * @return
 	 */
-	public Cuenta conformarCuenta() {
-		Cuenta cuenta = new Cuenta();
+	public CuentaReturn conformarCuenta() {
+		CuentaReturn cuenta = new CuentaReturn();
         
 		// cuenta bancaria
 		cuenta.setIban(generarIbanRandom());
@@ -362,8 +362,8 @@ public class BankServices {
 	 * @param tipoTarjeta Numerico del tipo tarjeta generar
 	 * @return
 	 */
-	public Tarjeta conformarTarjeta(String tipoTarjeta) {
-		Tarjeta tarjeta = new Tarjeta();
+	public TarjetaReturn conformarTarjeta(String tipoTarjeta) {
+		TarjetaReturn tarjeta = new TarjetaReturn();
 		
 		String tipoTarjetaRevi;
 		if (tipoTarjeta != null && !tipoTarjeta.isEmpty()) {

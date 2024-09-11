@@ -1,6 +1,6 @@
-package es.jortri.generadores.model;
+package es.jortri.generadores.entityreturn;
 
-public class Empresa {
+public class EmpresaReturn {
 	
 	private String cif;
 	private String nombre;
@@ -20,7 +20,7 @@ public class Empresa {
 	private String cnae;
 	private String actividad;
 	
-	public Empresa() {
+	public EmpresaReturn() {
 		super();
 	}
 
@@ -162,7 +162,7 @@ public class Empresa {
 
 	@Override
 	public String toString() {
-		return "Empresa [cif=" + cif + ", nombre=" + nombre + ", fechaCreacion=" + fechaCreacion + ", telefono="
+		return "EmpresaReturn [cif=" + cif + ", nombre=" + nombre + ", fechaCreacion=" + fechaCreacion + ", telefono="
 				+ telefono + ", fax=" + fax + ", email=" + email + ", ccaa=" + ccaa + ", ccaaIne=" + ccaaIne 
 				+ ", municipio=" + municipio + ", municipioIne="
 				+ municipioIne + ", provincia=" + provincia + ", provinciaIne=" + provinciaIne + ", direccion="

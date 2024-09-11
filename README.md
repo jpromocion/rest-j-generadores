@@ -359,6 +359,171 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		]
 		```				
 
+- **/misc/birthdate**
+	- Devuelve una lista de fechas de nacimiento (Edades entre 18-100)
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "24/02/1930",
+		    "26/02/1993",
+		    "24/09/1933",
+		    "18/03/1998",
+		    "01/07/1994",
+		    "01/12/1988",
+		    "19/02/2004"
+		]
+		```	
+
+- **/misc/futuredate**
+	- Devuelve una lista de fechas de a futuro (Entre 1-100 años futuros)
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "19/07/2062",
+		    "16/06/2093",
+		    "05/03/2035",
+		    "16/08/2057",
+		    "23/07/2123",
+		    "29/07/2081",
+		    "13/05/2086"
+		]
+		```	
+		
+- **/misc/city**
+	- Devuelve una lista de ciudades aleatoria
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "Selaya",
+		    "Torrelapaja",
+		    "Nuño Gómez",
+		    "Carrascalejo, El",
+		    "Calicasas",
+		    "Aldehuela de Jerte",
+		    "Fruiz"
+		]
+		```			
+
+- **/misc/zipcode**
+	- Devuelve una lista de códigos postales
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "37766",
+		    "27817",
+		    "08585",
+		    "03689",
+		    "31522",
+		    "31492",
+		    "09290"
+		]
+		```	
+		
+- **/misc/imei**
+	- Devuelve una lista de códigos IMEI
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "37766",
+		    "27817",
+		    "08585",
+		    "03689",
+		    "31522",
+		    "31492",
+		    "09290"
+		]
+		```		
+		
+- **/misc/ccaa**
+	- Devuelve una lista de CCAA de España
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "id": "01",
+		        "nombre": "Andalucía"
+		    },
+		    {
+		        "id": "02",
+		        "nombre": "Aragón"
+		    },
+		    ...
+		]
+		```		
+		
+- **/misc/provincias**
+	- Devuelve una lista de provincias de España dentro de la CCAA indicada
+	- Parámetros:
+		- idccaa: identificador de la CCAA obtenido del servicio */misc/ccaa*
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "id": "01",
+		        "nombre": "Andalucía"
+		    },
+		    {
+		        "id": "02",
+		        "nombre": "Aragón"
+		    },
+		    ...
+		]
+		```			
+		
+- **/misc/municipios**
+	- Devuelve una lista de municipios de España dentro de la Provincia indicada
+	- Parámetros:
+		- idprovincia: identificador de la Provincia obtenido del servicio */misc/provincias*
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "id": "001",
+		        "nombre": "Abadía"
+		    },
+		    {
+		        "id": "002",
+		        "nombre": "Abertura"
+		    },
+		    ...
+		]
+		```									
+
+- **/misc/voucher**
+	- Devuelve una lista de códigos promocionales formateados
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- charset: Opcional. Conjunto de caracteres que se usaran para la generación. Por defecto: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".
+		- length: Opcional. Longitud de los códigos generados. Por defecto 10.
+		- pattern: Opcional. Patrón que seguirán los códigos generados. Se utiliza el "-" como separador de partes. Se indicará patrón como "AA-AAAAA-AAA-AAAA" y cada parte que separa el guión será generada. En caso de rellenar pattern, se ignora lo rellenado en length.
+		- prefix: Opcional. Prefijo a añadir en todo código promocial de la forma "prefix-".
+		- suffix: Opcional. Sufijo a añadir en todo código promocial de la forma "-prefix".
+	- Ejemplo resultado
+		```
+		[
+		    "JJ-Xz-MFk#N-Oh&-jpmi-GG",
+		    "JJ-x#-7A#EJ-mnb-aNQ@-GG",
+		    "JJ-6w-6og9X-wxm-&&4p-GG",
+		    "JJ-HL-a4qB@-540-FiHy-GG",
+		    "JJ-SH-BRdh0-for-uZvx-GG",
+		    "JJ-91-WzqC7-FXR-zGsT-GG",
+		    "JJ-dl-ZiEeh-8wT-p1wV-GG",
+		    "JJ-Xs-F06#c-xoF-71Oa-GG",
+		    "JJ-tB-32srb-hf7-x2XY-GG",
+		    "JJ-#0-GmzD1-1k0-0#cG-GG"
+		]
+		```		
+
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
 

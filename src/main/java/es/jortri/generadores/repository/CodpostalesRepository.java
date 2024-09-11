@@ -12,4 +12,8 @@ public interface CodpostalesRepository extends JpaRepository<Codpostales, Intege
 
 	List<Codpostales> findByIdprovinciasAndInemunicipios(String idprovincias, String inemunicipios);
 	
+	Codpostales findFirstByOrderByIdAsc();
+	
+	Codpostales findFirstByOrderByIdDesc();		
+	
 }

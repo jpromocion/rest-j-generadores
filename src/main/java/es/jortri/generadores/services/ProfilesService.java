@@ -12,17 +12,17 @@ import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.jortri.generadores.entityreturn.EmpresaReturn;
+import es.jortri.generadores.entityreturn.PersonaReturn;
 import es.jortri.generadores.enumerados.Genero;
 import es.jortri.generadores.enumerados.PrefijoTarjeta;
 import es.jortri.generadores.model.Apellidos;
 import es.jortri.generadores.model.Ccaa;
 import es.jortri.generadores.model.Cnaes;
 import es.jortri.generadores.model.Codpostales;
-import es.jortri.generadores.model.Empresa;
 import es.jortri.generadores.model.Municipios;
 import es.jortri.generadores.model.Nombres;
 import es.jortri.generadores.model.NombresEmpresas;
-import es.jortri.generadores.model.Persona;
 import es.jortri.generadores.model.Provincias;
 import es.jortri.generadores.model.Tipovias;
 import es.jortri.generadores.repository.ApellidosRepository;
@@ -375,6 +375,17 @@ public class ProfilesService {
 
 		return listaCCAA.get(indice);
 	}
+	
+	/**
+	 * Listar todas las CCAA
+	 * 
+	 * @return
+	 */
+	public List<Ccaa> getTodasCcaa() {
+		List<Ccaa> listaCCAA = ccaaRepository.findAll();
+
+		return listaCCAA;
+	}	
 
 	/**
 	 * Generar una provincia aleatoria dentro de una comunidad autonoma
@@ -394,6 +405,17 @@ public class ProfilesService {
 	}
 
 	/**
+	 * Devolver lista provincias dentro de una comunidad autonoma
+	 * @param idCcaa
+	 * @return
+	 */
+	public List<Provincias> getTodasProvincia(String idCcaa) {
+		List<Provincias> listProvincias = provinciasRepository.findByIdccaa(idCcaa);
+
+		return listProvincias;
+	}	
+	
+	/**
 	 * Generar un municipio aleatorio dentro de una provincia
 	 * 
 	 * @param idProvincia
@@ -411,6 +433,32 @@ public class ProfilesService {
 		return listMunicipios.get(indice);
 	}
 
+	/**
+	 * Generar un municipio aleatorio de ebtre todos los existentes
+	 * 
+	 * @return
+	 */
+	public Municipios generarMunicipioRandom() {
+		Municipios muniIni = municipiosRepository.findFirstByOrderByIdAsc();
+		Municipios muniUlt = municipiosRepository.findFirstByOrderByIdDesc();
+		
+		int randomSele = semilla.nextInt(muniIni.getId(), muniUlt.getId());
+		Municipios muni = municipiosRepository.findById(randomSele).get();
+
+		return muni;
+	}	
+	
+	/**
+	 * Devolver lista municipios dentro de una provincia
+	 * @param idProvincia
+	 * @return
+	 */
+	public List<Municipios> getTodosMunicipios(String idProvincia) {
+		List<Municipios> listMunicipios = municipiosRepository.findByIdprovincias(idProvincia);
+
+		return listMunicipios;
+	}		
+	
 	/**
 	 * Generar un tipo de via aleatorio
 	 * 
@@ -483,15 +531,76 @@ public class ProfilesService {
 
 		return codPostal;
 	}
+	
+	/**
+	 * Genera un cod postal random 
+	 * @param idProvincia
+	 * @param ineMunicipio
+	 * @return
+	 */
+	public String generarCodPostalRandom() {
+		Codpostales codpostalIni = codpostalesRepository.findFirstByOrderByIdAsc();
+		Codpostales codpostalUlt = codpostalesRepository.findFirstByOrderByIdDesc();
+		
+		int randomSele = semilla.nextInt(codpostalIni.getId(), codpostalUlt.getId());
+		Codpostales codpostal = codpostalesRepository.findById(randomSele).get();
 
+		return codpostal.getCodpostal();
+	}	
+	
+	
+	/**
+	 * GEnerar una fecha futuro aleatoria entre dos margenes
+	 * @param offsetInicial Años que se incrementan sobre el inicio para el periodo a considerar
+	 * @param offsetFinal Años que se incrementan sobre el fin para el periodo a considerar
+	 * @return
+	 */
+	public Date generarFechaFutura(int offsetInicial, int offsetFinal) {
+		Calendar calFin = Calendar.getInstance();
+		calFin.add(Calendar.YEAR, offsetInicial);
+		Calendar calIni = Calendar.getInstance();
+		calIni.add(Calendar.YEAR, offsetFinal);
+		return CommonUtil.getFechaAleatoria(calIni.getTime(), calFin.getTime());
+	}	
+
+	/**
+	 * GEnerar una fecha de nacimiento aleatoria entre dos edades
+	 * @param minEdad Años que se restan para obtener la edad mas joven 
+	 * sobre la que generar la fecha
+	 * @param maxEdad Años que se restan para obtener la edad mas adulta 
+	 * sobre la que generar la fecha
+	 * @return
+	 */
+	public Date generarFechaNacimiento(int minEdad, int maxEdad) {
+		Calendar calFin = Calendar.getInstance();
+		calFin.add(Calendar.YEAR, -minEdad);
+		Calendar calIni = Calendar.getInstance();
+		calIni.add(Calendar.YEAR, -maxEdad);
+		return CommonUtil.getFechaAleatoria(calIni.getTime(), calFin.getTime());
+	}
+	
+	/**
+	 * GEnerar una fecha de nacimiento aleatoria entre las edades 
+	 * de 18 y 100 años
+	 * @return
+	 */
+	public Date generarFechaNacimiento() {
+		//por defecto generamos una fgecha entre 18 y 100 años
+		Calendar calFin = Calendar.getInstance();
+		calFin.add(Calendar.YEAR, -MIN_EDAD);
+		Calendar calIni = Calendar.getInstance();
+		calIni.add(Calendar.YEAR, -MAX_EDAD);
+		return CommonUtil.getFechaAleatoria(calIni.getTime(), calFin.getTime());
+	}	
+	
 	/**
 	 * Conformar los datos de una persona completamente aleatoria a devolver
 	 * 
 	 * @param gender genero de la persona a limitar
 	 * @return
 	 */
-	public Persona conformarPersona(Genero gender) {
-		Persona persona = new Persona();
+	public PersonaReturn conformarPersona(Genero gender) {
+		PersonaReturn persona = new PersonaReturn();
 		persona.setNif(doiService.getNif());
 		persona.setNie(doiService.getNie());
 
@@ -516,14 +625,10 @@ public class ProfilesService {
 		persona.setNombreCompleto(persona.getNombre() + " " + persona.getApellido1() + " " + persona.getApellido2());
 
 		// fecha nacimiento
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.YEAR, -MIN_EDAD);
-		Calendar calF = Calendar.getInstance();
-		calF.add(Calendar.YEAR, -MAX_EDAD);
-		Date fechaNacimiento = CommonUtil.getFechaAleatoria(calF.getTime(), cal.getTime());
+		Date fechaNacimiento = generarFechaNacimiento();
 		// fijamos la fecha en formato dd/mm/yyyy
 		persona.setFechaNacimiento(CommonUtil.getFechaFormateada(fechaNacimiento));
-		cal = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
 		persona.setEdad(Integer.toString(CommonUtil.calcularEdad(fechaNacimiento, cal.getTime())));
 
 		// telefonos
@@ -606,8 +711,8 @@ public class ProfilesService {
 	 * 
 	 * @return
 	 */
-	public Empresa conformarEmpresa() {
-		Empresa empresa = new Empresa();
+	public EmpresaReturn conformarEmpresa() {
+		EmpresaReturn empresa = new EmpresaReturn();
 
 		// identificador CIF
 		empresa.setCif(doiService.getCif(DoiService.LETRA_CIF_NO_ASIGNADA));

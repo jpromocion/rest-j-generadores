@@ -1,6 +1,6 @@
-package es.jortri.generadores.model;
+package es.jortri.generadores.entityreturn;
 
-public class Cuenta {
+public class CuentaReturn {
 	
 	private String ccc;
 	private String cccFormateado;
@@ -9,7 +9,7 @@ public class Cuenta {
 	private String bic;
 	private String entidad;
 	
-	public Cuenta() {
+	public CuentaReturn() {
 		super();
     }
 
@@ -63,7 +63,7 @@ public class Cuenta {
 	
 	@Override
 	public String toString() {
-		return "Cuenta [ccc=" + ccc + ", cccFormateado=" + cccFormateado + ", iban=" + iban + ", ibanFormateado="
+		return "CuentaReturn [ccc=" + ccc + ", cccFormateado=" + cccFormateado + ", iban=" + iban + ", ibanFormateado="
 				+ ibanFormateado + ", bic=" + bic + ", entidad=" + entidad + "]";
 	}	
 	

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.jortri.generadores.entityreturn.CuentaReturn;
+import es.jortri.generadores.entityreturn.TarjetaReturn;
 import es.jortri.generadores.enumerados.PrefijoTarjeta;
-import es.jortri.generadores.model.Cuenta;
-import es.jortri.generadores.model.Tarjeta;
 import es.jortri.generadores.services.BankServices;
 import es.jortri.generadores.util.CommonUtil;
 
@@ -29,11 +29,11 @@ public class BankController {
 	 * @return
 	 */
 	@GetMapping("/account")
-	public List<Cuenta> account(@RequestParam String results) {
+	public List<CuentaReturn> account(@RequestParam String results) {
 
 		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
 
-		List<Cuenta> listaCuentas = new ArrayList<Cuenta>();
+		List<CuentaReturn> listaCuentas = new ArrayList<CuentaReturn>();
 		for (int i = 0; i < resultsInt; i++) {
 			listaCuentas.add(bankServices.conformarCuenta());
 		}
@@ -49,7 +49,7 @@ public class BankController {
 	 * @return
 	 */
 	@GetMapping("/card")
-	public List<Tarjeta> card(@RequestParam String results, @RequestParam Optional<String> type) {
+	public List<TarjetaReturn> card(@RequestParam String results, @RequestParam Optional<String> type) {
 
 		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
 
@@ -61,7 +61,7 @@ public class BankController {
 			tipoTarjetaCod = prefijo.getCodigoInicio();
 		} 
 		
-		List<Tarjeta> listaTarjetas = new ArrayList<Tarjeta>();
+		List<TarjetaReturn> listaTarjetas = new ArrayList<TarjetaReturn>();
 		for (int i = 0; i < resultsInt; i++) {
 			listaTarjetas.add(bankServices.conformarTarjeta(tipoTarjetaCod));
 		}

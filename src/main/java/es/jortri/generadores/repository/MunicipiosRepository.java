@@ -12,4 +12,9 @@ public interface MunicipiosRepository extends JpaRepository<Municipios, Integer>
 
 	List<Municipios> findByIdprovincias(String idprovincias);
 	
+	Municipios findFirstByOrderByIdAsc();
+	
+	Municipios findFirstByOrderByIdDesc();	
+	
+	
 }
