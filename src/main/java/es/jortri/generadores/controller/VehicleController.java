@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,15 @@ import es.jortri.generadores.enumerados.TipoMatricula;
 import es.jortri.generadores.services.VehicleServices;
 import es.jortri.generadores.util.CommonUtil;
 
+/**
+ * Controlador de los servicios de generacion de matriculas y numeros de
+ * bastidor
+ * NOTA: Se ha habilitado CORS para permitir el acceso desde cualquier origen,
+ * porque el uso desde http://localhost:4200 que despliega la aplicacion de
+ * Angular en desarrollo, no permite el acceso a los servicios REST de Spring
+ * Boot si no se habilita
+ */
+@CrossOrigin(origins ="*")
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {

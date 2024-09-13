@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import es.jortri.generadores.services.DoiService;
 import es.jortri.generadores.util.CommonUtil;
 
+/**
+ * Controlador de los servicios de generacion de DOI
+ * NOTA: Se ha habilitado CORS para permitir el acceso desde cualquier origen, porque el uso desde http://localhost:4200 que
+ * despliega la aplicacion de Angular en desarrollo, no permite el acceso a los servicios REST de Spring Boot si no se habilita
+ */
+@CrossOrigin(origins ="*")
 @RestController
 @RequestMapping("/doi")
 public class DoiController {

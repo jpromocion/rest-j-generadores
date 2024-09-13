@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,12 @@ import es.jortri.generadores.enumerados.PrefijoTarjeta;
 import es.jortri.generadores.services.BankServices;
 import es.jortri.generadores.util.CommonUtil;
 
+/**
+ * Controlador de generación de datos bancarios 
+ * NOTA: Se ha añadido la anotación @CrossOrigin(origins ="*") para permitir el acceso desde cualquier origen
+ * porque el uso desde http://localhost:4200 que despliega la aplicación de Angular en desarrollo, no permite el acceso a los servicios REST de Spring Boot si no se habilita
+ */
+@CrossOrigin(origins ="*")
 @RestController
 @RequestMapping("/bank")
 public class BankController {
