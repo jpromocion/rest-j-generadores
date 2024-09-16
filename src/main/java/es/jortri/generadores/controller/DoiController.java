@@ -60,7 +60,7 @@ public class DoiController {
 	public String validatenif(@RequestParam String nif) {
 		String resultado = CommonUtil.RESULTADO_ERROR;
 
-		if (doiService.validarNif(nif)) {
+		if (doiService.validarNif(nif.toUpperCase())) {
 			resultado = CommonUtil.RESULTADO_OK;
 		}
 
@@ -96,7 +96,7 @@ public class DoiController {
 	public String validatenie(@RequestParam String nie) {
 		String resultado = CommonUtil.RESULTADO_ERROR;
 
-		if (doiService.validarNie(nie)) {
+		if (doiService.validarNie(nie.toUpperCase())) {
 			resultado = CommonUtil.RESULTADO_OK;
 		}
 
@@ -145,7 +145,7 @@ public class DoiController {
 	public String validatecif(@RequestParam String cif) {
 		String resultado = CommonUtil.RESULTADO_ERROR;
 		
-		if (doiService.validarCIF(cif)) {
+		if (doiService.validarCIF(cif.toUpperCase())) {
 			resultado = CommonUtil.RESULTADO_OK;
 		}
 				
