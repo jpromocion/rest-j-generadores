@@ -1,5 +1,6 @@
 package es.jortri.generadores.services;
 
+import java.util.Enumeration;
 import java.util.List;
 
 import org.springframework.security.authentication.BadCredentialsException;
@@ -48,6 +49,14 @@ public class AuthenticationService {
     
     public Authentication getAuthentication(HttpServletRequest request) {
         String apiKey = request.getHeader(AUTH_TOKEN_HEADER_NAME);
+        //mostrar en log todos los valores del header
+//        Enumeration<String> headerNames = request.getHeaderNames();
+//		while (headerNames.hasMoreElements()) {
+//			String headerName = headerNames.nextElement();
+//			System.out.println("Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+//		}
+        
+        
         //if (apiKey == null || !Arrays.asList(AUTH_TOKEN).contains(apiKey)) {
         SecurityApiKeys secApiKey = null;
         if (apiKey != null) {
