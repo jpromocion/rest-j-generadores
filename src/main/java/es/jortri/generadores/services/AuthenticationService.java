@@ -1,6 +1,5 @@
 package es.jortri.generadores.services;
 
-import java.util.Enumeration;
 import java.util.List;
 
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import es.jortri.generadores.configuration.ApiKeyAuthentication;
 import es.jortri.generadores.model.SecurityApiKeys;
-import es.jortri.generadores.repository.SecurityApìKeysRepository;
+import es.jortri.generadores.repository.SecurityApiKeysRepository;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -23,12 +22,12 @@ import jakarta.servlet.http.HttpServletRequest;
  * 
  * Referencia: https://www.baeldung.com/spring-boot-api-key-secret
  * Referencia 2: https://smattme.com/posts/spring-boot-api-key-authentication/
- *   -Para permitir hacer uso del SecurityApìKeysRepository (comprobar keys en la bbdd) sin que de Access Denied
+ *   -Para permitir hacer uso del SecurityApiKeysRepository (comprobar keys en la bbdd) sin que de Access Denied
  */
 @Service
 public class AuthenticationService {
 	
-	private SecurityApìKeysRepository securityApìKeysRepository;		
+	private SecurityApiKeysRepository securityApiKeysRepository;		
 	
 	//evitar llamarla cada peticion, cargamos en el constructor todo en una lista
 	//y en repitadas llamadas solo consultamos la lista
@@ -41,9 +40,9 @@ public class AuthenticationService {
     //private static final String AUTH_TOKEN = "jortri0105";
     //private static String AUTH_TOKEN[] = { "jortri0105", "test189752" };
   
-    public AuthenticationService(SecurityApìKeysRepository securityApìKeysRepository) {
-        this.securityApìKeysRepository = securityApìKeysRepository;
-        this.listaApiCargada = this.securityApìKeysRepository.findAll();
+    public AuthenticationService(SecurityApiKeysRepository securityApiKeysRepository) {
+        this.securityApiKeysRepository = securityApiKeysRepository;
+        this.listaApiCargada = this.securityApiKeysRepository.findAll();
     }    
     
     
@@ -62,7 +61,7 @@ public class AuthenticationService {
         if (apiKey != null) {
         	//evitar llamarla cada peticion, cargamos en el constructor todo en una lista
         	//y en repitadas llamadas solo consultamos la lista
-        	//secApiKey = securityApìKeysRepository.findFirstBy1Apikey(apiKey);
+        	//secApiKey = securityApiKeysRepository.findFirstBy1Apikey(apiKey);
         	for (SecurityApiKeys api : listaApiCargada) {
         		if (apiKey.equals(api.getApikey())) {
         			secApiKey = api;
