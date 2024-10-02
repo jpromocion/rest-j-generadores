@@ -537,3 +537,18 @@ Parece ser un bug de la version de spring-boot-devtools.
 Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments se ha puesto "-Dspring.devtools.restart.enabled=false".
 
 					
+## Docker - Render
+
+Se incluye un Dockerfile que permite desplegar el servicio en Render:
+- Define el contenedor:
+	- Simula un ubuntu 
+	- Con openjdk17 (el requisito de la versión de spring boot utilizada) instalado.
+	- Con maven, dado que lo utilizamos como gestor de dependencias en nuestro proyecto.
+- Se hace el "mvn clean package" para compilar y que cree el jar
+- Se define el entorno para la aplicación 
+	- con openjdk17
+	- puerto expuesto 8085
+	- Copiamos el jar generado del target a raíz y nombre final.
+	- Luego ejecutamos con java nuestro jar
+
+					
