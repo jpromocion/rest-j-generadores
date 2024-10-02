@@ -1,5 +1,7 @@
 package es.jortri.generadores.configuration;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -9,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import es.jortri.generadores.services.AuthenticationService;
 
@@ -45,7 +48,17 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 
-		http.csrf(AbstractHttpConfigurer::disable)
+		http 
+		//.cors(Customizer.withDefaults())
+		.cors(cors -> cors.configurationSource(request -> {
+	        CorsConfiguration configuration = new CorsConfiguration();
+	        configuration.setAllowedOrigins(Arrays.asList("*"));
+	        configuration.setAllowedMethods(Arrays.asList("*"));
+	        configuration.setAllowedHeaders(Arrays.asList("*"));
+	        return configuration;
+	    }))
+        .csrf(c -> c.disable())
+		//.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(
 						authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
 								.requestMatchers("/**").authenticated())
@@ -53,11 +66,12 @@ public class SecurityConfig {
 				.sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(new AuthenticationFilter(authenticationService),
-						UsernamePasswordAuthenticationFilter.class);
+						UsernamePasswordAuthenticationFilter.class)
+			;
 		
 		// activar tambien cors: necesario para invocar desde la aplicacion de angular
-		http.cors(Customizer.withDefaults
-				());		
+		//http.cors(Customizer.withDefaults());
+		
 		return http.build();
 	}
 
