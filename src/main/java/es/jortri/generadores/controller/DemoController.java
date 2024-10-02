@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/demo")
 public class DemoController {
 	
-	//@Value("${build.version}")
+	@Value("${build.version}")
 	private String buildVersion;
 
 	@GetMapping("/hola")
