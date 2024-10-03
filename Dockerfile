@@ -7,6 +7,6 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
 EXPOSE 8085
-COPY --from=build /target/generadores-1.0.1.jar generadores.jar
+COPY --from=build /target/generadores-1.1.0.jar generadores.jar
 
 ENTRYPOINT ["java", "-jar", "generadores.jar"]

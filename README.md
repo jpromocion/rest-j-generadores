@@ -524,6 +524,183 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		]
 		```		
 
+- **/number/random**
+	- Devuelve una lista de números aleatorios
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- minimum: Opcional. Mínimo valor. Por defecto 0.
+		- maximum: Opcional. Máximo valor. Por defecto 100.
+		- decimals: Opcional. y/n si quiere o no decimales. Por defecto n.
+		- repeated: Opcional. y/n si quiere o no repetidos. Por defecto y.
+	- Ejemplo resultado
+		```
+		[
+		    "83",
+		    "99",
+		    "84",
+		    "86",
+		    "72",
+		    "73",
+		    "90",
+		    "93",
+		    "62",
+		    "79"
+		]
+		```	
+
+- **/number/coin**
+	- Obtener una lista de lanzamientos de moneda
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- faceSymbol: Opcional. simbolo para cara. por defecto O.
+		- crossSymbol: Opcional. simbolo para cruz. por defecto X.
+	- Ejemplo resultado
+		```
+		[
+		    "O",
+		    "O",
+		    "X",
+		    "O",
+		    "O",
+		    "O",
+		    "O",
+		    "O",
+		    "X",
+		    "O"
+		]
+		```	
+		
+- **/number/dice**
+	- Obtener una lista de lanzamientos de dado
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "6",
+		    "5",
+		    "1",
+		    "6",
+		    "5",
+		    "6",
+		    "5",
+		    "6",
+		    "2",
+		    "3"
+		]
+		```			
+		
+- **/number/gauss**
+	- Devuelve una lista aleatoria de numeros por el método gauss
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- mean: Opcional. Media. Por defecto 0
+		- standardDeviation: Opcional. Desviación estandar. Por defecto 1.
+		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 5.
+	- Ejemplo resultado
+		```
+		[
+		    "0,27905",
+		    "0,58651",
+		    "0,56347",
+		    "0,66746",
+		    "0,30250",
+		    "0,79176",
+		    "0,28064",
+		    "0,66422",
+		    "0,57328",
+		    "0,54248"
+		]
+		```			
+		
+- **/number/calculator**
+	- Realiza una operacion de calculadora con los parametros dados
+	- Parámetros:
+		- operand: Operando a realizar. VAlores válidos: +, -, *, /, resto, potencia, porcentaje, factorial, factorial, logaritmo, logaritmoNatural, logaritmoBase2, logaritmoBase10, logaritmoBaseE, logaritmoBaseX, raizCuadrada, raizCubica, raizN. En caso de introducir algo distino opera con "+".
+		- number1: Primer número
+		- number2: Segundo número (en las operaciones donde es necesario)
+		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
+	- Resultado: Cadena con el número resultante de la operación. Ejemplo: "6,64385619".
+		
+- **/number/proportion**
+	- Realiza la operacion de una regla de tres directa o indirecta: a -> b , c -> x , para despegar X.
+	- Parámetros:
+		- numberA: Valor A
+		- numberB: Valor B
+		- numberC: Valor C
+		- direct: Opcional. y/n si es directa o indirecta. Por defecto y.
+		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
+	- Resultado: Valor de X. Ejemplo: "6,64".
+		
+- **/number/area**
+	- Calcular el area de algunas formas trigonometricas
+	- Parámetros:
+		- type: Forma: cuadrado, rectangulo, triangulo, paralelogramo, trapezoide, circulo, elipse. De asignar otra cosa se supondrá "cuadrado".
+		- numberA: Valor A. Según cada forma implica un valor:
+			- cuadrado: Longitud de lado.
+			- rectangulo: Ancho.
+			- triangulo: Base.
+			- paralelogramo: Base.		
+			- trapezoide: Base superior (corta/menor)
+			- circulo: Radio		
+			- elipse: Eje corto o menor (similar al radio en círculos)
+		- numberB: Valor B. Opcional para las formas que lo requieran. Según cada forma implica un valor.
+			- rectangulo: Alto.		
+			- triangulo: Altura vertical.
+			- paralelogramo: Altura vertical.
+			- trapezoide: Base inferior (larga/mayor)
+			- elipse: Eje largo o mayor (similar al radio en círculos)
+		- numberC: Valor C. Opcional para las formas que lo requieran. Según cada forma implica un valor.
+			- trapezoide: Altura vertical		
+		- direct: Opcional. y/n si es directa o indirecta. Por defecto y.
+		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
+	- Resultado: Valor de X. Ejemplo: "6,64".
+		
+- **/number/degreesToRadians**
+	- Convertir grados en radianes
+	- Parámetros:
+		- degrees: Grados
+		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
+	- Resultado: Valor de X. Ejemplo: "6,64".
+	
+- **/number/radiansToDegrees**
+	- Convertir grados en radianes
+	- Parámetros:
+		- radians: Radianes
+		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
+	- Resultado: Valor de X. Ejemplo: "6,64".
+	
+- **/number/trigonometric**
+	- Calcular funciones trigonometricas
+	- Parámetros:
+		- type: Funcion: seno, coseno, tangente, cotangente, cosecante, secante, arcoseno, arcocoseno, arcotangente, senohiperbolico, cosenohiperbolico, tangentehiperbolico.
+		- number: Valor
+		- typeNumber: Tipo de numero: radianes, grados
+		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
+	- Resultado: Cadena con el número resultante de la operación. Ejemplo: "6,64385619".
+	
+- **/number/baseConverter**
+	- Conversor de base numerica
+	- Parámetros:
+		- number: Numero a convertir
+		- baseFrom: Base de origen. Desde 2 a 36. Incorrecto tomara 10.
+		- baseTo: Base de destino. Desde 2 a 36. Incorrecto tomara 10.
+	- Resultado: Cadena con el número resultante de la operación. Ejemplo: "1cki".
+	
+- **/number/arabicToRoman**
+	- Convertir un numero a romano
+	- Parámetros:
+		- number: Número arábigo
+	- Resultado: Valor en número romano. Ejemplo: "XXIV".
+
+- **/number/romanToArabic**
+	- Convertir un numero romano a arabigo
+	- Parámetros:
+		- number: Número romano
+	- Resultado: Valor en número arábigo. Ejemplo: "19".	
+	
+	
+	
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
 

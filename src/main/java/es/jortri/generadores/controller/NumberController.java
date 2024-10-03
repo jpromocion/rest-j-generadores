@@ -155,14 +155,14 @@ public class NumberController {
 	 */
 	@GetMapping("/calculator")
 	public String calculator(@RequestParam String operand, @RequestParam Double number1,
-			@RequestParam Double number2, @RequestParam Optional<String> decimals) {
+			@RequestParam Optional<Double> number2, @RequestParam Optional<String> decimals) {
 
 		Double number1Rev = number1;
 		if (number1Rev == null) {
 			number1Rev = Double.valueOf(0);
 		}
 
-		Double number2Rev = number2;
+		Double number2Rev = number2.orElse(null);
 		if (number2Rev == null) {
 			number2Rev = Double.valueOf(0);
 		}
@@ -235,7 +235,7 @@ public class NumberController {
 	 */
 	@GetMapping("/area")	
 	public String area(@RequestParam String type, 
-			@RequestParam Double numberA, @RequestParam Double numberB, @RequestParam Double numberC, 
+			@RequestParam Double numberA, @RequestParam Optional<Double> numberB, @RequestParam Optional<Double> numberC, 
 			@RequestParam Optional<String> decimals) {
 		
 		Double numberARev = numberA;
@@ -243,12 +243,12 @@ public class NumberController {
 			numberARev = Double.valueOf(0);
 		}
 		
-		Double numberBRev = numberB;
+		Double numberBRev = numberB.orElse(null);
 		if (numberBRev == null) {
             numberBRev = Double.valueOf(0);
         }
 		
-		Double numberCRev = numberC;
+		Double numberCRev = numberC.orElse(null);
 		if (numberCRev == null) {
             numberCRev = Double.valueOf(0);
         }
