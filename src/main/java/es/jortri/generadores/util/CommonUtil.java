@@ -50,6 +50,57 @@ public class CommonUtil {
 	}
 
 	/**
+	 * Igual que anterior pero sin maximo
+	 * @param results
+	 * @param defecto
+	 * @return
+	 */
+	public static int revisarNumResultado(String results, int defecto) {
+		String numRevisar = results;
+		if (numRevisar == null || numRevisar.isEmpty()) {
+			numRevisar = defecto + "";
+		}
+		int resultsInt;
+		try {
+			resultsInt = Integer.parseInt(numRevisar);
+		} catch (NumberFormatException e) {
+			resultsInt = defecto;
+		}
+		return resultsInt;
+	}		
+	
+	
+	public static int revisarNumResultado(String results) {
+		return revisarNumResultado(results, 10);
+	}
+	
+	
+	/**	
+	 * Devuelve el valor numerico en cada como double si es valido. 
+	 * En caso de ausencia o erroneo, el valor defecto.
+	 * @param results
+	 * @param defecto
+	 * @return
+	 */
+	public static double revisarNumResultadoDouble(String results, double defecto) {
+		String numRevisar = results;
+		if (numRevisar == null || numRevisar.isEmpty()) {
+			numRevisar = defecto + "";
+		}
+		double resultsDouble;
+		try {
+			resultsDouble = Double.parseDouble(numRevisar);
+		} catch (NumberFormatException e) {
+			resultsDouble = defecto;
+		}
+		return resultsDouble;
+	}
+		
+	public static double revisarNumResultadoDouble(String results) {
+		return revisarNumResultadoDouble(results, 0);
+	}
+	
+	/**
 	 * Revisa parametro  esperado y/n
 	 * @param results
 	 * @param maximo
@@ -59,10 +110,10 @@ public class CommonUtil {
 	public static String revisarParamYN(Optional<String> param, String defecto) {
 		String paramRev = param.orElse("").toLowerCase();
 		if (paramRev.isEmpty()) {
-			paramRev = "y";
+			paramRev = defecto;
 		} else {
 			if (!paramRev.equals("y") && !paramRev.equals("n")) {
-				paramRev = "y";
+				paramRev = defecto;
 			}
 		}
 		return paramRev;

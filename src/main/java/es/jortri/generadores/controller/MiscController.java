@@ -236,13 +236,6 @@ public class MiscController {
 		return miscServices.listarMunicipios(idprovincia);
 	}		
 	
-	
-	/**
-	 * Obtener una lista de códigos promocionales formateados
-	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
-	 * @return
-	 */
-	
 	/**
 	 * Obtener una lista de códigos promocionales formateados
 	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
