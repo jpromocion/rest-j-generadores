@@ -616,7 +616,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 - **/number/calculator**
 	- Realiza una operacion de calculadora con los parametros dados
 	- Parámetros:
-		- operand: Operando a realizar. VAlores válidos: +, -, *, /, resto, potencia, porcentaje, factorial, factorial, logaritmo, logaritmoNatural, logaritmoBase2, logaritmoBase10, logaritmoBaseE, logaritmoBaseX, raizCuadrada, raizCubica, raizN. En caso de introducir algo distino opera con "+".
+		- operand: Operando a realizar. VAlores válidos: +, -, *, /, resto, potencia, porcentaje, factorial, factorial, logaritmo, logaritmoNaturalNeperiano, logaritmoBase2, logaritmoBaseX, raizCuadrada, raizCubica, raizN. En caso de introducir algo distino opera con "+".
 		- number1: Primer número
 		- number2: Segundo número (en las operaciones donde es necesario)
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.

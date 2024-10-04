@@ -109,7 +109,7 @@ public class NumberServices {
 	 */
 	public static Double factorial(int num) {
 		if (num == 0) {
-			return 0.0;
+			return 1.0;
 		} else
 			return num * factorial(num - 1);
 	}
@@ -156,20 +156,14 @@ public class NumberServices {
 		case "logaritmo":
 			resultado = Math.log10(num1);
 			break;
-		case "logaritmoNatural":
+		case "logaritmoNaturalNeperiano":
 			resultado = Math.log(num1);
 			break;
 		case "logaritmoBase2":
 			resultado = Math.log(num1) / Math.log(2);
 			break;
-		case "logaritmoBase10":
-			resultado = Math.log(num1) / Math.log(10);
-			break;
-		case "logaritmoBaseE":
-			resultado = Math.log(num1) / Math.log(Math.E);
-			break;
 		case "logaritmoBaseX":
-			resultado = Math.log(num1) / Math.log(num1);
+			resultado = Math.log(num1) / Math.log(num2);
 			break;
 		case "raizCuadrada":
 			resultado = Math.sqrt(num1);
@@ -178,7 +172,7 @@ public class NumberServices {
 			resultado = Math.cbrt(num1);
 			break;
 		case "raizN":
-			resultado = Math.pow(num1, 1 / 3);
+			resultado = Math.pow(num1, 1 / num2);
 			break;
 		}
 		return resultado;

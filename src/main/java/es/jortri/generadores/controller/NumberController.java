@@ -145,7 +145,7 @@ public class NumberController {
 	 * Realiza una operacion de calculadora con los parametros dados
 	 * 
 	 * @param operand Operando a realizar. VAlores válidos: +, -, *, /, resto, potencia, porcentaje, factorial, 
-	 *   factorial, logaritmo, logaritmoNatural, logaritmoBase2, logaritmoBase10, logaritmoBaseE, logaritmoBaseX, 
+	 *   factorial, logaritmo, logaritmoNaturalNeperiano, logaritmoBase2, logaritmoBaseX, 
 	 *   raizCuadrada, raizCubica, raizN
 	 * @param number1 Primer número
 	 * @param number2 Segundo número
@@ -171,8 +171,8 @@ public class NumberController {
 		if (operand == null || operand.isEmpty() || (!operand.equals("+") && !operand.equals("-")
 				&& !operand.equals("*") && !operand.equals("/") && !operand.equals("resto") && !operand.equals("potencia"))
 				&& !operand.equals("porcentaje") && !operand.equals("factorial") && !operand.equals("logaritmo")
-				&& !operand.equals("logaritmoNatural") && !operand.equals("logaritmoBase2") && !operand.equals("logaritmoBase10")
-				&& !operand.equals("logaritmoBaseE") && !operand.equals("logaritmoBaseX") && !operand.equals("raizCuadrada")
+				&& !operand.equals("logaritmoNaturalNeperiano") && !operand.equals("logaritmoBase2") 
+				&& !operand.equals("logaritmoBaseX") && !operand.equals("raizCuadrada")
 				&& !operand.equals("raizCubica") && !operand.equals("raizN")) {
 			operandRev = "+";
 		}
