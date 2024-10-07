@@ -1,9 +1,14 @@
 package es.jortri.generadores;
 
+import java.awt.image.BufferedImage;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.BufferedImageHttpMessageConverter;
 
 /**
  * Clase principal de spring boot para levantar la aplicacion
@@ -26,4 +31,15 @@ public class GeneradoresApplication {
 		SpringApplication.run(GeneradoresApplication.class, args);
 	}
 
+	/**
+	 * Conversor para devolver como imagen los codigos de barras y qr
+	 * Referencia: https://www.baeldung.com/java-generating-barcodes-qr-codes
+	 * https://github.com/eugenp/tutorials/blob/master/spring-boot-modules/spring-boot-libraries/src/main/java/com/baeldung/barcodes/SpringBootApp.java
+	 * @return
+	 */
+    @Bean
+    public HttpMessageConverter<BufferedImage> createImageHttpMessageConverter() {
+        return new BufferedImageHttpMessageConverter();
+    }
+	
 }
