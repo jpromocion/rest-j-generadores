@@ -699,7 +699,58 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- number: Número romano
 	- Resultado: Valor en número arábigo. Ejemplo: "19".	
 	
+- **/barcodes/code128**
+	- Generar código de barras 128
+	- POST
+	- Parámetros:
+		- width: Opcional. Ancho imagen (pixeles)
+		- height: Opcional. Alto imagen (pixeles)
+	- Body: el texto a convertir.
+	- Resultado: image/png
 	
+- **/barcodes/ean13**
+	- Generar código de barras EAN13
+	- Parámetros:
+		- width: Opcional. Ancho imagen (pixeles)
+		- height: Opcional. Alto imagen (pixeles)
+	- El texto a convertir se pasa en la URL.
+	- Resultado: image/png
+	
+- **/barcodes/upca**
+	- Generar código de barras UPCA
+	- Parámetros:
+		- width: Opcional. Ancho imagen (pixeles)
+		- height: Opcional. Alto imagen (pixeles)
+	- El texto a convertir se pasa en la URL.
+	- Resultado: image/png
+	
+- **/barcodes/upce**
+	- Generar código de barras UPCE
+	- Parámetros:
+		- width: Opcional. Ancho imagen (pixeles)
+		- height: Opcional. Alto imagen (pixeles)
+	- El texto a convertir se pasa en la URL.
+	- Resultado: image/png		
+
+- **/barcodes/pdf417**
+	- Generar código de barras PDF147
+	- POST
+	- Parámetros:
+		- width: Opcional. Ancho imagen (pixeles)
+		- height: Opcional. Alto imagen (pixeles)
+	- Body: el texto a convertir.
+	- Resultado: image/png
+	
+- **/barcodes/qrcode**
+	- Generar código de QR
+	- POST
+	- Parámetros:
+		- width: Opcional. Ancho imagen (pixeles)
+		- height: Opcional. Alto imagen (pixeles)
+		- topText: Opcional. Texto que aparece por encima del código QR.
+		- bottomtext: Opcional. Texto que aparece por encima del código QR.
+	- Body: el texto a convertir.
+	- Resultado: image/png	
 	
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
