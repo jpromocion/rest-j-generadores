@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>es.jortri</groupId>
 	<artifactId>generadores</artifactId>
-	<version>1.2.0</version>
-	<name>generadores</name>
+	<version>1.2.1</version>
+	<name>generadores</name>	
 	<description>API rest de generadors con SpringBoot</description>
 	<url/>
 	<licenses>
@@ -101,6 +101,12 @@
 	</dependencies>
 
 	<build>
+		<!--https://stackoverflow.com/questions/59807912/how-to-compile-spring-boot-maven-plugin-without-version-number
+		 Vamos a evitar que el jar se genere como "generadores-1.2.1.jar" con la version, lo que nos obliga a 
+		 modificar el dockerfile cada vez que cambiamos la version.
+		 De esta forma se genera siempre solo con el nombre de finalName: generadores.jar
+		 -->
+		<finalName>generadores</finalName>
 		<!-- Esto provooca que falle el despliegue con el docker en RENDER... de todas formas
 		 la inyeccion de la propiedad version en el application.properties y uso en el controlller
 		 parece funcionar sin esto

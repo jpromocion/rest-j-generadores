@@ -99,6 +99,8 @@ public class ProfilesService {
 
 	public static String NOMBRES_COMUNES_CALLEJERO[] = { "Iglesia", "Mayor", "Fuente", "Constitución", "Real", "Nueva",
 			"San", "Héroes", "Eras", "Sol", "España" };
+	
+	public static String DOMINIOS_WEB[] = { ".com", ".org", ".net", ".edu", ".gov", ".es" };
 
 	public ProfilesService() {
 		this.semilla = new Random();
@@ -216,6 +218,20 @@ public class ProfilesService {
 
 		return login + "@" + servidor;
 	}
+	
+	/**
+	 * Generar una pagina web a partir del login
+	 * 
+	 * @param login
+	 * @return www. + login + un servidor web aleatorio
+	 */
+	public String generarWeb(String login) {
+
+		int indice = semilla.nextInt(0, DOMINIOS_WEB.length);
+		String dominio = DOMINIOS_WEB[indice];
+
+		return "www." + login + dominio;
+	}	
 
 	/**
 	 * Generar un Email inventandose un login
@@ -731,6 +747,7 @@ public class ProfilesService {
 		empresa.setFax(generarNumTelefonoFijo());
 		empresa.setEmail(
 				generarEmail(empresa.getNombre().replace(" ", "_").replaceAll("[^A-Za-z0-9_]", "")).toLowerCase());
+		empresa.setPaginaWeb(generarWeb(empresa.getNombre().replace(" ", "").replaceAll("[^A-Za-z0-9_]", "")).toLowerCase());
 
 		// datos de localizacion
 		Ccaa ccaa = generarCCAARandom();

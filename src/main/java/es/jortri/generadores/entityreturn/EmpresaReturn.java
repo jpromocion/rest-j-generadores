@@ -19,6 +19,7 @@ public class EmpresaReturn {
 	private String codigoPostal;
 	private String cnae;
 	private String actividad;
+	private String paginaWeb;
 	
 	public EmpresaReturn() {
 		super();
@@ -159,6 +160,14 @@ public class EmpresaReturn {
 	public void setCcaaIne(String ccaaIne) {
 		this.ccaaIne = ccaaIne;
 	}
+	
+	public String getPaginaWeb() {
+		return paginaWeb;
+	}
+	
+	public void setPaginaWeb(String paginaWeb) {
+        this.paginaWeb = paginaWeb;
+    }
 
 	@Override
 	public String toString() {
@@ -167,7 +176,7 @@ public class EmpresaReturn {
 				+ ", municipio=" + municipio + ", municipioIne="
 				+ municipioIne + ", provincia=" + provincia + ", provinciaIne=" + provinciaIne + ", direccion="
 				+ direccion + ", numerovia=" + numerovia + ", codigoPostal=" + codigoPostal + ", cnae=" + cnae
-				+ ", actividad=" + actividad + "]";
+				+ ", actividad=" + actividad + ", paginaWeb" + paginaWeb + "]";
 	}
 	
 	
