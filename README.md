@@ -753,6 +753,32 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	- Body: el texto a convertir.
 	- Resultado: image/png	
 	
+- **/file/base64**
+	- Codificar en base 64
+	- POST
+	- Body: texto a codificar.
+	- Resultado: Cadena codificada
+
+- **/file/base64file**
+	- Codificar en base 64 (archivo)
+	- POST
+	- Body: Tipo form-daa con los valores:
+		- file: archivo a codificar
+		- name: nombre del archivo
+	- Resultado: Cadena codificada
+	
+- **/file/decode64**
+	- Decodificar de base 64
+	- POST
+	- Body: texto a decodificar.
+	- Resultado: Cadena decodificada	
+	
+- **/file/decode64file**
+	- Decodificar de base 64 (archivo)
+	- POST
+	- Body: texto a decodificar.
+	- Resultado: Archivo en si decodificado	
+	
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
 
