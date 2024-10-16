@@ -116,5 +116,21 @@ public class FileController {
 		return archivosService.aplicarHash(file.getBytes(), tipoHash);
 	}	
     
+    /**
+     * Generar un zip de una lista de archivos
+     * @param files Lista de archivos a zippear
+     * @return Lista de archivos zip en base 64
+     * @throws IOException 
+     * 
+     */
+    @PostMapping(value = "/zip", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+	public byte[] zip(
+            @RequestParam("files") List<MultipartFile> files
+			) throws IOException  {      		
+		return archivosService.zipear(files);
+	}
+    
+  
+    
     
 }

@@ -812,6 +812,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- type: Opcional (Por defecto "MD5"). Código del algotimo de codificación de los existentes en `/file/hashtypes`.
 	- Resultado: Cadena con el hash del archivo según algoritmo.
 
+- **/file/zip**
+	- Generar un zip para un conjunto de archivos.
+	- POST
+	- Body: Tipo form-data con los valores:
+		- files: Lista de archivos que se incluirán en el zip
+	- Resultado: Archivo zip en si mismo.
+
+
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
 

@@ -1,5 +1,7 @@
 package es.jortri.generadores.services;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -7,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.jortri.generadores.entityreturn.TipoHashReturn;
 import es.jortri.generadores.enumerados.TipoHash;
@@ -92,5 +97,34 @@ public class ArchivosService {
 		return checksum;
 		
 	}
+	
+	/**
+	 * MOntar un zip a partir de una lista de archivos
+	 * https://www.baeldung.com/java-compress-and-uncompress
+	 * https://stackoverflow.com/questions/1091788/how-to-create-a-zip-file-in-java
+	 * https://stackoverflow.com/questions/357851/in-java-how-to-zip-file-from-byte-array
+	 * @param srcFiles
+	 * @return 
+	 * @throws IOException
+	 */
+	public byte[] zipear(List<MultipartFile> srcFiles) throws IOException {
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ZipOutputStream zipOut = new ZipOutputStream(baos);
+
+        for (MultipartFile srcFile : srcFiles) {
+        	
+            ZipEntry zipEntry = new ZipEntry(srcFile.getOriginalFilename());
+            zipOut.putNextEntry(zipEntry);
+            zipOut.write(srcFile.getBytes());
+        }
+
+        zipOut.close();			
+        
+        return baos.toByteArray();
+	}
+	
+	
+	
 	
 }
