@@ -762,7 +762,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 - **/file/base64file**
 	- Codificar en base 64 (archivo)
 	- POST
-	- Body: Tipo form-daa con los valores:
+	- Body: Tipo form-data con los valores:
 		- file: archivo a codificar
 		- name: nombre del archivo
 	- Resultado: Cadena codificada
@@ -778,7 +778,40 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	- POST
 	- Body: texto a decodificar.
 	- Resultado: Archivo en si decodificado	
-	
+
+- **/file/hashtypes**
+	- Devuelve una lista de los algoritmos de hash válidos para ser utilizados en el servicio `/file/hash`
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "codigo": "MD5",
+		        "descripcion": "MD5 con longitud de 128-bit"
+		    },
+		    {
+		        "codigo": "SHA-1",
+		        "descripcion": "SHA-1 con longitud 160-bit"
+		    },
+		    {
+		        "codigo": "SHA-256",
+		        "descripcion": "SHA-256 con longitud de 256-bit"
+		    },
+		    {
+		        "codigo": "SHA-512",
+		        "descripcion": "SHA-512 con longitud de 512-bit"
+		    }
+		]
+		```		
+
+- **/file/hash**
+	- Obtener el hash de un archivo
+	- POST
+	- Body: Tipo form-data con los valores:
+		- file: archivo a codificar
+		- name: nombre del archivo
+		- type: Opcional (Por defecto "MD5"). Código del algotimo de codificación de los existentes en `/file/hashtypes`.
+	- Resultado: Cadena con el hash del archivo según algoritmo.
+
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
 

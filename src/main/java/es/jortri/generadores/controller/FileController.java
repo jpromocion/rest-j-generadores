@@ -1,11 +1,15 @@
 package es.jortri.generadores.controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.jortri.generadores.entityreturn.TipoHashReturn;
+import es.jortri.generadores.enumerados.TipoHash;
 import es.jortri.generadores.services.ArchivosService;
 
 /**
@@ -75,5 +81,40 @@ public class FileController {
     }
 	
 	
-	
+	/**
+	 * Obtener la lista de tipos hash posibles
+	 * @param results
+	 * @param type
+	 * @return
+	 */
+	@GetMapping("/hashtypes")
+	public List<TipoHashReturn> hashtypes() {
+		return archivosService.obtenerTiposHash();
+	}    
+    
+    /**
+     * Obtener el hash de un archivo
+     * 
+     * @param file Archivo a codificar
+     * @param name Nombre del archivo
+     * @param type Tipo de algotirmo de hash: MD5, SHA-1, SHA-256, SHA-512. Defecto MD5
+     * @throws IOException 
+     * @throws NoSuchAlgorithmException 
+     */
+    @PostMapping(value = "/hash", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+	public String hash(
+            @Validated @RequestParam("file") MultipartFile file,
+            @RequestParam("name") String name,
+            @RequestParam Optional<String> type
+			) throws IOException, NoSuchAlgorithmException {        
+
+    	TipoHash tipoHash = TipoHash.getByTipo(type.orElse(""));
+		if (tipoHash == null) {
+			tipoHash = TipoHash.MD5;
+		}     	
+    	
+		return archivosService.aplicarHash(file.getBytes(), tipoHash);
+	}	
+    
+    
 }
