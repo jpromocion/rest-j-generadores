@@ -279,5 +279,24 @@ public class MiscController {
 	}	
 	
 	
+	/**
+	 * Obtener una lista de uuids generados aleatoriamente
+	 * 
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @return
+	 */
+	@GetMapping("/uuid")
+	public List<String> uuid(@RequestParam String results) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+
+		List<String> listaEmails = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaEmails.add(miscServices.getUuid());
+		}
+
+		return listaEmails;
+	}		
+	
 }
 ;

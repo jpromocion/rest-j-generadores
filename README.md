@@ -525,6 +525,27 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		]
 		```		
 
+- **/misc/uuid**
+	- Devuelve una lista de UUIDs
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "9634b1bd-c39c-4462-b922-9e6b63f241ed",
+		    "acf4f88c-93f9-473c-a24e-0241c7d941f7",
+		    "9b8ab243-bf87-41c3-9863-ae4d05103df4",
+		    "cb778f2f-615e-4ff6-bf1c-b1b500800c71",
+		    "8fefc81c-c72b-4704-a4ec-4db7024f9d1a",
+		    "f439a64c-31dd-46ce-9156-713b02a2901f",
+		    "50ab2d45-d2dc-444b-887e-dabcc2d7304b",
+		    "2d91597f-d318-4620-9877-fd8fd659e794",
+		    "5be7e30a-01b4-4a34-820e-9e7e1097cf09",
+		    "b5b13d49-4949-429f-aa07-392dbcdf1682"
+		]
+		```	
+		
+
 - **/number/random**
 	- Devuelve una lista de números aleatorios
 	- Parámetros:

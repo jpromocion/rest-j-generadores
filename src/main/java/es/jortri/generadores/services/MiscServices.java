@@ -3,6 +3,7 @@ package es.jortri.generadores.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -292,6 +293,17 @@ public class MiscServices {
 	 */
 	public String conformarCodigoPromocional(String charset, int length, String pattern, String prefix, String suffix) {		
 		return generarCodigoPromocional(charset, length, pattern, prefix, suffix);
+	}
+	
+	/**
+	 * Generar un uuid
+	 * https://www.uuidgenerator.net/dev-corner/java
+	 * https://www.baeldung.com/java-uuid
+	 * @return
+	 */
+	public String getUuid() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
 	}
 	
 }
