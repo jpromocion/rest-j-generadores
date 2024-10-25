@@ -841,6 +841,142 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	- Resultado: Archivo zip en si mismo.
 
 
+- **/color/color**	
+	- Devuelve una lista de colores generadas aleatoriamente
+	- Parámetros:
+		- results: Número de colores a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "red": 147,
+		        "green": 163,
+		        "blue": 57,
+		        "hex": "#93a339"
+		    },
+		    ...
+		]
+		```	
+		
+- **/color/hexToRgb**
+	- Convertir color hexadecimal en RGB
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+	- Resultado: Valor RGB. Ejemplo: "rgb(63,117,87)".
+				
+
+- **/color/rgbToHex**
+	- Convertir color RGB a hexadecimal
+	- Parámetros:
+		- red: Valor rojo.
+		- green: Valor verde.
+		- blue: Valor azul.
+	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
+	
+- **/color/lighten**
+	- Aclarar un color
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+		- amount: Valor de aclarado 0-100.
+	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
+
+- **/color/darken**
+	- Oscurecer un color
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+		- amount: Valor de ocurecimiento 0-100.
+	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
+				
+- **/color/hue**
+	- Aplicar matíz a un color
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+		- amount: Valor de corrección de matíz. -1.0 - 1.0
+	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
+		
+- **/color/saturate**
+	- Aplicar saturazión a un color
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+		- amount: Valor de corrección de saturación. -1.0 - 1.0
+	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
+				
+- **/color/brightness**
+	- Aplicar correción de brillo a un color
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+		- amount: Porcentaje de corrección de brillo. 0 - 100
+	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
+		
+- **/color/invert**
+	- Invertir un color
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
+			
+- **/color/alpha**	
+	- Aplicar un canal alpha a un color
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+		- alpha: Valor de aplicación del alpha. 0 - 100
+	- Ejemplo resultado
+		```
+		{
+		    "red": 107,
+		    "green": 57,
+		    "blue": 146,
+		    "alpha": 127,
+		    "hex": "#6b39927f"
+		}
+		```	
+				
+- **/color/mix**
+	- Mezclar dos colores
+	- Parámetros:
+		- hexa1: Color 1 hexadecimal (con o sin #)
+		- hexa2: Color 2 hexadecimal (con o sin #)
+		- amount: Porcentaje de aplicación del color 2 sobre el 1. 0 - 100
+	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
+	
+- **/color/gradient**	
+	- Obtener una lista de gradientes de colores
+	- Parámetros:
+		- hexa1: Color 1 hexadecimal (con o sin #)
+		- hexa2: Color 2 hexadecimal (con o sin #)
+		- numberOfGradients: Número de gradientes a generar. 1 - 1000
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "red": 255,
+		        "green": 0,
+		        "blue": 0,
+		        "alpha": 0,
+		        "hex": "#ff0000"
+		    },
+		    ...
+		]
+		```		
+		
+- **/color/monochrome**	
+	- Obtener una lista de gradientes de colores monocromáticos
+	- Parámetros:
+		- hexa: Color hexadecimal (con o sin #)
+		- numberOfColors: Número de colores a generar. 1 - 1000
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "red": 255,
+		        "green": 0,
+		        "blue": 0,
+		        "alpha": 0,
+		        "hex": "#ff0000"
+		    },
+		    ...
+		]
+		```				
+			
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
 

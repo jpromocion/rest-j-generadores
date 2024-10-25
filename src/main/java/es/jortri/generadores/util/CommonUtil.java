@@ -335,6 +335,17 @@ public class CommonUtil {
 		return sb.toString();
 	}
 
-
+	/**
+	 * Corregir un color hexadecimal para incorporar el #
+	 * @param hexa
+	 * @return
+	 */
+	public static String corregirHexadecimal(String hexa) {
+		String hexaCorre = hexa;
+		if (hexaCorre.charAt(0) != '#') {
+			hexaCorre = "#" + hexaCorre;
+		}
+		return hexaCorre;
+	}
 
 }
