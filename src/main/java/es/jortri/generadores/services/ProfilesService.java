@@ -72,11 +72,10 @@ public class ProfilesService {
 	@Autowired
 	private BankServices bankServices;
 
+	@Autowired
+	private DateServices dateServices;
+	
 	private Random semilla;
-
-	private static final int MAX_EDAD = 100;
-
-	private static final int MIN_EDAD = 18;
 
 	private static final char PREFIJO_TLF_MOVIL = '6';
 
@@ -564,50 +563,7 @@ public class ProfilesService {
 		return codpostal.getCodpostal();
 	}	
 	
-	
-	/**
-	 * GEnerar una fecha futuro aleatoria entre dos margenes
-	 * @param offsetInicial Años que se incrementan sobre el inicio para el periodo a considerar
-	 * @param offsetFinal Años que se incrementan sobre el fin para el periodo a considerar
-	 * @return
-	 */
-	public Date generarFechaFutura(int offsetInicial, int offsetFinal) {
-		Calendar calFin = Calendar.getInstance();
-		calFin.add(Calendar.YEAR, offsetInicial);
-		Calendar calIni = Calendar.getInstance();
-		calIni.add(Calendar.YEAR, offsetFinal);
-		return CommonUtil.getFechaAleatoria(calIni.getTime(), calFin.getTime());
-	}	
 
-	/**
-	 * GEnerar una fecha de nacimiento aleatoria entre dos edades
-	 * @param minEdad Años que se restan para obtener la edad mas joven 
-	 * sobre la que generar la fecha
-	 * @param maxEdad Años que se restan para obtener la edad mas adulta 
-	 * sobre la que generar la fecha
-	 * @return
-	 */
-	public Date generarFechaNacimiento(int minEdad, int maxEdad) {
-		Calendar calFin = Calendar.getInstance();
-		calFin.add(Calendar.YEAR, -minEdad);
-		Calendar calIni = Calendar.getInstance();
-		calIni.add(Calendar.YEAR, -maxEdad);
-		return CommonUtil.getFechaAleatoria(calIni.getTime(), calFin.getTime());
-	}
-	
-	/**
-	 * GEnerar una fecha de nacimiento aleatoria entre las edades 
-	 * de 18 y 100 años
-	 * @return
-	 */
-	public Date generarFechaNacimiento() {
-		//por defecto generamos una fgecha entre 18 y 100 años
-		Calendar calFin = Calendar.getInstance();
-		calFin.add(Calendar.YEAR, -MIN_EDAD);
-		Calendar calIni = Calendar.getInstance();
-		calIni.add(Calendar.YEAR, -MAX_EDAD);
-		return CommonUtil.getFechaAleatoria(calIni.getTime(), calFin.getTime());
-	}	
 	
 	/**
 	 * Conformar los datos de una persona completamente aleatoria a devolver
@@ -641,7 +597,7 @@ public class ProfilesService {
 		persona.setNombreCompleto(persona.getNombre() + " " + persona.getApellido1() + " " + persona.getApellido2());
 
 		// fecha nacimiento
-		Date fechaNacimiento = generarFechaNacimiento();
+		Date fechaNacimiento = dateServices.generarFechaNacimiento();
 		// fijamos la fecha en formato dd/mm/yyyy
 		persona.setFechaNacimiento(CommonUtil.getFechaFormateada(fechaNacimiento));
 		Calendar cal = Calendar.getInstance();

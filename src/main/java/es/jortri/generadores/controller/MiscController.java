@@ -110,43 +110,7 @@ public class MiscController {
 	}	
 		
 	
-	/**
-	 * Obtener una lista de fechas de nacimiento
-	 * 
-	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
-	 * @return
-	 */
-	@GetMapping("/birthdate")
-	public List<String> birthdate(@RequestParam String results) {
-
-		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
-
-		List<String> listaFechas= new ArrayList<String>();
-		for (int i = 0; i < resultsInt; i++) {
-			listaFechas.add(miscServices.conformarFechaNacimiento());
-		}
-
-		return listaFechas;
-	}		
 	
-	/**
-	 * Obtener una lista de fechas a futuro
-	 * 
-	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
-	 * @return
-	 */
-	@GetMapping("/futuredate")
-	public List<String> futuredate(@RequestParam String results) {
-
-		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
-
-		List<String> listaFechas= new ArrayList<String>();
-		for (int i = 0; i < resultsInt; i++) {
-			listaFechas.add(miscServices.conformarFechaFuturo());
-		}
-
-		return listaFechas;
-	}		
 	
 	/**
 	 * Obtener una lista de ciudades aleatorias

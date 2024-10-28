@@ -124,23 +124,7 @@ public class MiscServices {
 		
 	}		
 	
-	/**
-	 * Generar una fecha nacimiento
-	 * 
-	 * @return
-	 */
-	public String conformarFechaNacimiento() {
-		return CommonUtil.getFechaFormateada(profilesService.generarFechaNacimiento());
-	}	
 	
-	/**
-	 * Generar una fecha a futuro
-	 * 
-	 * @return
-	 */
-	public String conformarFechaFuturo() {
-		return CommonUtil.getFechaFormateada(profilesService.generarFechaFutura(1,100));
-	}		
 	
 	/**
 	 * Generar una ciudad

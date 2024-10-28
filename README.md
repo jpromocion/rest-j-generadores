@@ -360,40 +360,6 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		]
 		```				
 
-- **/misc/birthdate**
-	- Devuelve una lista de fechas de nacimiento (Edades entre 18-100)
-	- Parámetros:
-		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
-	- Ejemplo resultado
-		```
-		[
-		    "24/02/1930",
-		    "26/02/1993",
-		    "24/09/1933",
-		    "18/03/1998",
-		    "01/07/1994",
-		    "01/12/1988",
-		    "19/02/2004"
-		]
-		```	
-
-- **/misc/futuredate**
-	- Devuelve una lista de fechas de a futuro (Entre 1-100 años futuros)
-	- Parámetros:
-		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
-	- Ejemplo resultado
-		```
-		[
-		    "19/07/2062",
-		    "16/06/2093",
-		    "05/03/2035",
-		    "16/08/2057",
-		    "23/07/2123",
-		    "29/07/2081",
-		    "13/05/2086"
-		]
-		```	
-		
 - **/misc/city**
 	- Devuelve una lista de ciudades aleatoria
 	- Parámetros:
@@ -976,6 +942,42 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    ...
 		]
 		```				
+			
+
+- **/date/birthdate**
+	- Devuelve una lista de fechas de nacimiento (Edades entre 18-100)
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "24/02/1930",
+		    "26/02/1993",
+		    "24/09/1933",
+		    "18/03/1998",
+		    "01/07/1994",
+		    "01/12/1988",
+		    "19/02/2004"
+		]
+		```	
+
+- **/date/futuredate**
+	- Devuelve una lista de fechas de a futuro (Entre 1-100 años futuros)
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "19/07/2062",
+		    "16/06/2093",
+		    "05/03/2035",
+		    "16/08/2057",
+		    "23/07/2123",
+		    "29/07/2081",
+		    "13/05/2086"
+		]
+		```	
+					
 			
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
