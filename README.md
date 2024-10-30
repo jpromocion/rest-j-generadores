@@ -44,8 +44,10 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/demo/hola**
 	- Devuelve la cadena "Hola Mundo"
+	- GET	
 - **/doi/nif**
 	- Devuelve una lista de NIFs
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -58,6 +60,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		```	
 - **/doi/validatenif**
 	- Comprueba si un NIF es válido
+	- GET
 	- Parámetros:
 		- nif: NIF a validar
 	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.		
@@ -75,11 +78,13 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		```	
 - **/doi/validatenie**
 	- Comprueba si un NIE es válido
+	- GET
 	- Parámetros:
 		- nie: NIE a validar
 	- Resultado: "OK" si nie es válido. "ERROR" en otro caso.		
 - **/doi/cif**
 	- Devuelve una lista de CIFs
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- custom_letter: Letra de inicio del CIF. Si se informa con una letra de CIF válida, los cifs se generan para esa letra. En otro caso los genera con letra aleatoria.
@@ -93,12 +98,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		```	
 - **/doi/validatecif**
 	- Comprueba si un CIF es válido
+	- GET
 	- Parámetros:
 		- cif: CIF a validar
 	- Resultado: "OK" si cif es válido. "ERROR" en otro caso.	
 	
 - **/profiles/person**	
 	- Devuelve una lista de datos de una persona generados aleatoriamente
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- gender: Genero persona devolver. Defecto nulo no filtra. En otro caso: male, female
@@ -142,6 +149,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/profiles/company**	
 	- Devuelve una lista de datos de una empresa generados aleatoriamente
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -173,6 +181,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/bank/account**	
 	- Devuelve una lista de cuentas bancarias generadas aleatoriamente
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -192,6 +201,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/bank/card**
 	- Devuelve una lista de tarjetas de crédito generadas aleatoriamente
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- type: Opcional, en caso de generar de una marca concreta: americanexpress, visa, mastercard, discover
@@ -211,18 +221,21 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/bank/validateiban**
 	- Comprueba si un IBAN es valido
+	- GET
 	- Parámetros:
 		- iban: IBAN a validar. Ejemplo: ES8921032698618414341240
 	- Resultado: "OK" si iban es válido. "ERROR" en otro caso.	
 	
 - **/bank/validatecard**
 	- Comprueba si un número de tarjeta de crédito es valido
+	- GET
 	- Parámetros:
 		- card: Tarjeta a validar. Ejemplo: 4544363578091115
 	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.	
 	
 - **/text/word**
 	- Devuelve una lista de palabras generadas aleatoriamente.
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- words: Opcional, número de palabras dentro de cada resultado. Por defecto 100.
@@ -236,6 +249,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		```		
 - **/text/characters**
 	- Devuelve una lista de palabras generadas aleatoriamente con el tamaño máximo de carácteres especificado.
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- characters: Opcional, número de carácteres de la lista de palabras final resultado. Por defecto 100.
@@ -250,6 +264,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/text/paragraphs**
 	- Devuelve una lista que contine cada elemento un texto generado aleatoriamente con el número de parráfos indicado
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- paragraphs: Opcional, número de parráfos en cada resultado. Por defecto 5. Máximo: 20.
@@ -264,6 +279,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/vehicle/platenumber**
 	- Devuelve una lista de matriculas de vehiculos de España.
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- type: Opcional, indicar el tipo de matricula a generarse: t (Turismo), c (Ciclomotor), r (Remolque), e (Especial), u (Turístico), h (Histórico), tp (Temporal particular), te (Temporal empresa), d (Diplomática). De no indicarse o indicarse algo erroneo se generar para turismos.
@@ -282,6 +298,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 			
 - **/vehicle/vin**
 	- Devuelve una lista de números de bastidor.
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -299,6 +316,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 				
 - **/vehicle/validatevin**
 	- Comprueba si un número de bastidor es válido.
+	- GET
 	- Parámetros:
 		- vin: Número de bastidor. Ejemplo: 1FTWF32Y191LCYKS0
 	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.	
@@ -306,6 +324,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/misc/email**
 	- Devuelve una lista de emails
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -323,6 +342,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/misc/password**
 	- Devuelve una lista de passwords
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- length: Longitud del password. Minimo 15, defecto 21.
@@ -344,6 +364,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/misc/phonenumber**
 	- Devuelve una lista de telefonos
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- type: "f" fijo, "m" movil. Si omite genera de ambos aleatoriamente.
@@ -362,6 +383,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/misc/city**
 	- Devuelve una lista de ciudades aleatoria
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -379,6 +401,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/misc/zipcode**
 	- Devuelve una lista de códigos postales
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -396,6 +419,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/misc/imei**
 	- Devuelve una lista de códigos IMEI
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -413,6 +437,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/misc/ccaa**
 	- Devuelve una lista de CCAA de España
+	- GET
 	- Ejemplo resultado
 		```
 		[
@@ -430,6 +455,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/misc/provincias**
 	- Devuelve una lista de provincias de España dentro de la CCAA indicada
+	- GET
 	- Parámetros:
 		- idccaa: identificador de la CCAA obtenido del servicio */misc/ccaa*
 	- Ejemplo resultado
@@ -449,6 +475,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/misc/municipios**
 	- Devuelve una lista de municipios de España dentro de la Provincia indicada
+	- GET
 	- Parámetros:
 		- idprovincia: identificador de la Provincia obtenido del servicio */misc/provincias*
 	- Ejemplo resultado
@@ -468,6 +495,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/misc/voucher**
 	- Devuelve una lista de códigos promocionales formateados
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- charset: Opcional. Conjunto de caracteres que se usaran para la generación. Por defecto: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".
@@ -493,6 +521,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/misc/uuid**
 	- Devuelve una lista de UUIDs
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -514,6 +543,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/number/random**
 	- Devuelve una lista de números aleatorios
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- minimum: Opcional. Mínimo valor. Por defecto 0.
@@ -538,6 +568,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/number/coin**
 	- Obtener una lista de lanzamientos de moneda
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- faceSymbol: Opcional. simbolo para cara. por defecto O.
@@ -560,6 +591,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/number/dice**
 	- Obtener una lista de lanzamientos de dado
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -580,6 +612,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/number/gauss**
 	- Devuelve una lista aleatoria de numeros por el método gauss
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- mean: Opcional. Media. Por defecto 0
@@ -603,6 +636,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/number/calculator**
 	- Realiza una operacion de calculadora con los parametros dados
+	- GET
 	- Parámetros:
 		- operand: Operando a realizar. VAlores válidos: +, -, *, /, resto, potencia, porcentaje, factorial, factorial, logaritmo, logaritmoNaturalNeperiano, logaritmoBase2, logaritmoBaseX, raizCuadrada, raizCubica, raizN. En caso de introducir algo distino opera con "+".
 		- number1: Primer número
@@ -612,6 +646,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/number/proportion**
 	- Realiza la operacion de una regla de tres directa o indirecta: a -> b , c -> x , para despegar X.
+	- GET
 	- Parámetros:
 		- numberA: Valor A
 		- numberB: Valor B
@@ -622,6 +657,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/number/area**
 	- Calcular el area de algunas formas trigonometricas
+	- GET
 	- Parámetros:
 		- type: Forma: cuadrado, rectangulo, triangulo, paralelogramo, trapezoide, circulo, elipse. De asignar otra cosa se supondrá "cuadrado".
 		- numberA: Valor A. Según cada forma implica un valor:
@@ -646,6 +682,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/number/degreesToRadians**
 	- Convertir grados en radianes
+	- GET
 	- Parámetros:
 		- degrees: Grados
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
@@ -653,6 +690,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/number/radiansToDegrees**
 	- Convertir grados en radianes
+	- GET
 	- Parámetros:
 		- radians: Radianes
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
@@ -660,6 +698,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/number/trigonometric**
 	- Calcular funciones trigonometricas
+	- GET
 	- Parámetros:
 		- type: Funcion: seno, coseno, tangente, cotangente, cosecante, secante, arcoseno, arcocoseno, arcotangente, senohiperbolico, cosenohiperbolico, tangentehiperbolico.
 		- number: Valor
@@ -669,6 +708,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/number/baseConverter**
 	- Conversor de base numerica
+	- GET
 	- Parámetros:
 		- number: Numero a convertir
 		- baseFrom: Base de origen. Desde 2 a 36. Incorrecto tomara 10.
@@ -677,12 +717,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/number/arabicToRoman**
 	- Convertir un numero a romano
+	- GET
 	- Parámetros:
 		- number: Número arábigo
 	- Resultado: Valor en número romano. Ejemplo: "XXIV".
 
 - **/number/romanToArabic**
 	- Convertir un numero romano a arabigo
+	- GET
 	- Parámetros:
 		- number: Número romano
 	- Resultado: Valor en número arábigo. Ejemplo: "19".	
@@ -698,6 +740,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/barcodes/ean13**
 	- Generar código de barras EAN13
+	- GET
 	- Parámetros:
 		- width: Opcional. Ancho imagen (pixeles)
 		- height: Opcional. Alto imagen (pixeles)
@@ -706,6 +749,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/barcodes/upca**
 	- Generar código de barras UPCA
+	- GET
 	- Parámetros:
 		- width: Opcional. Ancho imagen (pixeles)
 		- height: Opcional. Alto imagen (pixeles)
@@ -714,6 +758,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/barcodes/upce**
 	- Generar código de barras UPCE
+	- GET
 	- Parámetros:
 		- width: Opcional. Ancho imagen (pixeles)
 		- height: Opcional. Alto imagen (pixeles)
@@ -768,6 +813,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/file/hashtypes**
 	- Devuelve una lista de los algoritmos de hash válidos para ser utilizados en el servicio `/file/hash`
+	- GET
 	- Ejemplo resultado
 		```
 		[
@@ -809,6 +855,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/color/color**	
 	- Devuelve una lista de colores generadas aleatoriamente
+	- GET
 	- Parámetros:
 		- results: Número de colores a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -826,6 +873,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/color/hexToRgb**
 	- Convertir color hexadecimal en RGB
+	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 	- Resultado: Valor RGB. Ejemplo: "rgb(63,117,87)".
@@ -833,6 +881,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/color/rgbToHex**
 	- Convertir color RGB a hexadecimal
+	- GET
 	- Parámetros:
 		- red: Valor rojo.
 		- green: Valor verde.
@@ -841,6 +890,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/color/lighten**
 	- Aclarar un color
+	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Valor de aclarado 0-100.
@@ -848,6 +898,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/color/darken**
 	- Oscurecer un color
+	- GET+
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Valor de ocurecimiento 0-100.
@@ -855,6 +906,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 				
 - **/color/hue**
 	- Aplicar matíz a un color
+	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Valor de corrección de matíz. -1.0 - 1.0
@@ -862,6 +914,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/color/saturate**
 	- Aplicar saturazión a un color
+	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Valor de corrección de saturación. -1.0 - 1.0
@@ -869,6 +922,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 				
 - **/color/brightness**
 	- Aplicar correción de brillo a un color
+	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Porcentaje de corrección de brillo. 0 - 100
@@ -876,12 +930,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/color/invert**
 	- Invertir un color
+	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
 			
 - **/color/alpha**	
 	- Aplicar un canal alpha a un color
+	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 		- alpha: Valor de aplicación del alpha. 0 - 100
@@ -898,6 +954,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 				
 - **/color/mix**
 	- Mezclar dos colores
+	- GET
 	- Parámetros:
 		- hexa1: Color 1 hexadecimal (con o sin #)
 		- hexa2: Color 2 hexadecimal (con o sin #)
@@ -906,6 +963,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	
 - **/color/gradient**	
 	- Obtener una lista de gradientes de colores
+	- GET
 	- Parámetros:
 		- hexa1: Color 1 hexadecimal (con o sin #)
 		- hexa2: Color 2 hexadecimal (con o sin #)
@@ -926,6 +984,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		
 - **/color/monochrome**	
 	- Obtener una lista de gradientes de colores monocromáticos
+	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 		- numberOfColors: Número de colores a generar. 1 - 1000
@@ -946,6 +1005,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/date/birthdate**
 	- Devuelve una lista de fechas de nacimiento (Edades entre 18-100)
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -963,6 +1023,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/date/futuredate**
 	- Devuelve una lista de fechas de a futuro (Entre 1-100 años futuros)
+	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 	- Ejemplo resultado
@@ -977,7 +1038,124 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "13/05/2086"
 		]
 		```	
-					
+
+- **/date/age**
+	- Calcula la edad con la fecha de nacimiento (con respecto al momento actual en que se consulta)
+	- GET
+	- Parámetros:
+		- birthDate: Fecha nacimiento. Formato "dd/MM/yyyy HH:mm:ss".
+	- Ejemplo resultado
+		```
+		{
+		    "anyos": 40,
+		    "meses": 485,
+		    "dias": 14791,
+		    "horas": 354984,
+		    "minutos": 21299057,
+		    "segundos": 1277943458,
+		    "anyosRelativos": 40,
+		    "mesesRelativos": 5,
+		    "diasRelativos": 28,
+		    "horasRelativos": 0,
+		    "minutosRelativos": 17,
+		    "segundosRelativos": 38
+		}
+		```				
+			
+- **/date/datediff**
+	- Calcula la diferencia entre dos fechas
+	- GET
+	- Parámetros:
+		- startDate: Fecha inicial. Formato "dd/MM/yyyy HH:mm:ss".
+		- endDate: Fecha final. Formato "dd/MM/yyyy HH:mm:ss".
+	- Ejemplo resultado
+		```
+		{
+		    "anyos": 40,
+		    "meses": 485,
+		    "dias": 14791,
+		    "horas": 354984,
+		    "minutos": 21299057,
+		    "segundos": 1277943458,
+		    "anyosRelativos": 40,
+		    "mesesRelativos": 5,
+		    "diasRelativos": 28,
+		    "horasRelativos": 0,
+		    "minutosRelativos": 17,
+		    "segundosRelativos": 38
+		}
+		```		
+		
+- **/date/dateoperation**
+	- Realiza una suma o resta sobre una fecha
+	- GET
+	- Parámetros:
+		- date: Fecha inicial. Formato "dd/MM/yyyy HH:mm:ss".
+		- operation: Operación a aplicar: "sum" sumar o "res" restar.
+		- years: Años a incrementar/decrementar.
+		- months: Meses a incrementar/decrementar.
+		- days: Días a incrementar/decrementar.
+		- hours: Horas a incrementar/decrementar.
+		- minutes: Minutos a incrementar/decrementar.
+		- seconds: Segundos a incrementar/decrementar.
+	- Resultado: Fecha resultante. Formato "dd/MM/yyyy HH:mm:ss". Ejemplo "02/05/1984 14:00:00".
+	
+- **/date/dayofweek**
+	- Comprueba el día de la semana para una fecha dada
+	- GET
+	- Parámetros:
+		- date: Fecha. Formato "dd/MM/yyyy HH:mm:ss".
+	- Resultado: Día de la semana. Ejemplo "Lunes".
+		
+- **/date/unixtimeToTime**
+	- Dado un tiempo unix UTC, calcula las fecha/tiempo correspondiente en UTC y local.
+	- GET
+	- Parámetros:
+		- unixTime: Tiempo unix UTC.
+	- Ejemplo resultado
+		```
+		{
+		    "tiempoUnixUTC": 1730199192,
+		    "fechaUTC": "2024-10-29T10:53:12",
+		    "fechaLocal": "2024-10-29T11:53:12"
+		}
+		```		
+		
+- **/date/timeToUnixtime**
+	- Dado un fecha/tiempo local (Europe/Madrid) obtiene el tiempo unix UTC correspondiente
+	- GET
+	- Parámetros:
+		- date: Fecha local. Formato "dd/MM/yyyy HH:mm:ss".
+	- Ejemplo resultado
+		```
+		{
+		    "tiempoUnixUTC": 1730199192,
+		    "fechaUTC": "2024-10-29T10:53:12",
+		    "fechaLocal": "2024-10-29T11:53:12"
+		}
+		```		
+		
+- **/date/holyWeek**
+	- Devuelve las fechas Semana Santa (Pascua) de un año
+	- GET
+	- Parámetros:
+		- year: Año a consultar
+	- Ejemplo resultado
+		```
+		{
+		    "fechaDomingoRamos": "2024-03-24T11:00:00.000+00:00",
+		    "fechaLunesSanto": "2024-03-25T11:00:00.000+00:00",
+		    "fechaMartesSanto": "2024-03-26T11:00:00.000+00:00",
+		    "fechaMiercolesSanto": "2024-03-27T11:00:00.000+00:00",
+		    "fechaJuevesSanto": "2024-03-28T11:00:00.000+00:00",
+		    "fechaViernesSanto": "2024-03-29T11:00:00.000+00:00",
+		    "fechaSabadoSanto": "2024-03-30T11:00:00.000+00:00",
+		    "fechaDomingoResurreccion": "2024-03-31T10:00:00.000+00:00",
+		    "fechaLunesPeriodoVacacional": "2024-03-25T11:00:00.000+00:00",
+		    "fechaDomingoPeriodoVacacional": "2024-04-07T10:00:00.000+00:00"
+		}
+		```				
+			
 			
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
