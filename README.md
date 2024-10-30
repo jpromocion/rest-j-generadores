@@ -491,6 +491,33 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
+		```			
+		
+- **/misc/address**
+	- Devuelve los datos de una lista de domicilios.
+	- GET
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- ineccaa: Opcional. Código INE de la CCAA si queremos filtrar por una concreta.
+		- ineprovincia: Opcional. Coódigo INE de la provincia si queremos filtrar por una concreta. 
+		- inemunicipio: Opcional. Coódigo INE del municipio si queremos filtrar por uno concreto. NOTA: El INE del municipio no puede identificar un municipio por si solo, requiere de al menos la provincia.
+	- Ejemplo resultado
+		```
+		[
+		    {
+		        "direccion": "Camino España Mirtha Maria Mascuñana",
+		        "numVia": "59",
+		        "codPostal": "04878",
+		        "ineMunicipio": "084",
+		        "municipio": "Villaverde de Guadalimar",
+		        "ineProvincia": "04",
+		        "provincia": "Almería",
+		        "ineCcaa": "01",
+		        "ccaa": "Andalucía",
+		        "direccionCompleta": "Camino España Mirtha Maria Mascuñana, 59, 04878, Villaverde de Guadalimar (Almería). Andalucía."
+		    },
+		    ...
+		]
 		```									
 
 - **/misc/voucher**

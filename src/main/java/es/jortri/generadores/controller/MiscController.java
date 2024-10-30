@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.jortri.generadores.entityreturn.CcaaReturn;
+import es.jortri.generadores.entityreturn.DireccionCompletaReturn;
 import es.jortri.generadores.entityreturn.MunicipioReturn;
 import es.jortri.generadores.entityreturn.ProvinciaReturn;
 import es.jortri.generadores.services.MiscServices;
@@ -199,6 +200,32 @@ public class MiscController {
 	public List<MunicipioReturn> municipios(@RequestParam String idprovincia) {
 		return miscServices.listarMunicipios(idprovincia);
 	}		
+	
+	/**
+	 * Obtener una lista de direcciones
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @param ineccaa Opcional, código INE de la CCAA
+	 * @param ineprovincia Opcional, código INE de la provincia
+	 * @param inemunicipio Opcional, código INE del municipio
+	 * @return Lista del tipo de direccion a devolver
+	 */
+	@GetMapping("/address")
+	public List<DireccionCompletaReturn> address(@RequestParam String results, @RequestParam Optional<String> ineccaa,
+			@RequestParam Optional<String> ineprovincia, @RequestParam Optional<String> inemunicipio) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+
+		String ineccaaRev = ineccaa.orElse("");
+		String ineprovinciaRev = ineprovincia.orElse("");
+		String inemunicipioRev = inemunicipio.orElse("");
+
+		List<DireccionCompletaReturn> listaDirecciones = new ArrayList<DireccionCompletaReturn>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaDirecciones.add(miscServices.conformarDireccionCompletaTrata(ineccaaRev, ineprovinciaRev, inemunicipioRev));
+		}
+
+		return listaDirecciones;
+	}
 	
 	/**
 	 * Obtener una lista de códigos promocionales formateados

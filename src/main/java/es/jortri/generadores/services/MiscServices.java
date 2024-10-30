@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.jortri.generadores.entityreturn.CcaaReturn;
+import es.jortri.generadores.entityreturn.DireccionCompletaReturn;
 import es.jortri.generadores.entityreturn.MunicipioReturn;
 import es.jortri.generadores.entityreturn.ProvinciaReturn;
 import es.jortri.generadores.model.Ccaa;
@@ -222,6 +223,102 @@ public class MiscServices {
 
 		return listaMunicipioReturn;
 	}
+	
+	
+	/**
+	 * Genera una direccion completa
+	 * @param idCcaa
+	 * @param idProvincia
+	 * @param idMunicipio
+	 * @return
+	 */
+	public DireccionCompletaReturn conformarDireccionCompleta(Ccaa ccaa, Provincias provincia, Municipios municipio) {
+		DireccionCompletaReturn direccion = new DireccionCompletaReturn();
+				
+		direccion.setDireccion(profilesService.generaDireccionRandom());
+		direccion.setNumVia(Integer.toString(semilla.nextInt(1, 999)));
+		direccion.setIneCcaa(ccaa.getId());
+		direccion.setCcaa(ccaa.getNombre());
+		direccion.setIneProvincia(provincia.getId());
+		direccion.setProvincia(provincia.getNombre());
+		direccion.setIneMunicipio(municipio.getCodigoine());
+		direccion.setMunicipio(municipio.getNombre());			
+		direccion.setCodPostal(profilesService.generarCodPostalRandom(provincia.getId(), municipio.getCodigoine()));
+		
+		direccion.fijarDireccionCompleta();
+				
+		return direccion;
+	}
+
+	
+	/**
+	 * Devolver direccion completa, sobrecargando tratamiento de lo que tiene o no relleno de parametros
+	 * @param idCcaa
+	 * @param idProvincia
+	 * @param idMunicipio
+	 * @return
+	 */
+	public DireccionCompletaReturn conformarDireccionCompletaTrata(String ineCcaa, String ineProvincia, String ineMunicipio) throws IllegalArgumentException {
+		
+		//Conformemos todas las posibilidades: 
+		//  -puede recibir los 3 -> conformarDireccionCompleta directamente
+		//  -puede no recibir ninguno -> se generan CCAA -> provincia -> municipio aleatoriamente
+		//  -Puede recibir solo CCAA o solo CCAA y provincia, en cuyo caso genera aleatoriamente los restantes
+		//  -Pero tambien puede recibir solo provincia y municipio, en cuyo caso debe recuperar los
+		//   superiores por la relacion padre-hijo que tienen. 
+		//  -Puede recibir solo provincia, en cuyo caso debe recuperar la CCAA y generar aleatoriamente el municipio
+		// NOTA. provin/muni son pk conjunta, no se puede recibir separados esos casos lanzaran excepcion
+		Ccaa ccaa = null;
+		Provincias provincia = null;
+		Municipios municipio = null;
+		
+		if (!ineCcaa.isEmpty() && !ineProvincia.isEmpty() && !ineMunicipio.isEmpty()) {
+			ccaa = profilesService.getCcaa(ineCcaa);
+			provincia = profilesService.getProvincia(ineProvincia);
+			municipio = profilesService.getMunicipioPorIne(ineProvincia,ineMunicipio);
+		} else if (ineCcaa.isEmpty() && ineProvincia.isEmpty() && ineMunicipio.isEmpty()) {
+			ccaa = profilesService.generarCCAARandom();
+			provincia = profilesService.generarProvinciaRandom(ccaa.getId());
+			municipio = profilesService.generarMunicipioRandom(provincia.getId());	
+		} else if (
+					(!ineCcaa.isEmpty() && ineProvincia.isEmpty() && ineMunicipio.isEmpty())
+					|| (!ineCcaa.isEmpty() && !ineProvincia.isEmpty() && ineMunicipio.isEmpty())
+				) {
+			ccaa = profilesService.getCcaa(ineCcaa);
+			if (ineProvincia.isEmpty()) {
+				provincia = profilesService.generarProvinciaRandom(ccaa.getId());
+			} else {
+				provincia = profilesService.getProvincia(ineProvincia);
+				if (!ineCcaa.equals(provincia.getIdccaa())) {
+					throw new IllegalArgumentException("La provincia no pertenece a la CCAA indicada");
+				}				
+			}
+			municipio = profilesService.generarMunicipioRandom(provincia.getId());
+		} else if (!ineMunicipio.isEmpty() && !ineProvincia.isEmpty() && ineCcaa.isEmpty()) {
+			provincia = profilesService.getProvincia(ineProvincia);
+			municipio = profilesService.getMunicipioPorIne(ineProvincia, ineMunicipio);
+			if (!ineProvincia.equals(municipio.getIdprovincias())) {
+				throw new IllegalArgumentException("El municipio no pertenece a la provincia indicada");
+			}
+						
+			ccaa = profilesService.getCcaa(provincia.getIdccaa());					
+		} else if (!ineProvincia.isEmpty() && ineCcaa.isEmpty() && ineMunicipio.isEmpty()) {
+			provincia = profilesService.getProvincia(ineProvincia);
+			ccaa = profilesService.getCcaa(provincia.getIdccaa());
+			municipio = profilesService.generarMunicipioRandom(provincia.getId());
+		} else {
+			throw new IllegalArgumentException("Los parámetros proporcionados no son adecuados para generar");
+		}
+		
+		
+		if (ccaa == null || provincia == null || municipio == null) {
+			throw new IllegalArgumentException("No se han encontrado los datos de CCAA, Provincia o Municipio");
+		}
+		
+		return conformarDireccionCompleta(ccaa, provincia, municipio);
+	}
+	
+	
 	/**
 	 * Genera la parte de un codigo promocional correspondiente a un patron
 	 * con separacion de guiones indicado

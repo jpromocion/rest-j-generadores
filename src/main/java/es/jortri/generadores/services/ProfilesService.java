@@ -379,7 +379,7 @@ public class ProfilesService {
 	 * 
 	 * @return
 	 */
-	private Ccaa generarCCAARandom() {
+	public Ccaa generarCCAARandom() {
 		List<Ccaa> listaCCAA = ccaaRepository.findAll();
 
 		// si solo hay una opcion... no hay aleatoriedad posible
@@ -401,13 +401,22 @@ public class ProfilesService {
 
 		return listaCCAA;
 	}	
+	
+	/**
+	 * Dame CCAA por su id
+	 * @param id
+	 * @return CCAA
+	 */
+	public Ccaa getCcaa(String id) {
+		return ccaaRepository.findById(id).get();
+	}
 
 	/**
 	 * Generar una provincia aleatoria dentro de una comunidad autonoma
 	 * 
 	 * @return
 	 */
-	private Provincias generarProvinciaRandom(String idCcaa) {
+	public Provincias generarProvinciaRandom(String idCcaa) {
 		List<Provincias> listProvincias = provinciasRepository.findByIdccaa(idCcaa);
 
 		// si solo hay una opcion... no hay aleatoriedad posible
@@ -431,12 +440,21 @@ public class ProfilesService {
 	}	
 	
 	/**
+	 * Dame una Provincia por su id
+	 * @param id
+	 * @return
+	 */
+	public Provincias getProvincia(String id) {
+		return provinciasRepository.findById(id).get();
+	}
+	
+	/**
 	 * Generar un municipio aleatorio dentro de una provincia
 	 * 
 	 * @param idProvincia
 	 * @return
 	 */
-	private Municipios generarMunicipioRandom(String idProvincia) {
+	public Municipios generarMunicipioRandom(String idProvincia) {
 		List<Municipios> listMunicipios = municipiosRepository.findByIdprovincias(idProvincia);
 
 		// si solo hay una opcion... no hay aleatoriedad posible
@@ -475,6 +493,25 @@ public class ProfilesService {
 	}		
 	
 	/**
+	 * Dame un municipio por su id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Municipios getMunicipio(Integer id) {
+		return municipiosRepository.findById(id).get();
+	}
+	
+	/**
+	 * Dame un municipio por su codigo INE
+	 * @param codigoine
+	 * @return
+	 */
+	public Municipios getMunicipioPorIne(String idProvin, String codigoine) {
+		return municipiosRepository.findFirstByIdprovinciasAndCodigoine(idProvin, codigoine);
+	}
+	
+	/**
 	 * Generar un tipo de via aleatorio
 	 * 
 	 * @return
@@ -496,7 +533,7 @@ public class ProfilesService {
 	 * 
 	 * @return
 	 */
-	private String generaDireccionRandom() {
+	public String generaDireccionRandom() {
 		Tipovias tipoVia = generarTipoViaRandom();
 
 		int indice = semilla.nextInt(0, NOMBRES_COMUNES_CALLEJERO.length);
