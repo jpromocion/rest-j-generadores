@@ -225,34 +225,12 @@ public class MiscServices {
 	}
 	
 	
-	/**
-	 * Genera una direccion completa
-	 * @param idCcaa
-	 * @param idProvincia
-	 * @param idMunicipio
-	 * @return
-	 */
-	public DireccionCompletaReturn conformarDireccionCompleta(Ccaa ccaa, Provincias provincia, Municipios municipio) {
-		DireccionCompletaReturn direccion = new DireccionCompletaReturn();
-				
-		direccion.setDireccion(profilesService.generaDireccionRandom());
-		direccion.setNumVia(Integer.toString(semilla.nextInt(1, 999)));
-		direccion.setIneCcaa(ccaa.getId());
-		direccion.setCcaa(ccaa.getNombre());
-		direccion.setIneProvincia(provincia.getId());
-		direccion.setProvincia(provincia.getNombre());
-		direccion.setIneMunicipio(municipio.getCodigoine());
-		direccion.setMunicipio(municipio.getNombre());			
-		direccion.setCodPostal(profilesService.generarCodPostalRandom(provincia.getId(), municipio.getCodigoine()));
-		
-		direccion.fijarDireccionCompleta();
-				
-		return direccion;
-	}
+
 
 	
 	/**
 	 * Devolver direccion completa, sobrecargando tratamiento de lo que tiene o no relleno de parametros
+	 * de CCAA, provincia, municipio para el servicio de obtener direcciones
 	 * @param idCcaa
 	 * @param idProvincia
 	 * @param idMunicipio
@@ -315,7 +293,7 @@ public class MiscServices {
 			throw new IllegalArgumentException("No se han encontrado los datos de CCAA, Provincia o Municipio");
 		}
 		
-		return conformarDireccionCompleta(ccaa, provincia, municipio);
+		return profilesService.conformarDireccionCompleta(ccaa, provincia, municipio);
 	}
 	
 	

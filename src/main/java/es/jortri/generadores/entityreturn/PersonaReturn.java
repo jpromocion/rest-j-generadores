@@ -16,15 +16,7 @@ public class PersonaReturn {
 	private String login;
 	private String email;
 	private String password;
-	private String ccaa;
-	private String ccaaIne;
-	private String provincia;
-	private String provinciaIne;
-	private String municipio;
-	private String municipioIne;
-	private String direccion;
-	private String numerovia;
-	private String codigoPostal;
+	private DireccionCompletaReturn direccion;
 	private String iban;
 	private String bic;
 	private String tarjetaCredito;
@@ -147,77 +139,13 @@ public class PersonaReturn {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getCcaa() {
-		return ccaa;
-	}
-
-	public void setCcaa(String ccaa) {
-		this.ccaa = ccaa;
-	}
-
-	public String getCcaaIne() {
-		return ccaaIne;
-	}
-
-	public void setCcaaIne(String ccaaIne) {
-		this.ccaaIne = ccaaIne;
-	}
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
-	public String getProvinciaIne() {
-		return provinciaIne;
-	}
-
-	public void setProvinciaIne(String provinciaIne) {
-		this.provinciaIne = provinciaIne;
-	}
-
-	public String getMunicipio() {
-		return municipio;
-	}
-
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
-	}
-
-	public String getMunicipioIne() {
-		return municipioIne;
-	}
-
-	public void setMunicipioIne(String municipioIne) {
-		this.municipioIne = municipioIne;
-	}
-
-	public String getDireccion() {
+	
+	public DireccionCompletaReturn getDireccion() {
 		return direccion;
 	}
-
-	public void setDireccion(String direccion) {
+	
+	public void setDireccion(DireccionCompletaReturn direccion) {
 		this.direccion = direccion;
-	}
-
-	public String getNumerovia() {
-		return numerovia;
-	}
-
-	public void setNumerovia(String numerovia) {
-		this.numerovia = numerovia;
-	}
-
-	public String getCodigoPostal() {
-		return codigoPostal;
-	}
-
-	public void setCodigoPostal(String codigoPostal) {
-		this.codigoPostal = codigoPostal;
 	}
 	
 	public String getIban() {
@@ -272,14 +200,10 @@ public class PersonaReturn {
 	public String toString() {
 		return "PersonaReturn [nif=" + nif + ", nie=" + nie + ", nombre=" + nombre + ", apellido1=" + apellido1
 				+ ", apellido2=" + apellido2 + ", genero=" + genero + ", nombreCompleto=" + nombreCompleto
-				+ ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", telefonoMovil=" + telefonoMovil + ", telefonoFijo=" + telefonoFijo
-				+ ", login=" + login + ", email=" + email + ", password=" + password
-				+ ", ccaa=" + ccaa + ", ccaaIne=" + ccaaIne + ", provincia=" + provincia + ", provinciaIne=" + provinciaIne
-				+ ", municipio=" + municipio + ", municipioIne=" + municipioIne
-				+ ", direccion=" + direccion + ", numerovia=" + numerovia + ", codigoPostal=" + codigoPostal
-				+ ", iban=" + iban + ", bic=" + bic + ", tarjetaCredito=" + tarjetaCredito
-				+ ", cvc=" + cvc + ", expiracionCredito=" + expiracionCredito + ", tipoTarjeta=" + tipoTarjeta
-				+ "]";
+				+ ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", telefonoMovil=" + telefonoMovil
+				+ ", telefonoFijo=" + telefonoFijo + ", login=" + login + ", email=" + email + ", password=" + password
+				+ ", direccion=" + direccion + ", iban=" + iban + ", bic=" + bic + ", tarjetaCredito=" + tarjetaCredito
+				+ ", cvc=" + cvc + ", expiracionCredito=" + expiracionCredito + ", tipoTarjeta=" + tipoTarjeta + "]";
 	}
 
 }

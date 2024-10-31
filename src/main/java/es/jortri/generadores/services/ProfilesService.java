@@ -12,6 +12,7 @@ import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.jortri.generadores.entityreturn.DireccionCompletaReturn;
 import es.jortri.generadores.entityreturn.EmpresaReturn;
 import es.jortri.generadores.entityreturn.PersonaReturn;
 import es.jortri.generadores.enumerados.Genero;
@@ -100,7 +101,11 @@ public class ProfilesService {
 			"San", "Héroes", "Eras", "Sol", "España" };
 	
 	public static String DOMINIOS_WEB[] = { ".com", ".org", ".net", ".edu", ".gov", ".es" };
+	
+	public static String DIRECCION_PLANTA[] = { "BAJO", "1º", "2º", "3º", "4º", "5º" };
 
+
+	
 	public ProfilesService() {
 		this.semilla = new Random();
 	}
@@ -551,6 +556,50 @@ public class ProfilesService {
 
 		return tipoVia.getNombre() + " " + nombreComun + " " + nombreFinal + " " + apellidoFinal;
 	}
+	
+	/**
+	 * Genera un numero via random
+	 * @return
+	 */
+	public String generaNumeroViaRandom() {
+		return Integer.toString(semilla.nextInt(1, 999));
+	}
+	
+	/**
+	 * Generar la parte 2 de la direccion, consistente en rellenar aleatoriamente
+	 * alguno o varios de los datos adicionales siguientes: kilometro, bloque,
+	 * portal, escalera, planta y/o puerta
+	 * @param direccion Objeto direccion relleno hasta ahora donde incorporaremos las modificaciones
+	 */
+	public void generarParte2Direccion(DireccionCompletaReturn direccion) {
+		
+		//tiene o no kilometro? random con probabilidad 1 de cada 20
+		if (semilla.nextInt(1, 20) == 1) {
+			direccion.setKilometro(Integer.toString(semilla.nextInt(1, 999)));
+		}
+		//tiene bloque? randon con probabilidad 1 de cada 10
+		if (semilla.nextInt(1, 10) == 1) {
+			direccion.setBloque(Integer.toString(semilla.nextInt(1, 15)));
+		}
+		
+		//tiene portal? random con probabilidad 1 de cada 10
+		if (semilla.nextInt(1, 10) == 1) {
+			direccion.setPortal(Integer.toString(semilla.nextInt(1, 15)));
+		}
+		
+		//tiene escalera? random con probabilidad 1 de cada 10
+		if (semilla.nextInt(1, 10) == 1) {
+			direccion.setEscalera(Integer.toString(semilla.nextInt(1, 9)));
+		}
+		
+		//tiene planta? -> siempre.
+		int indice = semilla.nextInt(0, DIRECCION_PLANTA.length);
+		direccion.setPlanta(DIRECCION_PLANTA[indice]);
+		
+		//tiene puerta? -> siempre, esta con letras
+		direccion.setPuerta(CommonUtil.generarLetrasAleatorias(1, CommonUtil.CARACTERES_ALFA_LATINOS_MAYUS));
+				
+	}
 
 	/**
 	 * Genera un cod postal random que este asociado a la pronvincia/municipio
@@ -601,6 +650,32 @@ public class ProfilesService {
 	}	
 	
 
+	/**
+	 * Genera una direccion completa
+	 * @param idCcaa
+	 * @param idProvincia
+	 * @param idMunicipio
+	 * @return
+	 */
+	public DireccionCompletaReturn conformarDireccionCompleta(Ccaa ccaa, Provincias provincia, Municipios municipio) {
+		DireccionCompletaReturn direccion = new DireccionCompletaReturn();
+				
+		direccion.setDireccion(generaDireccionRandom());
+		direccion.setNumVia(generaNumeroViaRandom());
+		generarParte2Direccion(direccion);
+		direccion.setIneCcaa(ccaa.getId());
+		direccion.setCcaa(ccaa.getNombre());
+		direccion.setIneProvincia(provincia.getId());
+		direccion.setProvincia(provincia.getNombre());
+		direccion.setIneMunicipio(municipio.getCodigoine());
+		direccion.setMunicipio(municipio.getNombre());			
+		direccion.setCodPostal(generarCodPostalRandom(provincia.getId(), municipio.getCodigoine()));
+		
+		direccion.fijarDireccionCompleta();
+				
+		return direccion;
+	}
+	
 	
 	/**
 	 * Conformar los datos de una persona completamente aleatoria a devolver
@@ -651,17 +726,10 @@ public class ProfilesService {
 
 		// datos de localizacion
 		Ccaa ccaa = generarCCAARandom();
-		persona.setCcaa(ccaa.getNombre());
-		persona.setCcaaIne(ccaa.getId());
-		Provincias provin = generarProvinciaRandom(persona.getCcaaIne());
-		persona.setProvincia(provin.getNombre());
-		persona.setProvinciaIne(provin.getId());
-		Municipios muni = generarMunicipioRandom(persona.getProvinciaIne());
-		persona.setMunicipio(muni.getNombre());
-		persona.setMunicipioIne(muni.getCodigoine());
-		persona.setDireccion(generaDireccionRandom());
-		persona.setNumerovia(Integer.toString(semilla.nextInt(1, 999)));
-		persona.setCodigoPostal(generarCodPostalRandom(persona.getProvinciaIne(), persona.getMunicipioIne()));
+		Provincias provin = generarProvinciaRandom(ccaa.getId());
+		Municipios muni = generarMunicipioRandom(provin.getId());
+		DireccionCompletaReturn direccionCompleta = conformarDireccionCompleta(ccaa, provin, muni);	
+		persona.setDireccion(direccionCompleta);
 
 		// cuenta bancaria
 		persona.setIban(bankServices.generarIbanRandom());
@@ -744,17 +812,10 @@ public class ProfilesService {
 
 		// datos de localizacion
 		Ccaa ccaa = generarCCAARandom();
-		empresa.setCcaa(ccaa.getNombre());
-		empresa.setCcaaIne(ccaa.getId());
-		Provincias provin = generarProvinciaRandom(empresa.getCcaaIne());
-		empresa.setProvincia(provin.getNombre());
-		empresa.setProvinciaIne(provin.getId());
-		Municipios muni = generarMunicipioRandom(empresa.getProvinciaIne());
-		empresa.setMunicipio(muni.getNombre());
-		empresa.setMunicipioIne(muni.getCodigoine());
-		empresa.setDireccion(generaDireccionRandom());
-		empresa.setNumerovia(Integer.toString(semilla.nextInt(1, 999)));
-		empresa.setCodigoPostal(generarCodPostalRandom(empresa.getProvinciaIne(), empresa.getMunicipioIne()));
+		Provincias provin = generarProvinciaRandom(ccaa.getId());
+		Municipios muni = generarMunicipioRandom(provin.getId());
+		DireccionCompletaReturn direccionCompleta = conformarDireccionCompleta(ccaa, provin, muni);	
+		empresa.setDireccion(direccionCompleta);		
 
 		// actividad
 		Cnaes cnae = generarCnaeRandom();

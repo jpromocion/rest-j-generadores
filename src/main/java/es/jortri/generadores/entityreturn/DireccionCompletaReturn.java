@@ -4,6 +4,12 @@ public class DireccionCompletaReturn {
 
 	private String direccion;
 	private String numVia;
+	private String kilometro;
+	private String bloque;
+	private String portal;
+	private String escalera;
+	private String planta;
+	private String puerta;	
 	private String codPostal;
 	private String ineMunicipio;
 	private String municipio;
@@ -11,6 +17,7 @@ public class DireccionCompletaReturn {
 	private String provincia;
 	private String ineCcaa;
 	private String ccaa;
+	private String direccionAMedio;
 	private String direccionCompleta;
 	
 	public DireccionCompletaReturn() {
@@ -97,16 +104,94 @@ public class DireccionCompletaReturn {
 		this.direccionCompleta = direccionCompleta;
 	}
 	
+	public String getKilometro() {
+		return kilometro;
+	}
+
+	public void setKilometro(String kilometro) {
+		this.kilometro = kilometro;
+	}
+
+	public String getBloque() {
+		return bloque;
+	}
+
+	public void setBloque(String bloque) {
+		this.bloque = bloque;
+	}
+
+	public String getPortal() {
+		return portal;
+	}
+
+	public void setPortal(String portal) {
+		this.portal = portal;
+	}
+
+	public String getEscalera() {
+		return escalera;
+	}
+
+	public void setEscalera(String escalera) {
+		this.escalera = escalera;
+	}
+
+	public String getPlanta() {
+		return planta;
+	}
+
+	public void setPlanta(String planta) {
+		this.planta = planta;
+	}
+
+	public String getPuerta() {
+		return puerta;
+	}
+
+	public void setPuerta(String puerta) {
+		this.puerta = puerta;
+	}
+
+	public String getDireccionAMedio() {
+		return direccionAMedio;
+	}
+
+	public void setDireccionAMedio(String direccionAMedio) {
+		this.direccionAMedio = direccionAMedio;
+	}
+
 	public void fijarDireccionCompleta() {
-        this.direccionCompleta = this.direccion + ", " + this.numVia + ", " + this.codPostal + ", " + this.municipio + " (" + this.provincia + "). " + this.ccaa + ".";
+        this.direccionCompleta = this.direccion + ", " + this.numVia;
+        if (this.kilometro != null && !this.kilometro.isEmpty()) {
+        	this.direccionCompleta = this.direccionCompleta + ", Km " + this.kilometro;
+        }
+		if (this.bloque != null && !this.bloque.isEmpty()) {
+			this.direccionCompleta = this.direccionCompleta + ", Bloque " + this.bloque;
+		}
+		if (this.portal != null && !this.portal.isEmpty()) {
+			this.direccionCompleta = this.direccionCompleta + ", Portal " + this.portal;
+		}
+		if (this.escalera != null && !this.escalera.isEmpty()) {
+			this.direccionCompleta = this.direccionCompleta + ", Escalera " + this.escalera;
+		}
+		this.direccionCompleta = this.direccionCompleta + ", " + this.planta + " " + this.puerta;
+		this.direccionCompleta = this.direccionCompleta + ".";
+		//llegado a esto punto, consideramos a esto la direccion a medio
+		this.direccionAMedio = this.direccionCompleta;
+		//la direccion completa, añade CP y los datos de municipio, provincia, ccaa
+        this.direccionCompleta = this.direccionCompleta + " " + this.codPostal + " " 
+        		+ this.municipio + ". " + this.provincia + " (" + this.ccaa + ").";
     }
 	
 	@Override
 	public String toString() {
-		return "DireccionCompletaReturn [direccion=" + direccion + ", numVia=" + numVia + ", codPostal=" + codPostal
-                + ", ineMunicipio=" + ineMunicipio + ", municipio=" + municipio + ", ineProvincia=" + ineProvincia
-                + ", provincia=" + provincia + ", ineCcaa=" + ineCcaa + ", ccaa=" + ccaa + ", direccionCompleta="
-                + direccionCompleta + "]";
+		return "DireccionCompletaReturn [direccion=" + direccion + ", numVia=" + numVia + ", kilometro=" + kilometro
+				+ ", bloque=" + bloque + ", portal=" + portal + ", escalera=" + escalera + ", planta=" + planta
+				+ ", puerta=" + puerta + ", codPostal=" + codPostal + ", ineMunicipio=" + ineMunicipio + ", municipio="
+				+ municipio + ", ineProvincia=" + ineProvincia + ", provincia=" + provincia + ", ineCcaa=" + ineCcaa
+				+ ", ccaa=" + ccaa + ", direccionAMedio=" + direccionAMedio + ", direccionCompleta=" + direccionCompleta
+				+ "]";
 	}
+		
 	
 }
