@@ -16,6 +16,7 @@ public class CommonUtil {
 	// maximo de resultados permitido por defecto
 	public static final int MAX_RESULTADO_PERMITIDO = 1000;
 	
+	public static final String CARACTERES_NUMERICOS = "0123456789";
 	public static final String CARACTERES_ALFA_LATINOS = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	public static final String CARACTERES_ALFANUMERICOS_LATINOS = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	public static final String CARACTERES_EMAIL_VALIDOS = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";

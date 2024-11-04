@@ -329,5 +329,82 @@ public class MiscController {
 		return resultado;
 	}
 	
+	/**
+	 * Obtener una lista de CUPS generados aleatoriamente
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @param type Opcional. Tipo de CUPS a generar: e para electricidad, g para gas. Por defecto se genera aleatorio.
+	 * @return Lista de cups generados
+	 */
+	@GetMapping("/cups")
+	public List<String> cups(@RequestParam String results, @RequestParam Optional<String> type) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+
+		String typeRev = type.orElse("").toLowerCase();
+		if (!"e".equals(typeRev) && !"g".equals(typeRev)) {
+			typeRev = "";
+		}
+
+		List<String> listaCups = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaCups.add(miscServices.generarCUPS(typeRev));
+		}
+
+		return listaCups;
+	}
+	
+	/**
+	 * Validar un CUPS
+	 * 
+	 * @param cups CUPS a validar
+	 * @return
+	 */
+	@GetMapping("/validatecups")
+	public String validatecups(@RequestParam String cups) {
+		String resultado = CommonUtil.RESULTADO_ERROR;
+
+		if (miscServices.validarCUPS(cups)) {
+			resultado = CommonUtil.RESULTADO_OK;
+		}
+
+		return resultado;
+	}
+	
+	/**
+	 * Obtener una lista de LEIs generados aleatoriamente
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @return Lista de LEIs generados
+	 */
+	@GetMapping("/lei")
+	public List<String> lei(@RequestParam String results) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+
+		List<String> listaLeis = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaLeis.add(miscServices.generarLEI());
+		}
+
+		return listaLeis;
+	}
+	
+	/**
+	 * Validar un LEI
+	 * 
+	 * @param lei LEI a validar
+	 * @return
+	 */
+	@GetMapping("/validatelei")
+	public String validatelei(@RequestParam String lei) {
+		String resultado = CommonUtil.RESULTADO_ERROR;
+
+		if (miscServices.validarLEI(lei)) {
+			resultado = CommonUtil.RESULTADO_OK;
+		}
+
+		return resultado;
+	}
+	
+	
 }
 ;

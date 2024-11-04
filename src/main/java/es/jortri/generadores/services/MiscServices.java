@@ -1,5 +1,6 @@
 package es.jortri.generadores.services;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,6 +17,7 @@ import es.jortri.generadores.model.Ccaa;
 import es.jortri.generadores.model.Municipios;
 import es.jortri.generadores.model.Provincias;
 import es.jortri.generadores.util.CommonUtil;
+import org.edumdum.iso.Iso17442;
 
 
 @Service
@@ -26,6 +28,21 @@ public class MiscServices {
 	
 	
 	private Random semilla;
+	
+	public static String DISTRIBUIDORAS_CUPS_ELECTRICIDAD[] = { "0023", "0024", "0029", "0288", "0363", "0396", 
+			"0021", "0022", "0390", "0397", "0026", "0027", "0031", "0401", "0033" };	
+
+	public static String DISTRIBUIDORAS_CUPS_GAS[] = { "0230", "0203", "0218", "0220", "0221", "0222", "0223", 
+			"0224", "0226", "0227", "0208", "0225", "0205", "0206", "0022", "0390", "0397", "0229", "0201", 
+			"0229", "0211", "0234", "0207", "0238" };	
+	
+    // Tabla de letras usadas para C y R en el CUPS
+    private static final char[] CONTROL_LETTERS_CUPS = {
+        'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 
+        'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 
+        'C', 'K', 'E'
+    };	
+
 	
 	public MiscServices() {
         this.semilla = new Random();
@@ -389,6 +406,140 @@ public class MiscServices {
      */
     public boolean validarReferenciaCatastral(String referenciaCatastral) {
     	return profilesService.validarReferenciaCatastral(referenciaCatastral);
+    }
+    
+
+    
+    /**
+     * Calculo los digitos de control de un CUPS
+     * @param cups Los 16 caracteres que forman los DDDD CCCC CCCC CCCC (4 digitos distribuidora + 12 digitos libre asignacion)
+     * @return
+     */
+    private static String calculateControlDigitsCUPS(String cups) {
+    	
+        // Aseguramos que el CUPS tiene 16 dígitos
+        if (cups == null || cups.length() != 16 || !cups.matches("\\d+")) {
+            throw new IllegalArgumentException("El CUPS debe tener 16 dígitos numéricos.");
+        }
+
+        // Convertimos el CUPS a un número natural
+        long cupsNumber = Long.parseLong(cups);
+
+        // Paso 1: Dividir el número por 529 y obtener el resto R0
+        long r0 = cupsNumber % 529;
+
+        // Paso 2: Dividir R0 por 23 y obtener el cociente C y el resto R
+        int c = (int) (r0 / 23);
+        int r = (int) (r0 % 23);
+
+        // Paso 3: Obtener las letras correspondientes a C y R
+        char controlDigit1 = CONTROL_LETTERS_CUPS[c];
+        char controlDigit2 = CONTROL_LETTERS_CUPS[r];
+
+        // Devolver los dígitos de control como una cadena
+        return "" + controlDigit1 + controlDigit2;
+    }
+    
+    
+    
+    /**
+     * Genrerar un CUPS
+     * @param tipo Tipo de CUPS: e: electrico, g: gas
+     * @return CUPS generado
+     */
+    public String generarCUPS(String tipo) {
+    	//si es nulo lo asociamos aleatoriamente en cada intento
+		if (tipo == null || tipo.isEmpty()) {
+			tipo = (new Random().nextInt(2) == 0) ? "e" : "g";
+		}    	
+    	
+    	
+    	String cups = "";
+    	//generamos de 20 caracteres (no los 2 opcionales) con formato: LL DDDD CCCC CCCC CCCC EE
+    	
+    	//LL: "ES" por españa
+    	cups += "ES";
+    	
+    	//DDDD: 4 digitos de la compañia de gas o electcidad segun el tipo
+    	if ("e".equals(tipo)) {
+    		int indice = semilla.nextInt(0, DISTRIBUIDORAS_CUPS_ELECTRICIDAD.length);
+    		String distribuidora= DISTRIBUIDORAS_CUPS_ELECTRICIDAD[indice];
+    		cups += distribuidora;
+    	} else {
+    		int indice = semilla.nextInt(0, DISTRIBUIDORAS_CUPS_GAS.length);
+    		String distribuidora= DISTRIBUIDORAS_CUPS_GAS[indice];
+    		cups += distribuidora;
+    	}
+    	
+    	//CCCC CCCC CCCC-12 caracteres numéricos de libre asignación (por el distribuidor) a cada 
+    	//suministro, en el momento en que le asigna el CUPS.
+    	cups += CommonUtil.generarLetrasAleatorias(12, CommonUtil.CARACTERES_NUMERICOS);
+    	
+    	//EE: 2 caracteres de control. Le pasamos el cups sin el prefijo "ES
+    	cups += calculateControlDigitsCUPS(cups.substring(2));
+    	
+    	return cups;
+    }
+    
+    /**
+     * Validar un CUPS
+     * NOTA: la validacion se limita a comprobar que es ES, que el tamaño es 20 o 22
+     * (por la posibilidad de los digitos opcionales para puntos frontera, medida...) 
+     * y que los digitos control son correctos.
+     * @param cups CUPS a validar
+     * @return true es valido, false no lo es
+     */
+    public boolean validarCUPS(String cups) {
+		// Comprobamos que es un CUPS de 20 o 22 caracteres
+		if (cups == null || (cups.length() != 20 && cups.length() != 22)) {
+			return false;
+		}
+		// Comprobamos que empieza por ES
+		if (!cups.startsWith("ES")) {
+			return false;
+		}
+		// Comprobamos que los digitos de control son correctos
+		String digitosControl = cups.substring(18, 20);
+		String digitosControlCalculados = calculateControlDigitsCUPS(cups.substring(2, 18));
+		return digitosControl.equals(digitosControlCalculados);
+    }
+     
+    
+	/**
+	 * Generar un LEI
+	 * NOTA: utilizamos libreria https://github.com/EDumdum/iso-17442-java
+	 * @return
+	 */
+    public String generarLEI() {
+    	//código alfanumérico único de 20 caracteres que se utiliza para identificar a las entidades legales:
+    	//  -4 primeros digitos Local Operating Unit (LOU) -> utilizaremos el de españa siempre "9598"
+    	//	-14 digitos alfanumericos unicos que asiga el LOU
+    	//	-2 digitos de control. Calculado usando MOD-97-10 especificado por la ISO/IEC 7064 (descrito en el estandar ISO 17442)
+    	String lei = "9598";
+    	
+    	//14 digitos alfanumericos unicos
+    	lei += CommonUtil.generarLetrasAleatorias(14, CommonUtil.CARACTERES_ALFANUMERICOS_MAYUS);
+    	
+    	//2 digitos de control
+    	lei = Iso17442.generate(lei);
+    	    	
+    	return lei;
+    }
+    
+    /**
+     * Validar un LEI
+     * NOTA: utilizamos libreria https://github.com/EDumdum/iso-17442-java
+     * @param lei LEI a validar
+     * @return true es valido, false no lo es
+     */
+    public boolean validarLEI(String lei) {
+    	// Comprobamos que es un LEI de 20 caracteres
+        if (lei == null || lei.length() != 20) {
+        	return false;
+        }
+        
+        // Comprobamos que los digitos de control son correctos
+        return Iso17442.isValid(lei);
     }
 
 

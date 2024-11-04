@@ -626,6 +626,62 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- catastral: Referencia catastral. Ejemplo: 31044Z932050006628FU
 	- Resultado: "OK" si la referencia es válida. "ERROR" en otro caso.	
 		
+- **/misc/cups**
+	- Devuelve una lista de CUPS (Código Universal del Punto de Suministro).
+	- GET
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- type: Opcional. Indicar el tipo concreto de CUPS: e para energia, g para gas.
+	- Ejemplo resultado
+		```
+		[
+		    "ES0396176748886994HE",
+		    "ES0220979668478278EZ",
+		    "ES0238350554973179WN",
+		    "ES0229316707134129RP",
+		    "ES0288023277772933AL",
+		    "ES0238782381709133BH",
+		    "ES0223678468476634WK",
+		    "ES0029578485263255WD",
+		    "ES0024352265237641XT",
+		    "ES0363084377144784RN"
+		]
+		```	
+		
+- **/misc/validatecups**
+	- Comprueba si un CUPS (Código Universal del Punto de Suministro) es válido. (Formato adecuado).
+	- GET
+	- Parámetros:
+		- cups: CUPS. Ejemplo: ES0223678468476634WK
+	- Resultado: "OK" si el CUPS es válido. "ERROR" en otro caso.	
+	
+- **/misc/lei**
+	- Devuelve una lista de LEIs (Identificador de Entidad Legal) (Solo de españa).
+	- GET
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "95988FWH829TXGRTPR68",
+		    "9598WDK1688539P37X14",
+		    "95980LPSSNQZPHQESQ28",
+		    "9598KILQKFCE0ELSZE84",
+		    "95989K13YIPE51224F98",
+		    "95983ULXA1H080QYUD27",
+		    "9598H4YKDEE1PXDDGW96",
+		    "9598ZUNCQ4T9T1JLYM32",
+		    "9598GN0Y8V4UTOU51C81",
+		    "9598I0VFB776E9RA5192"
+		]
+		```	
+		
+- **/misc/validatelei**
+	- Comprueba si un LEI (Identificador de Entidad Legal) es válido. (Formato adecuado).
+	- GET
+	- Parámetros:
+		- lei: LEI. Ejemplo: 9598009DZMHWCT7D0W77
+	- Resultado: "OK" si el CUPS es válido. "ERROR" en otro caso.		
 
 - **/number/random**
 	- Devuelve una lista de números aleatorios
