@@ -364,5 +364,33 @@ public class MiscServices {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
 	}
+
+    /**
+     * Preparar la generacion de referencia catastral
+     * @param tipo
+     * @return
+     */
+    public String conformarReferenciaCatastralTrata(String tipo) {
+    	//Si tipo es nulo, asignara aleatoriamente entre u y r
+		if (tipo == null || tipo.isEmpty()) {
+			tipo = (new Random().nextInt(2) == 0) ? "u" : "r";
+		}
+		//asignamos aleatoriamente CCAA, provincia y municipio
+		Ccaa ccaa = profilesService.generarCCAARandom();
+		Provincias provin = profilesService.generarProvinciaRandom(ccaa.getId());
+		Municipios muni = profilesService.generarMunicipioRandom(provin.getId());
+		return profilesService.conformarReferenciaCatastral(tipo, provin.getId(), muni.getCodigoine());
+    }
+
+    /**
+     * Mapeo de ferencia catastral para misc services
+     * @param referenciaCatastral
+     * @return
+     */
+    public boolean validarReferenciaCatastral(String referenciaCatastral) {
+    	return profilesService.validarReferenciaCatastral(referenciaCatastral);
+    }
+
+
 	
 }

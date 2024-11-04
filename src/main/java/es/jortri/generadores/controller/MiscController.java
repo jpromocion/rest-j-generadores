@@ -289,5 +289,45 @@ public class MiscController {
 		return listaEmails;
 	}		
 	
+	/**
+	 * Obtener una lista de números de referencias catastrales
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @param type. Opcional, tipo de referencia catastral a generar: u para urbana, r para rústica. Por defecto se genera aleatorio.
+	 */
+	@GetMapping("/catastral")
+	public List<String> catastral(@RequestParam String results, @RequestParam Optional<String> type) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+
+		String typeRev = type.orElse("").toLowerCase();
+		if (!"u".equals(typeRev) && !"r".equals(typeRev)) {
+			typeRev = "";
+		}
+
+		List<String> listaReferencias = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaReferencias.add(miscServices.conformarReferenciaCatastralTrata(typeRev));
+		}
+
+		return listaReferencias;
+	}
+	
+	/**
+	 * Validar una referencia catrastral
+	 * 
+	 * @param catastral Referencia catastral
+	 * @return
+	 */
+	@GetMapping("/validatecatastral")
+	public String validatecatastral(@RequestParam String catastral) {
+		String resultado = CommonUtil.RESULTADO_ERROR;
+
+		if (miscServices.validarReferenciaCatastral(catastral.toUpperCase())) {
+			resultado = CommonUtil.RESULTADO_OK;
+		}
+
+		return resultado;
+	}
+	
 }
 ;

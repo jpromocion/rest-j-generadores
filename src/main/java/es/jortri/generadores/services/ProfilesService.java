@@ -103,7 +103,7 @@ public class ProfilesService {
 	public static String DOMINIOS_WEB[] = { ".com", ".org", ".net", ".edu", ".gov", ".es" };
 	
 	public static String DIRECCION_PLANTA[] = { "BAJO", "1º", "2º", "3º", "4º", "5º" };
-
+	
 
 	
 	public ProfilesService() {
@@ -676,6 +676,143 @@ public class ProfilesService {
 		return direccion;
 	}
 	
+	/**
+	 * Calculo auxiliar para generarDigitosControlRefCatas que calcula la suma asociada
+	 * a una palabra
+	 * @param cadena
+	 * @param pesos
+	 * @return
+	 */
+    private static int calcularSumaCadenaRefCatas(String cadena, int[] pesos) {
+        int suma = 0;
+        for (int i = 0; i < cadena.length(); i++) {
+            char caracter = cadena.charAt(i);
+            int valorNumerico;
+            /*
+            Para el cálculo de cada dígito de control, se deben de sumar cada
+            uno de los carácteres de cada cadena.
+            Si el carácter no es numérico el valor corresponde de la siguiente 
+            manera: A = 1, B = 2, ..., Z = 27.
+             */            
+            if (Character.isDigit(caracter)) {
+                valorNumerico = Character.getNumericValue(caracter);
+            } else {
+                if (caracter >= 'A' && caracter <= 'N') { 
+                    //valorNumerico = caracter - 'A' + 1;
+                	//Lo anterior lo metia copilot, sin embargo, comprobamos en https://stackoverflow.com/questions/14104316/java-equivalent-for-charcodeat
+                	//que la autentica forma de trasponer la funcion javascript "charCodeAt" es "Character.codePointAt"
+                	valorNumerico = Character.codePointAt(""+caracter,0)-64;
+                } else if (caracter == 'Ñ') {
+                    valorNumerico = 15;
+                } else {
+                    //valorNumerico = caracter - 'A';
+                	valorNumerico = Character.codePointAt(""+caracter,0)-63;
+                }
+            }
+            //multiplicacion del valor numerico anterior, el peso correspondiente a la posicion de la lista de pesos
+            //vamos sumando en cada paso, al mismo tiemnpo que vamos aplicando el modulo 23
+            suma += valorNumerico * pesos[i % pesos.length];
+            suma %= 23; // Modulo 23 en cada paso
+        }
+        return suma;
+    }	
+
+	/**
+	 * Dada una referencia catastral sin DC, los genera
+	 * Referencia: https://trellat.es/validar-la-referencia-catastral-en-javascript/
+	 *   Algoritmo en javascript, costo bastante la transposicion a Java porque Copilot
+	 *   hacia mierdas.
+	 * @param referencia
+	 * @return Solo los digitos de control
+	 */
+    public static String generarDigitosControlRefCatas(String referencia) {
+    	//Comprobamois tamaño adecuado sin los digitos de control
+        if (referencia == null || referencia.length() != 18) {
+            throw new IllegalArgumentException("La referencia catastral debe tener 18 caracteres.");
+        }
+        
+        //Valor por el que se debe multiplicar cada posición de cada subcadena
+        int[] pesos = {13, 15, 12, 5, 4, 17, 9, 21, 3, 7, 1};
+        
+        
+        String caracteresControl = "MQWERTYUIOPASDFGHJKLBZX";
+
+        //Para calcular cada dígito de control se utilizan las siguientes 2 subcadenas
+        //cada una dara uno de los digitos de control.
+        String cadena1 = referencia.substring(0, 7) + referencia.substring(14, 18);
+        String cadena2 = referencia.substring(7, 14) + referencia.substring(14, 18);
+
+        // Calcular el primer dígito de control
+        int suma1 = calcularSumaCadenaRefCatas(cadena1, pesos) % 23;
+        char digitoControl1 = caracteresControl.charAt(suma1);
+
+        // Calcular el segundo dígito de control
+        int suma2 = calcularSumaCadenaRefCatas(cadena2, pesos) % 23;
+        char digitoControl2 = caracteresControl.charAt(suma2);
+
+        return "" + digitoControl1 + digitoControl2;
+    }
+	
+	/**
+	 * Genera una referencia catastral
+	 * Referencia https://www.catastro.hacienda.gob.es/esp/referencia_catastral.asp
+	 * para saber como formar algo. 
+	 * @param tipo u: urbana, r: rustica
+	 * @param codProvin Opcional. Código de provincia especifico en el caso de referencia rustica
+	 * @param codMuni Opcional. Código de municipio especifico en el caso de referencia rustica 
+	 * @return Referencia catastral random
+	 */
+    public String conformarReferenciaCatastral(String tipo, String codProvin, String codMuni) {
+        if ("u".equals(tipo)) {
+            // Generar referencia urbana
+            String fincaParcela = String.format("%07d", new Random().nextInt(9999999));
+            String hojaPlano = CommonUtil.generarLetrasAleatorias(7, CommonUtil.CARACTERES_ALFANUMERICOS_MAYUS);
+            String identificacionInmueble = String.format("%04d", new Random().nextInt(9999));
+            String referencia = fincaParcela + hojaPlano + identificacionInmueble;
+            String controlDigits = generarDigitosControlRefCatas(referencia);
+            referencia += controlDigits;
+            return referencia;
+        } else if ("r".equals(tipo)) {
+            // Generar referencia rústica
+            String sector = CommonUtil.generarLetrasAleatorias(1, CommonUtil.CARACTERES_ALFA_LATINOS_MAYUS);
+            String poligono = String.format("%03d", new Random().nextInt(999));
+            String parcela = String.format("%05d", new Random().nextInt(99999));
+            String identificacionInmueble = String.format("%04d", new Random().nextInt(9999));
+            String referencia = codProvin + codMuni + sector + poligono + parcela + identificacionInmueble;
+            String controlDigits = generarDigitosControlRefCatas(referencia);
+            referencia += controlDigits;
+            return referencia;
+        } else {
+            throw new IllegalArgumentException("Tipo inválido. Debe ser 'u' para urbana o 'r' para rústica.");
+        }
+    }
+    
+    /**
+     * Validar una referencia catrastral
+     * @param referenciaCatastral
+     * @return
+     */
+    public boolean validarReferenciaCatastral(String referenciaCatastral) {
+        // Sólo se comprueban las referencias catastrales con 20 caracteres alfanuméricos,
+        // los dos últimos corresponden a los dígitos de control.
+        if (referenciaCatastral == null || referenciaCatastral.length() != 20) {
+        	return false;
+        }
+        referenciaCatastral = referenciaCatastral.toUpperCase();
+
+        // Generar los dígitos de control esperados
+        String referenciaSinControl = referenciaCatastral.substring(0, 18);
+        String controlDigitsEsperados = generarDigitosControlRefCatas(referenciaSinControl);
+
+        // Comparar los dígitos de control esperados con los proporcionados
+        String controlDigitsProporcionados = referenciaCatastral.substring(18, 20);
+        if (!controlDigitsEsperados.equals(controlDigitsProporcionados)) {
+        	return false;
+        }
+        
+        return true;
+    }
+    
 	
 	/**
 	 * Conformar los datos de una persona completamente aleatoria a devolver
@@ -825,4 +962,6 @@ public class ProfilesService {
 		return empresa;
 	}
 
+	
+	
 }

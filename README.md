@@ -592,6 +592,35 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		]
 		```	
 		
+- **/misc/catastral**
+	- Devuelve una lista de referencias catastrales de ejemplo.
+	- GET
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+		- type: Opcional. Indicar el tipo concreto de referencia catastral: u para urbana, r para rústica.
+	- Ejemplo resultado
+		```
+		[
+		    "31044Z932050006628FU",
+		    "16066Q578759192407JO",
+		    "25905V209155811571AO",
+		    "0456494PPMQL6N9631OI",
+		    "52001I039130321495IE",
+		    "85732929CHWGZR5596WY",
+		    "46152V100593355396AT",
+		    "2307443IGXL60N3987WA",
+		    "5172254P298W153977SD",
+		    "06029X331693665469BQ"
+		]
+		```	
+		
+- **/misc/validatecatastral**
+	- Comprueba si una referencia catastral es válida (Formato adecuado, no comprueba que exista en catastro).
+	- GET
+	- Parámetros:
+		- catastral: Referencia catastral. Ejemplo: 31044Z932050006628FU
+	- Resultado: "OK" si la referencia es válida. "ERROR" en otro caso.	
+		
 
 - **/number/random**
 	- Devuelve una lista de números aleatorios

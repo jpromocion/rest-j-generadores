@@ -20,6 +20,7 @@ public class CommonUtil {
 	public static final String CARACTERES_ALFANUMERICOS_LATINOS = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	public static final String CARACTERES_EMAIL_VALIDOS = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 	public static final String CARACTERES_ALFA_LATINOS_MAYUS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	public static final String CARACTERES_ALFANUMERICOS_MAYUS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 	/**
 	 * Devuelve el maximo de resultados de cadena como numero si es valido. En caso
