@@ -19,6 +19,7 @@ public class DireccionCompletaReturn {
 	private String ccaa;
 	private String direccionAMedio;
 	private String direccionCompleta;
+	private String referenciaCatastral;
 	
 	public DireccionCompletaReturn() {
 		super();
@@ -159,6 +160,14 @@ public class DireccionCompletaReturn {
 	public void setDireccionAMedio(String direccionAMedio) {
 		this.direccionAMedio = direccionAMedio;
 	}
+	
+	public String getReferenciaCatastral() {
+		return referenciaCatastral;
+	}
+	
+	public void setReferenciaCatastral(String referenciaCatastral) {
+		this.referenciaCatastral = referenciaCatastral;
+	}
 
 	public void fijarDireccionCompleta() {
         this.direccionCompleta = this.direccion + ", " + this.numVia;
@@ -190,7 +199,7 @@ public class DireccionCompletaReturn {
 				+ ", puerta=" + puerta + ", codPostal=" + codPostal + ", ineMunicipio=" + ineMunicipio + ", municipio="
 				+ municipio + ", ineProvincia=" + ineProvincia + ", provincia=" + provincia + ", ineCcaa=" + ineCcaa
 				+ ", ccaa=" + ccaa + ", direccionAMedio=" + direccionAMedio + ", direccionCompleta=" + direccionCompleta
-				+ "]";
+				+ ", referenciaCatastral=" + referenciaCatastral + "]";
 	}
 		
 	

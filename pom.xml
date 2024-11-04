@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>es.jortri</groupId>
 	<artifactId>generadores</artifactId>
-	<version>1.5.4</version>
+	<version>1.5.5</version>
 	<name>generadores</name>	
 	<description>API rest de generadors con SpringBoot</description>
 	<url/>

@@ -670,6 +670,7 @@ public class ProfilesService {
 		direccion.setIneMunicipio(municipio.getCodigoine());
 		direccion.setMunicipio(municipio.getNombre());			
 		direccion.setCodPostal(generarCodPostalRandom(provincia.getId(), municipio.getCodigoine()));
+		direccion.setReferenciaCatastral(conformarReferenciaCatastral("r", provincia.getId(), municipio.getCodigoine()));
 		
 		direccion.fijarDireccionCompleta();
 				
