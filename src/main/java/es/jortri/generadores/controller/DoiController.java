@@ -152,5 +152,50 @@ public class DoiController {
 		return resultado;
 	}
 	
+	/**
+	 * Obtener pasaportes aleatorios
+	 * 
+	 * @param results NUmero de datos a devolver. 10 defecto. Maximo 1000.
+	 * @return
+	 */
+	@GetMapping("/passport")
+	public List<String> passport(@RequestParam String results) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+
+		List<String> listaNie = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaNie.add(doiService.generatePassportNumber());
+		}
+
+		return listaNie;
+	}
+
+	/**
+	 * Validar un pasaporte
+	 * 
+	 * @param passport pasaporte a validar
+	 * @return
+	 */
+	@GetMapping("/validatepassport")
+	public String validatepassport(@RequestParam String passport) {
+		String resultado = CommonUtil.RESULTADO_ERROR;
+
+		if (doiService.validatePassportNumber(passport.toUpperCase())) {
+			resultado = CommonUtil.RESULTADO_OK;
+		}
+
+		return resultado;
+	}	
+	
+	/**
+	 * Calcular el DC de un pasaporte
+	 * @param passport pasaporte (sin DC)
+	 */
+	@GetMapping("/calculatepassportdc")
+	public String calculatepassportdc(@RequestParam String passport) {
+		return "" + doiService.calculateCheckDigitPassport(passport);
+	}
+	
 	
 }

@@ -1,11 +1,11 @@
 package es.jortri.generadores.services;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import org.edumdum.iso.Iso17442;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,6 @@ import es.jortri.generadores.model.Ccaa;
 import es.jortri.generadores.model.Municipios;
 import es.jortri.generadores.model.Provincias;
 import es.jortri.generadores.util.CommonUtil;
-import org.edumdum.iso.Iso17442;
 
 
 @Service
@@ -542,6 +541,111 @@ public class MiscServices {
         return Iso17442.isValid(lei);
     }
 
+    
+    /**
+     * Genera la parte de numero basico de un ISIN segun la clasificacion en españa 
+     * @return
+     */
+    private String generateBasicNumberISIN() {
+        Random random = new Random();
+        StringBuilder basicNumber = new StringBuilder("0");
 
+        // Generar el primer carácter de la categoría de acuerdo con la clasificación dada
+        char category = "012345678LPABS".charAt(random.nextInt("012345678LPABS".length()));
+        basicNumber.append(category);
+
+        // Generar los siete caracteres restantes
+        for (int i = 0; i < 7; i++) {
+            char c;
+            int type = random.nextInt(36);
+            if (type < 10) {
+                c = (char) ('0' + type);
+            } else {
+                c = (char) ('A' + type - 10);
+            }
+            basicNumber.append(c);
+        }
+        return basicNumber.toString();
+    }    
+    
+    /**
+     * Genera los digitos de control de un ISIN
+     * @param partialISIN Los 11 primeros caracteres del ISIN
+     * @return
+     */
+    private char calculateCheckDigitISIN(String partialISIN) {
+        StringBuilder numericISIN = new StringBuilder();
+        for (char c : partialISIN.toCharArray()) {
+            if (Character.isDigit(c)) {
+                numericISIN.append(c);
+            } else {
+                numericISIN.append((int) c - 55); // Convertir letras a valores numéricos (A=10, B=11, ...)
+            }
+        }
+
+        // Doblar el valor de una cifra cada dos, comenzando por la primera cifra de la derecha
+        int sum = 0;
+        boolean doubleDigit = true;
+        for (int i = numericISIN.length() - 1; i >= 0; i--) {
+            int n = numericISIN.charAt(i) - '0';
+            if (doubleDigit) {
+                n *= 2;
+            }
+            sum += n / 10 + n % 10;
+            doubleDigit = !doubleDigit;
+        }
+
+        // La cifra de control será el complemento de diez de la cifra de las unidades
+        int checkDigit = (10 - (sum % 10)) % 10;
+        return (char) (checkDigit + '0');
+    }    
+
+    /**
+     * Genera un ISIN español
+     * NOTA: especificacion indicada en https://www.boe.es/boe/dias/2010/09/30/pdfs/BOE-A-2010-15014.pdf
+     * @return
+     */
+    public String generateSpanishISIN() {
+        String countryPrefix = "ES";
+        String basicNumber = generateBasicNumberISIN();
+        String partialISIN = countryPrefix + basicNumber;
+        char checkDigit = calculateCheckDigitISIN(partialISIN);
+        return partialISIN + checkDigit;
+    }
+    
+	/**
+	 * Validar un ISIN
+	 * 
+	 * @param isin ISIN a validar
+	 * @return true es valido, false no lo es
+	 */
+    public boolean validateISIN(String isin) {
+        if (isin.length() != 12) {
+            return false;
+        }
+
+        char expectedCheckDigit = calculateCheckDigitISIN(isin.substring(0, 11));
+        return isin.charAt(11) == expectedCheckDigit;
+    }
+    
+
+    /**
+	 * Generar un NSS
+	 * @return
+	 */
+    public String generateNSS() {
+        return profilesService.generateNSS();
+    }    
+    
+    /**
+     * Validar un NSS
+     * @param nss
+     * @return
+     */
+    public boolean validateNSS(String nss) {
+        return profilesService.validateNSS(nss);
+    }
+    
+    
 	
 }

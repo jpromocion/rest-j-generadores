@@ -405,6 +405,77 @@ public class MiscController {
 		return resultado;
 	}
 	
+	/**
+	 * Obtener una lista de ISIN generados aleatoriamente
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @return Lista de LEIs generados
+	 */
+	@GetMapping("/isin")
+	public List<String> isin(@RequestParam String results) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+
+		List<String> listaLeis = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaLeis.add(miscServices.generateSpanishISIN());
+		}
+
+		return listaLeis;
+	}
+	
+	/**
+	 * Validar un ISIN
+	 * 
+	 * @param isin ISIN a validar
+	 * @return
+	 */
+	@GetMapping("/validateisin")
+	public String validateisin(@RequestParam String isin) {
+		String resultado = CommonUtil.RESULTADO_ERROR;
+
+		if (miscServices.validateISIN(isin)) {
+			resultado = CommonUtil.RESULTADO_OK;
+		}
+
+		return resultado;
+	}
+	
+	/**
+	 * Obtener una lista de NSS generados aleatoriamente
+	 * @param results Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	 * @return Lista de NSSs generados
+	 */
+	@GetMapping("/nss")
+	public List<String> nss(@RequestParam String results) {
+
+		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
+
+		List<String> listaLeis = new ArrayList<String>();
+		for (int i = 0; i < resultsInt; i++) {
+			listaLeis.add(miscServices.generateNSS());
+		}
+
+		return listaLeis;
+	}
+	
+	/**
+	 * Validar un NSS
+	 * 
+	 * @param nss NSS a validar
+	 * @return
+	 */
+	@GetMapping("/validatenss")
+	public String validatenss(@RequestParam String nss) {
+		String resultado = CommonUtil.RESULTADO_ERROR;
+
+		if (miscServices.validateNSS(nss)) {
+			resultado = CommonUtil.RESULTADO_OK;
+		}
+
+		return resultado;
+	}
+
+	
 	
 }
 ;

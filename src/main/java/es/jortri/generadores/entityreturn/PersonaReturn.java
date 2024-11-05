@@ -23,6 +23,8 @@ public class PersonaReturn {
 	private String cvc;
 	private String expiracionCredito;
 	private String tipoTarjeta;
+	private String nss;
+	private String pasaporte;
 
 	public PersonaReturn() {
 		super();
@@ -195,6 +197,22 @@ public class PersonaReturn {
 	public void setTipoTarjeta(String tipoTarjeta) {
 		this.tipoTarjeta = tipoTarjeta;
 	}
+	
+	public String getNss() {
+		return nss;
+	}
+	
+	public void setNss(String nss) {
+		this.nss = nss;
+	}
+	
+	public String getPasaporte() {
+		return pasaporte;
+	}
+	
+	public void setPasaporte(String pasaporte) {
+        this.pasaporte = pasaporte;
+    }
 
 	@Override
 	public String toString() {
@@ -203,7 +221,8 @@ public class PersonaReturn {
 				+ ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", telefonoMovil=" + telefonoMovil
 				+ ", telefonoFijo=" + telefonoFijo + ", login=" + login + ", email=" + email + ", password=" + password
 				+ ", direccion=" + direccion + ", iban=" + iban + ", bic=" + bic + ", tarjetaCredito=" + tarjetaCredito
-				+ ", cvc=" + cvc + ", expiracionCredito=" + expiracionCredito + ", tipoTarjeta=" + tipoTarjeta + "]";
+				+ ", cvc=" + cvc + ", expiracionCredito=" + expiracionCredito + ", tipoTarjeta=" + tipoTarjeta
+				+ ", nss=" + nss + ", pasaporte=" + pasaporte + "]";
 	}
 
 }

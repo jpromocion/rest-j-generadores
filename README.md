@@ -45,6 +45,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 - **/demo/hola**
 	- Devuelve la cadena "Hola Mundo"
 	- GET	
+	
 - **/doi/nif**
 	- Devuelve una lista de NIFs
 	- GET
@@ -58,12 +59,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "81692150Z"
 		]
 		```	
+		
 - **/doi/validatenif**
 	- Comprueba si un NIF es válido
 	- GET
 	- Parámetros:
 		- nif: NIF a validar
 	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.		
+	
 - **/doi/nie**
 	- Devuelve una lista de NIEs
 	- Parámetros:
@@ -76,12 +79,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "X7570499A"
 		]
 		```	
+		
 - **/doi/validatenie**
 	- Comprueba si un NIE es válido
 	- GET
 	- Parámetros:
 		- nie: NIE a validar
 	- Resultado: "OK" si nie es válido. "ERROR" en otro caso.		
+	
 - **/doi/cif**
 	- Devuelve una lista de CIFs
 	- GET
@@ -96,12 +101,41 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "G81294811"
 		]
 		```	
+		
 - **/doi/validatecif**
 	- Comprueba si un CIF es válido
 	- GET
 	- Parámetros:
 		- cif: CIF a validar
 	- Resultado: "OK" si cif es válido. "ERROR" en otro caso.	
+	
+- **/doi/passport**
+	- Devuelve una lista de pasaportes españoles.
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "TIO8225066",
+		    "RWC0978890",
+		    "LXG7179783"
+		]
+		```	
+		
+- **/doi/validatepassport**
+	- Comprueba si un pasaporte español es válido
+	- GET
+	- Parámetros:
+		- passport: Pasaporte a validar
+	- Resultado: "OK" si el pasaporte es válido. "ERROR" en otro caso.	
+
+- **/doi/calculatepassportdc**
+	- Devuelve el digito de control del número de pasaporte
+	- GET
+	- Parámetros:
+		- passport: Pasaporte a validar sin el digito de control.
+	- Resultado: El digito de control calculado. Ejemplo: "7".
+	
 	
 - **/profiles/person**	
 	- Devuelve una lista de datos de una persona generados aleatoriamente
@@ -113,46 +147,48 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		```
 		[
 		    {
-		        "nif": "45182113Q",
-		        "nie": "X9956973C",
-		        "nombre": "carlos simon",
-		        "apellido1": "mouron",
-		        "apellido2": "burgo",
+		        "nif": "89693680M",
+		        "nie": "X6161429M",
+		        "nombre": "joaquin benito",
+		        "apellido1": "mares",
+		        "apellido2": "fonseca",
 		        "genero": "hombre",
-		        "nombreCompleto": "carlos simon mouron burgo",
-		        "fechaNacimiento": "01/08/1988",
-		        "edad": "36",
-		        "telefonoMovil": "663034454",
-		        "telefonoFijo": "941835012",
-		        "login": "cmouron_736",
-		        "email": "cmouron_736@1and1.com",
-		        "password": "D4cpH4k5oQq*NdVQ3(Vxr",
+		        "nombreCompleto": "joaquin benito mares fonseca",
+		        "fechaNacimiento": "20/03/1950",
+		        "edad": "74",
+		        "telefonoMovil": "668300358",
+		        "telefonoFijo": "953019436",
+		        "login": "jmares_277",
+		        "email": "jmares_277@btconnect.com",
+		        "password": "o76*ANR%YmqPdU3ZU82h6",
 		        "direccion": {
-		            "direccion": "Parque Nueva Raidel Torroglosa",
-		            "numVia": "957",
+		            "direccion": "Alameda España Nicolas Stefan Rigual",
+		            "numVia": "271",
 		            "kilometro": null,
 		            "bloque": null,
 		            "portal": null,
 		            "escalera": null,
 		            "planta": "2º",
-		            "puerta": "R",
-		            "codPostal": "35458",
-		            "ineMunicipio": "023",
-		            "municipio": "Santa María de Guía de Gran Canaria",
-		            "ineProvincia": "35",
-		            "provincia": "Palmas, Las",
-		            "ineCcaa": "05",
-		            "ccaa": "Canarias",
-		            "direccionAMedio": "Parque Nueva Raidel Torroglosa, 957, 2º R.",
-		            "direccionCompleta": "Parque Nueva Raidel Torroglosa, 957, 2º R. 35458 Santa María de Guía de Gran Canaria. Palmas, Las (Canarias).",
-		            "referenciaCatastral": "35023E222867650177XW"
+		            "puerta": "D",
+		            "codPostal": "51001",
+		            "ineMunicipio": "001",
+		            "municipio": "Ceuta",
+		            "ineProvincia": "51",
+		            "provincia": "Ceuta",
+		            "ineCcaa": "18",
+		            "ccaa": "Ceuta",
+		            "direccionAMedio": "Alameda España Nicolas Stefan Rigual, 271, 2º D.",
+		            "direccionCompleta": "Alameda España Nicolas Stefan Rigual, 271, 2º D. 51001 Ceuta. Ceuta (Ceuta).",
+		            "referenciaCatastral": "51001H006224133036AZ"
 		        },
-		        "iban": "ES5214748034470062915892",
-		        "bic": "CITIES2X873",
-		        "tarjetaCredito": "6560192560429684",
-		        "cvc": "304",
-		        "expiracionCredito": "10/25",
-		        "tipoTarjeta": "Discover"
+		        "iban": "ES4401880768110007177268",
+		        "bic": "ALCLESMM111",
+		        "tarjetaCredito": "3138889542480707",
+		        "cvc": "357",
+		        "expiracionCredito": "10/29",
+		        "tipoTarjeta": "American Express",
+		        "nss": "518818733435",
+		        "pasaporte": "VIG3471738"
 		    },
 		    ...
 		]
@@ -681,7 +717,63 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	- GET
 	- Parámetros:
 		- lei: LEI. Ejemplo: 9598009DZMHWCT7D0W77
-	- Resultado: "OK" si el CUPS es válido. "ERROR" en otro caso.		
+	- Resultado: "OK" si el LEI es válido. "ERROR" en otro caso.		
+
+- **/misc/isin**
+	- Devuelve una lista de ISIN (International Securities Identification Numbering) (Solo de españa).
+	- GET
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "ES0B7SFX1EB0",
+		    "ES05668LKS78",
+		    "ES08TTWMFKS7",
+		    "ES050EKIBI08",
+		    "ES0SRKPXC8C1",
+		    "ES0AZK1KBCX4",
+		    "ES0LRRW8JE44",
+		    "ES07F8VKGW59",
+		    "ES0LG92O0XA0",
+		    "ES052RHOH566"
+		]
+		```	
+		
+- **/misc/validateisin**
+	- Comprueba si un ISIN (International Securities Identification Numbering) es válido. (Formato adecuado).
+	- GET
+	- Parámetros:
+		- isin: ISIN. Ejemplo: ES055XBM8IE4
+	- Resultado: "OK" si el ISIN es válido. "ERROR" en otro caso.	
+	
+- **/misc/nss**
+	- Devuelve una lista de NSS (Número Seguridad Social).
+	- GET
+	- Parámetros:
+		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
+	- Ejemplo resultado
+		```
+		[
+		    "223107747468",
+		    "355479016932",
+		    "112086812750",
+		    "368775263135",
+		    "227609723996",
+		    "424847881262",
+		    "339078235714",
+		    "333571110224",
+		    "032248887354",
+		    "474450537957"
+		]
+		```	
+		
+- **/misc/validatenss**
+	- Comprueba si un NSS (Número Seguridad Social) es válido.
+	- GET
+	- Parámetros:
+		- nss: NSS. Ejemplo: 047063802539
+	- Resultado: "OK" si el NSS es válido. "ERROR" en otro caso.		
 
 - **/number/random**
 	- Devuelve una lista de números aleatorios
@@ -1326,4 +1418,9 @@ Se incluye un Dockerfile que permite desplegar el servicio en Render:
 	- Copiamos el jar generado del target a raíz y nombre final.
 	- Luego ejecutamos con java nuestro jar
 
+
+## Dependencias:
+Esta aplicación utiliza las siguientes dependencias de terceras partes
+- [iso-17442-java](https://github.com/EDumdum/iso-17442-java) - MIT license
+- [ZXing Library](https://github.com/zxing/zxing) - Apache-2.0 license
 					

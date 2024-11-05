@@ -432,6 +432,23 @@ public class ProfilesService {
 
 		return listProvincias.get(indice);
 	}
+	
+	/**
+	 * Generar una provincia aleatoria 
+	 * 
+	 * @return
+	 */
+	public Provincias generarProvinciaRandom() {
+		List<Provincias> listProvincias = provinciasRepository.findAll();
+
+		// si solo hay una opcion... no hay aleatoriedad posible
+		int indice = 0;
+		if (listProvincias.size() > 1) {
+			indice = semilla.nextInt(0, listProvincias.size());
+		}
+
+		return listProvincias.get(indice);
+	}	
 
 	/**
 	 * Devolver lista provincias dentro de una comunidad autonoma
@@ -814,6 +831,80 @@ public class ProfilesService {
         return true;
     }
     
+
+    /**
+     * Generar digitos de control de un NSS
+     * @param baseNumber Los 10 primeros digitos del NSS
+     * @return
+     */
+    private String calculateControlDigitsNSS(String baseNumber) {
+        long baseNumberLong = Long.parseLong(baseNumber);
+        int controlDigits = (int) (baseNumberLong % 97);
+        return String.format("%02d", controlDigits);
+    }    
+      
+    /**
+     * Generar un NSS asociado a una provincia
+     * NOTA: Especificación: https://www.grupoalquerque.es/ferias/2012/archivos/digitos/codigo_seguridad_social.pdf
+     * @param idProvincia
+     * @return
+     */
+    public String generateNSS(String idProvincia) {
+
+        // Generate province code
+    	String provinceCode = idProvincia;
+    	if (provinceCode == null || provinceCode.isEmpty()) {
+    		provinceCode = generarProvinciaRandom().getId();     
+    	}
+                	
+
+        // Generate sequential number
+        String sequentialNumber = String.format("%08d", this.semilla.nextInt(100000000));
+
+        // Generate control digits
+        String baseNumber = provinceCode + sequentialNumber;
+        String controlDigitsStr = calculateControlDigitsNSS(baseNumber);
+
+        return baseNumber + controlDigitsStr;
+    }
+    
+    /**
+	 * Generar un NSS
+	 * Provincia aleatoria
+	 * @return
+	 */
+    public String generateNSS() {
+    	return generateNSS(null);
+    }        
+    
+    /**
+     * Validar un NSS
+     * @param nss
+     * @return
+     */
+    public boolean validateNSS(String nss) {
+        if (nss.length() != 12) {
+            return false;
+        }
+
+        String provinceCode = nss.substring(0, 2);
+        String sequentialNumber = nss.substring(2, 10);
+        String controlDigits = nss.substring(10, 12);
+
+        // Validate province code
+        Provincias provincia = getProvincia(provinceCode);
+		if (provincia == null) {
+			return false;
+		}
+		
+        // Validate control digits
+        String baseNumber = provinceCode + sequentialNumber;
+        String expectedControlDigitsStr = calculateControlDigitsNSS(baseNumber);
+
+        return controlDigits.equals(expectedControlDigitsStr);
+    }    
+    
+
 	
 	/**
 	 * Conformar los datos de una persona completamente aleatoria a devolver
@@ -825,6 +916,7 @@ public class ProfilesService {
 		PersonaReturn persona = new PersonaReturn();
 		persona.setNif(doiService.getNif());
 		persona.setNie(doiService.getNie());
+		persona.setPasaporte(doiService.generatePassportNumber());
 
 		// buscamos un id de nombre aleatorio
 		Nombres nombre = generaNombrePersonaRandom(gender);
@@ -868,6 +960,9 @@ public class ProfilesService {
 		Municipios muni = generarMunicipioRandom(provin.getId());
 		DireccionCompletaReturn direccionCompleta = conformarDireccionCompleta(ccaa, provin, muni);	
 		persona.setDireccion(direccionCompleta);
+		
+		//nss asociado a la provincia de la direccion
+		persona.setNss(generateNSS(provin.getId()));
 
 		// cuenta bancaria
 		persona.setIban(bankServices.generarIbanRandom());

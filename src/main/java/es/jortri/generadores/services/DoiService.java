@@ -268,5 +268,85 @@ public class DoiService {
 		}
 
 	}
+	
+    /**
+     * Generar el DC de verificación de un pasaporte
+     * @param input
+     * @return
+     */
+	public char calculateCheckDigitPassport(String input) {
+        String weights = "731";
+        int sum = 0;
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            int value;
+            if (Character.isDigit(c)) {
+                value = c - '0';
+            } else {
+                value = c - 'A' + 10;
+            }
+            sum += value * (weights.charAt(i % 3) - '0');
+        }
+        int checkDigit = sum % 10;
+        return (char) ('0' + checkDigit);
+    }
+    
+    /**
+     * Genera un numero de pasaporte segun la definición de la ICAO para 
+     * el pasaporte de españa
+     * Referencia pasaporte español: https://www.bbva.es/finanzas-vistazo/ef/finanzas-personales/cual-es-el-numero-de-pasaporte-en-espanol-y-como-se-obtiene.html#:~:text=Actualmente%2C%20el%20n%C3%BAmero%20de%20pasaporte,p%C3%A1gina%20reservada%20a%20las%20autoridades).
+     * Referencia algoritmo digito control ICAO MRZ Check Digit: https://planetcalc.com/9535/
+     * NOTA: probamos con los 3 numeros de pasaporte que tengo en mi casa, y en los 3 coincidio el digito de control con el dado por el algoritmo ICAO 
+     * @return
+     */
+    public String generatePassportNumber() {
+        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random random = new Random();
+        StringBuilder passport = new StringBuilder();
+        
+        // Generar tres letras
+        for (int i = 0; i < 3; i++) {
+            passport.append(letters.charAt(random.nextInt(letters.length())));
+        }
+        
+        // Generar seis dígitos
+        for (int i = 0; i < 6; i++) {
+            passport.append(random.nextInt(10));
+        }
+        
+        // Calcular y añadir el dígito de control
+        passport.append(calculateCheckDigitPassport(passport.toString()));
+        
+        return passport.toString();
+    }    
+    
+	/**
+	 * Validar un pasaporte
+	 * 
+	 * @param passportNumber
+	 * @return
+	 */
+    public boolean validatePassportNumber(String passportNumber) {
+        if (passportNumber.length() != 10) {
+            return false;
+        }
+        String passportWithoutCheckDigit = passportNumber.substring(0, 9);
+        char expectedCheckDigit = calculateCheckDigitPassport(passportWithoutCheckDigit);
+        char actualCheckDigit = passportNumber.charAt(9);
+        return expectedCheckDigit == actualCheckDigit;
+    }
+    
+    /**
+     * Completar pasaporte con el DC
+     * @param passportNumber
+     * @return
+     */
+    public String completarPassaporteConDC(String passportNumber) {
+		if (passportNumber.length() != 9) {
+			return null;
+		}
+		char expectedCheckDigit = calculateCheckDigitPassport(passportNumber);
+		return passportNumber + expectedCheckDigit;
+    }	
 
 }
