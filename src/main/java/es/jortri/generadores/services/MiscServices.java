@@ -17,6 +17,7 @@ import es.jortri.generadores.model.Ccaa;
 import es.jortri.generadores.model.Municipios;
 import es.jortri.generadores.model.Provincias;
 import es.jortri.generadores.util.CommonUtil;
+import es.jortri.generadores.util.FiltroOpcionalesDireccion;
 
 
 @Service
@@ -250,9 +251,11 @@ public class MiscServices {
 	 * @param idCcaa
 	 * @param idProvincia
 	 * @param idMunicipio
+	 * @param filtrosOpcion
 	 * @return
 	 */
-	public DireccionCompletaReturn conformarDireccionCompletaTrata(String ineCcaa, String ineProvincia, String ineMunicipio) throws IllegalArgumentException {
+	public DireccionCompletaReturn conformarDireccionCompletaTrata(String ineCcaa, String ineProvincia, String ineMunicipio,
+			FiltroOpcionalesDireccion filtrosOpcion) throws IllegalArgumentException {
 		
 		//Conformemos todas las posibilidades: 
 		//  -puede recibir los 3 -> conformarDireccionCompleta directamente
@@ -309,7 +312,7 @@ public class MiscServices {
 			throw new IllegalArgumentException("No se han encontrado los datos de CCAA, Provincia o Municipio");
 		}
 		
-		return profilesService.conformarDireccionCompleta(ccaa, provincia, municipio);
+		return profilesService.conformarDireccionCompleta(ccaa, provincia, municipio, filtrosOpcion);
 	}
 	
 	

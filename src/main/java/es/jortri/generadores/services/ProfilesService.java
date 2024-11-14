@@ -16,6 +16,7 @@ import es.jortri.generadores.entityreturn.DireccionCompletaReturn;
 import es.jortri.generadores.entityreturn.EmpresaReturn;
 import es.jortri.generadores.entityreturn.PersonaReturn;
 import es.jortri.generadores.enumerados.Genero;
+import es.jortri.generadores.enumerados.OpcionFiltroEnum;
 import es.jortri.generadores.enumerados.PrefijoTarjeta;
 import es.jortri.generadores.model.Apellidos;
 import es.jortri.generadores.model.Ccaa;
@@ -36,6 +37,7 @@ import es.jortri.generadores.repository.NombresRepository;
 import es.jortri.generadores.repository.ProvinciasRepository;
 import es.jortri.generadores.repository.TipoviasRepository;
 import es.jortri.generadores.util.CommonUtil;
+import es.jortri.generadores.util.FiltroOpcionalesDireccion;
 
 @Service
 public class ProfilesService {
@@ -587,36 +589,50 @@ public class ProfilesService {
 	 * alguno o varios de los datos adicionales siguientes: kilometro, bloque,
 	 * portal, escalera, planta y/o puerta
 	 * @param direccion Objeto direccion relleno hasta ahora donde incorporaremos las modificaciones
+	 * @param filtrosOpcion Altera que opciones generar
 	 */
-	public void generarParte2Direccion(DireccionCompletaReturn direccion) {
+	public void generarParte2Direccion(DireccionCompletaReturn direccion, FiltroOpcionalesDireccion filtrosOpcion) {
 		
 		//tiene o no kilometro? random con probabilidad 1 de cada 20
-		if (semilla.nextInt(1, 20) == 1) {
+		if (filtrosOpcion.getKm() == OpcionFiltroEnum.SI || 
+			(filtrosOpcion.getKm() == OpcionFiltroEnum.ALEATORIO && semilla.nextInt(1, 20) == 1)) {
 			direccion.setKilometro(Integer.toString(semilla.nextInt(1, 999)));
 		}
-		//tiene bloque? randon con probabilidad 1 de cada 10
-		if (semilla.nextInt(1, 10) == 1) {
+		//tiene bloque? randon con probabilidad 1 de cada 5
+		if (filtrosOpcion.getBloque() == OpcionFiltroEnum.SI ||
+			(filtrosOpcion.getBloque() == OpcionFiltroEnum.ALEATORIO && semilla.nextInt(1, 5) == 1)) {
 			direccion.setBloque(Integer.toString(semilla.nextInt(1, 15)));
 		}
 		
-		//tiene portal? random con probabilidad 1 de cada 10
-		if (semilla.nextInt(1, 10) == 1) {
+		//tiene portal? random con probabilidad 1 de cada 5
+		if (filtrosOpcion.getPortal() == OpcionFiltroEnum.SI ||
+			(filtrosOpcion.getPortal() == OpcionFiltroEnum.ALEATORIO && semilla.nextInt(1, 5) == 1)) {
 			direccion.setPortal(Integer.toString(semilla.nextInt(1, 15)));
 		}
 		
-		//tiene escalera? random con probabilidad 1 de cada 10
-		if (semilla.nextInt(1, 10) == 1) {
+		//tiene escalera? random con probabilidad 1 de cada 5
+		if (filtrosOpcion.getEscalera() == OpcionFiltroEnum.SI ||
+			(filtrosOpcion.getEscalera() == OpcionFiltroEnum.ALEATORIO && semilla.nextInt(1, 5) == 1)) {
 			direccion.setEscalera(Integer.toString(semilla.nextInt(1, 9)));
 		}
 		
 		//tiene planta? -> siempre.
-		int indice = semilla.nextInt(0, DIRECCION_PLANTA.length);
-		direccion.setPlanta(DIRECCION_PLANTA[indice]);
+		if (filtrosOpcion.getPlanta() == OpcionFiltroEnum.SI) {
+			int indice = semilla.nextInt(0, DIRECCION_PLANTA.length);
+			direccion.setPlanta(DIRECCION_PLANTA[indice]);			
+		}
 		
 		//tiene puerta? -> siempre, esta con letras
-		direccion.setPuerta(CommonUtil.generarLetrasAleatorias(1, CommonUtil.CARACTERES_ALFA_LATINOS_MAYUS));
+		if (filtrosOpcion.getPuerta() == OpcionFiltroEnum.SI) {
+			direccion.setPuerta(CommonUtil.generarLetrasAleatorias(1, CommonUtil.CARACTERES_ALFA_LATINOS_MAYUS));
+		}
+		
 				
 	}
+	
+	public void generarParte2Direccion(DireccionCompletaReturn direccion) {	
+		generarParte2Direccion(direccion, new FiltroOpcionalesDireccion());				
+	}	
 
 	/**
 	 * Genera un cod postal random que este asociado a la pronvincia/municipio
@@ -672,14 +688,16 @@ public class ProfilesService {
 	 * @param idCcaa
 	 * @param idProvincia
 	 * @param idMunicipio
+	 * @param filtrosOpcion
 	 * @return
 	 */
-	public DireccionCompletaReturn conformarDireccionCompleta(Ccaa ccaa, Provincias provincia, Municipios municipio) {
+	public DireccionCompletaReturn conformarDireccionCompleta(Ccaa ccaa, Provincias provincia, Municipios municipio,
+			FiltroOpcionalesDireccion filtrosOpcion) {
 		DireccionCompletaReturn direccion = new DireccionCompletaReturn();
 				
 		direccion.setDireccion(generaDireccionRandom());
 		direccion.setNumVia(generaNumeroViaRandom());
-		generarParte2Direccion(direccion);
+		generarParte2Direccion(direccion, filtrosOpcion);
 		direccion.setIneCcaa(ccaa.getId());
 		direccion.setCcaa(ccaa.getNombre());
 		direccion.setIneProvincia(provincia.getId());
@@ -692,6 +710,20 @@ public class ProfilesService {
 		direccion.fijarDireccionCompleta();
 				
 		return direccion;
+	}
+	
+	/**
+	 * Genera una direccion completa
+	 * Sobrecarga para no decicir los filtros opcionales, se haran por configuracion defecto.
+	 * @param ccaa
+	 * @param provincia
+	 * @param municipio
+	 * @return
+	 */
+	public DireccionCompletaReturn conformarDireccionCompleta(Ccaa ccaa, Provincias provincia, Municipios municipio) {
+		//aplicamos filtros de opciones por defecto
+		FiltroOpcionalesDireccion filtrosOpcion = new FiltroOpcionalesDireccion();
+		return conformarDireccionCompleta(ccaa, provincia, municipio, filtrosOpcion);
 	}
 	
 	/**

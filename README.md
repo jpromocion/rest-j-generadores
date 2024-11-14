@@ -559,6 +559,12 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- ineccaa: Opcional. Código INE de la CCAA si queremos filtrar por una concreta.
 		- ineprovincia: Opcional. Coódigo INE de la provincia si queremos filtrar por una concreta. 
 		- inemunicipio: Opcional. Coódigo INE del municipio si queremos filtrar por uno concreto. NOTA: El INE del municipio no puede identificar un municipio por si solo, requiere de al menos la provincia.
+		- km: Opcional. y/n si se quiere forzar que esté o no esté el valor de kilometro. Valor no indicado: aparece aleatoriamente.
+		- bloque: Opcional. y/n si se quiere forzar que esté o no esté el valor de bloque. Valor no indicado: aparece aleatoriamente.
+		- portal: Opcional. y/n si se quiere forzar que esté o no esté el valor de portal. Valor no indicado: aparece aleatoriamente.
+		- escalera: Opcional. y/n si se quiere forzar que esté o no esté el valor de escalera. Valor no indicado: aparece aleatoriamente.
+		- planta: Opcional. y/n si se quiere forzar que esté o no esté el valor de planta. Valor no indicado: aparece siempre.
+		- puerta: Opcional. y/n si se quiere forzar que esté o no esté el valor de puerta. Valor no indicado: aparece siempre.
 	- Ejemplo resultado
 		```
 		[

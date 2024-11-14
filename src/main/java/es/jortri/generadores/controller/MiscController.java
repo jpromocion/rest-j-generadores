@@ -17,6 +17,7 @@ import es.jortri.generadores.entityreturn.MunicipioReturn;
 import es.jortri.generadores.entityreturn.ProvinciaReturn;
 import es.jortri.generadores.services.MiscServices;
 import es.jortri.generadores.util.CommonUtil;
+import es.jortri.generadores.util.FiltroOpcionalesDireccion;
 
 /**
  * Controlador de los servicios de generacion de datos varios
@@ -211,17 +212,22 @@ public class MiscController {
 	 */
 	@GetMapping("/address")
 	public List<DireccionCompletaReturn> address(@RequestParam String results, @RequestParam Optional<String> ineccaa,
-			@RequestParam Optional<String> ineprovincia, @RequestParam Optional<String> inemunicipio) {
+			@RequestParam Optional<String> ineprovincia, @RequestParam Optional<String> inemunicipio,
+			Optional<String> km, Optional<String> bloque, Optional<String> portal, Optional<String> escalera,
+			Optional<String> planta, Optional<String> puerta) {
 
 		int resultsInt = CommonUtil.revisarNumResultadoMaximo(results, CommonUtil.MAX_RESULTADO_PERMITIDO);
 
 		String ineccaaRev = ineccaa.orElse("");
 		String ineprovinciaRev = ineprovincia.orElse("");
 		String inemunicipioRev = inemunicipio.orElse("");
+		
+		//filtros opcionales de elementos en direccion
+		FiltroOpcionalesDireccion filtrosOpcion = new FiltroOpcionalesDireccion(km, bloque, portal, escalera, planta, puerta);
 
 		List<DireccionCompletaReturn> listaDirecciones = new ArrayList<DireccionCompletaReturn>();
 		for (int i = 0; i < resultsInt; i++) {
-			listaDirecciones.add(miscServices.conformarDireccionCompletaTrata(ineccaaRev, ineprovinciaRev, inemunicipioRev));
+			listaDirecciones.add(miscServices.conformarDireccionCompletaTrata(ineccaaRev, ineprovinciaRev, inemunicipioRev, filtrosOpcion));
 		}
 
 		return listaDirecciones;
