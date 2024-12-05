@@ -67,25 +67,25 @@ public final class VinGeneratorUtils {
         final int lineToRead = RANDOM.nextInt(62177) + 1;
 
         //en vez de utilizar getSystemResource, utilizar getResource
+        //En local funciona con la ultima de todas, pero esa no funcionaba en el servidor desplegado
+        //Alguna de estas si... pero como no pinta los logs...una de ellas es
         URL url = VinGeneratorUtils.class.getClassLoader().getResource("/vin-prefixes.txt");
 		if (url == null) {
-			logger.error("No encuentra con " + "/vin-prefixes.txt");
+			logger.info("No encuentra con " + "/vin-prefixes.txt");
 			url = VinGeneratorUtils.class.getClassLoader().getResource("resources/vin-prefixes.txt");
 			if (url == null) {
-				logger.error("No encuentra con " + "resources/vin-prefixes.txt");
+				logger.info("No encuentra con " + "resources/vin-prefixes.txt");
 				url = VinGeneratorUtils.class.getClassLoader().getResource("/resources/vin-prefixes.txt");
 			}
 			if (url == null) {
-				logger.error("No encuentra con " + "/resources/vin-prefixes.txt");
+				logger.info("No encuentra con " + "/resources/vin-prefixes.txt");
 			}				
 		}
-
 		if (url == null) {
 			url = VinGeneratorUtils.class.getClassLoader().getResource("vin-prefixes.txt");
 		}
 		
 		if (url == null) {
-			url = VinGeneratorUtils.class.getClassLoader().getResource("vin-prefixes.txt");
 			throw new RuntimeException("No encuentra el  " + "vin-prefixes.txt");
 		}
         try (
