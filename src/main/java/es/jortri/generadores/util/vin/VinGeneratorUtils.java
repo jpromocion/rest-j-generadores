@@ -2,15 +2,22 @@ package es.jortri.generadores.util.vin;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /*
  * Referencia: https://github.com/mkyrychenko/vin-utils
  */
 public final class VinGeneratorUtils {
+	
+	private static final Logger logger = LoggerFactory.getLogger(VinGeneratorUtils.class);
+	
     private static final Random RANDOM = new Random();
     private static final String PREFIXES_FILE_NAME = "vin-prefixes.txt";
     private static final String ALLOWED_CHARS = "0123456789ABCDEFGHJKLMNPRSTUVWXYZ";
@@ -59,7 +66,32 @@ public final class VinGeneratorUtils {
         // '62178' is a number of lines in the file; + 1 to avoid reading of first line
         final int lineToRead = RANDOM.nextInt(62177) + 1;
 
-        try (final Stream<String> stream = Files.lines(Paths.get(ClassLoader.getSystemResource(PREFIXES_FILE_NAME).toURI()))) {
+        //en vez de utilizar getSystemResource, utilizar getResource
+        URL url = VinGeneratorUtils.class.getClassLoader().getResource("/vin-prefixes.txt");
+		if (url == null) {
+			logger.error("No encuentra con " + "/vin-prefixes.txt");
+			url = VinGeneratorUtils.class.getClassLoader().getResource("resources/vin-prefixes.txt");
+			if (url == null) {
+				logger.error("No encuentra con " + "resources/vin-prefixes.txt");
+				url = VinGeneratorUtils.class.getClassLoader().getResource("/resources/vin-prefixes.txt");
+			}
+			if (url == null) {
+				logger.error("No encuentra con " + "/resources/vin-prefixes.txt");
+			}				
+		}
+
+		if (url == null) {
+			url = VinGeneratorUtils.class.getClassLoader().getResource("vin-prefixes.txt");
+		}
+		
+		if (url == null) {
+			url = VinGeneratorUtils.class.getClassLoader().getResource("vin-prefixes.txt");
+			throw new RuntimeException("No encuentra el  " + "vin-prefixes.txt");
+		}
+        try (
+        	//final Stream<String> stream = Files.lines(Paths.get(ClassLoader.getSystemResource(PREFIXES_FILE_NAME).toURI()))) {        	        
+        	final Stream<String> stream= Files.lines(Paths.get(url.toURI()))){
+        	
             final String line = stream.skip(lineToRead)
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException("Problem occurred while read line " + lineToRead + " from " + PREFIXES_FILE_NAME));
