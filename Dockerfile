@@ -2,7 +2,7 @@
 #un version ubuntu con el open jdk 17 preinstlado -> https://hub.docker.com/r/microsoft/openjdk-jdk
 #funciona tambien sin tener que instalar el jdk despues
 #FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu AS build
-FROM eclipse-temurin:17 AS build
+FROM eclipse-temurin:17-jdk AS build
 
 RUN apt-get update
 #RUN apt-get install openjdk-17-jdk -y
