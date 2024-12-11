@@ -1,7 +1,10 @@
-#FROM ubuntu:latest AS build
-FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu AS build
+FROM ubuntu:latest AS build
+#un version ubuntu con el open jdk 17 preinstlado -> https://hub.docker.com/r/microsoft/openjdk-jdk
+#funciona tambien sin tener que instalar el jdk despues
+#FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu AS build
+
 RUN apt-get update
-#RUN apt-get install openjdk-17-jdk -y
+RUN apt-get install openjdk-17-jdk -y
 
 #La genreracion del QR con textos requiere una libreria de fuentes no incluida en el JDK
 #RUN apt-get install libfreetype6-dev -y
@@ -10,6 +13,8 @@ RUN apt-get update
 #RUN apt-get install libfreetype6-dev:i386 -y
 #RUN apt-get install freetype2-demos -y
 #RUN apt-get install libfreetype6 -y
+RUN apt-get install libfreetype-dev -y
+#RUN apt-get install libfreetype6-dev -y
 
 RUN apt-get install maven -y
 COPY . .
