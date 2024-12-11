@@ -19,6 +19,7 @@ RUN apt-get install ttf-mscorefonts-installer -y
 RUN apt-get install libfreetype-dev -y
 RUN apt-get install fontconfig -y
 RUN apt-get install fonts-dejavu -y
+RUN apt-get install ttf-dejavu -y
 
 RUN fc-cache -f -v
 
