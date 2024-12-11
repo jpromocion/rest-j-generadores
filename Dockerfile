@@ -7,7 +7,8 @@ RUN apt-get install openjdk-17-jdk -y
 #RUN apt-get install php5-gd -y
 #RUN apt-get install freetype* -y
 #RUN apt-get install libfreetype6-dev:i386 -y
-RUN apt-get install freetype2-demos -y
+#RUN apt-get install freetype2-demos -y
+RUN apt-get install libfreetype6 -y
 
 RUN apt-get install maven -y
 COPY . .
