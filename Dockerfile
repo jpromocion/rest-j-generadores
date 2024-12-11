@@ -1,8 +1,9 @@
+#PASO 1: ENTORNO DE CONSTRUCCION (BUILD)
 #FROM ubuntu:latest AS build
 #un version ubuntu con el open jdk 17 preinstlado -> https://hub.docker.com/r/microsoft/openjdk-jdk
 #funciona tambien sin tener que instalar el jdk despues
 #FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu AS build
-FROM eclipse-temurin:17-jdk-noble AS build
+FROM eclipse-temurin:17-jdk AS build
 
 RUN apt-get update
 #RUN apt-get install openjdk-17-jdk -y
@@ -20,7 +21,10 @@ RUN apt-get install maven -y
 COPY . .
 RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jdk-slim
+
+#PASO 2: ENTORNO DE EJECUCION
+#FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk
 EXPOSE 8085
 COPY --from=build /target/generadores.jar generadores.jar
 
