@@ -1413,16 +1413,16 @@ Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments 
 ## Docker - Render
 
 Se incluye un Dockerfile que permite desplegar el servicio en Render:
-- Define el contenedor:
-	- Simula un ubuntu 
-	- Con openjdk17 (el requisito de la versión de spring boot utilizada) instalado.
-	- Con maven, dado que lo utilizamos como gestor de dependencias en nuestro proyecto.
-- Se hace el "mvn clean package" para compilar y que cree el jar
-- Se define el entorno para la aplicación 
-	- con openjdk17
+- Define el entorno de construcción:
+	- Simula un ~~ubuntu e instala openjdk17~~ (el requisito de la versión de spring boot utilizada). -> finalmente utilizamos una "eclipse-temurin:17-jdk" porque ya viene directamente con el jdk instalado y es más rápido para desplegar.
+	- Instala maven, dado que lo utilizamos como gestor de dependencias en nuestro proyecto.
+	- Se hace el "mvn clean package" para compilar y que cree el jar
+- Se define el entorno de ejución de la aplicación:
+	- con ~~openjdk17~~ -> Sustituido por la "eclipse-temurin:17-jdk", porque openjdk docker está deprecated. Esta es una de las alternativas que proponen.
+		- Adicionalmente indicar que el uso de la versión "slim" no dejaba funcionar los textos que se añaden al QR debido a que entre las cosas que hacen para volverla más ligera es quitar las librerias de fuentes. "eclipse-temurin:17-jdk" lleba el openjdk completo por lo que solventamos dicho problema.
 	- puerto expuesto 8085
-	- Copiamos el jar generado del target a raíz y nombre final.
-	- Luego ejecutamos con java nuestro jar
+	- Copiamos el jar generado del target (entorno contrucción) a raíz y nombre final.
+	- Luego ejecutamos con java nuestro jar (La aplicación spring boot se está ejecutando con su tomcat embebido)
 
 
 ## Dependencias:
