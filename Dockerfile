@@ -4,7 +4,8 @@ RUN apt-get install openjdk-17-jdk -y
 
 #La genreracion del QR con textos requiere una libreria de fuentes no incluida en el JDK
 #RUN apt-get install libfreetype6-dev -y
-RUN apt-get install php5-gd -y
+#RUN apt-get install php5-gd -y
+RUN apt-get install freetype* -y
 
 RUN apt-get install maven -y
 COPY . .
