@@ -20,6 +20,8 @@ RUN apt-get install libfreetype-dev -y
 RUN apt-get install fontconfig -y
 RUN apt-get install fonts-dejavu -y
 
+RUN fc-cache -f -v
+
 RUN fc-list
 
 RUN apt-get install maven -y
