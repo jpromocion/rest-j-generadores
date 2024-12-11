@@ -6,6 +6,8 @@ FROM ubuntu:latest AS build
 RUN apt-get update
 RUN apt-get install openjdk-17-jdk -y
 
+RUN apt-get install ttf-mscorefonts-installer -y
+
 #La genreracion del QR con textos requiere una libreria de fuentes no incluida en el JDK
 #RUN apt-get install libfreetype6-dev -y
 #RUN apt-get install php5-gd -y
