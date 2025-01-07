@@ -1,3 +1,4 @@
+#
 #PASO 1: ENTORNO DE CONSTRUCCION (BUILD)
 #-----------------------------------------
 #Es bastante más rapido desplegar un opcion que ya lleva el openjdk-17 instalado, 
@@ -15,7 +16,7 @@ RUN apt-get install maven -y
 COPY . .
 RUN mvn clean package -DskipTests
 
-
+#
 #PASO 2: ENTORNO DE EJECUCION
 #-----------------------------------------
 #OJO1: openjdk esta deprecated, indica en su web https://hub.docker.com/_/openjdk, 
