@@ -44,8 +44,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 
 - **/demo/hola**
 	- Devuelve la cadena "Hola Mundo"
-	- GET	
-	
+	- GET
+
 - **/doi/nif**
 	- Devuelve una lista de NIFs
 	- GET
@@ -58,15 +58,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "73656644H",
 		    "81692150Z"
 		]
-		```	
-		
+		```
+
 - **/doi/validatenif**
 	- Comprueba si un NIF es válido
 	- GET
 	- Parámetros:
 		- nif: NIF a validar
-	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.		
-	
+	- Resultado: "OK" si nif es válido. "ERROR" en otro caso.
+
 - **/doi/nie**
 	- Devuelve una lista de NIEs
 	- Parámetros:
@@ -78,15 +78,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "Y7844030D",
 		    "X7570499A"
 		]
-		```	
-		
+		```
+
 - **/doi/validatenie**
 	- Comprueba si un NIE es válido
 	- GET
 	- Parámetros:
 		- nie: NIE a validar
-	- Resultado: "OK" si nie es válido. "ERROR" en otro caso.		
-	
+	- Resultado: "OK" si nie es válido. "ERROR" en otro caso.
+
 - **/doi/cif**
 	- Devuelve una lista de CIFs
 	- GET
@@ -100,15 +100,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "G15107998",
 		    "G81294811"
 		]
-		```	
-		
+		```
+
 - **/doi/validatecif**
 	- Comprueba si un CIF es válido
 	- GET
 	- Parámetros:
 		- cif: CIF a validar
-	- Resultado: "OK" si cif es válido. "ERROR" en otro caso.	
-	
+	- Resultado: "OK" si cif es válido. "ERROR" en otro caso.
+
 - **/doi/passport**
 	- Devuelve una lista de pasaportes españoles.
 	- Parámetros:
@@ -120,14 +120,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "RWC0978890",
 		    "LXG7179783"
 		]
-		```	
-		
+		```
+
 - **/doi/validatepassport**
 	- Comprueba si un pasaporte español es válido
 	- GET
 	- Parámetros:
 		- passport: Pasaporte a validar
-	- Resultado: "OK" si el pasaporte es válido. "ERROR" en otro caso.	
+	- Resultado: "OK" si el pasaporte es válido. "ERROR" en otro caso.
 
 - **/doi/calculatepassportdc**
 	- Devuelve el digito de control del número de pasaporte
@@ -135,9 +135,9 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	- Parámetros:
 		- passport: Pasaporte a validar sin el digito de control.
 	- Resultado: El digito de control calculado. Ejemplo: "7".
-	
-	
-- **/profiles/person**	
+
+
+- **/profiles/person**
 	- Devuelve una lista de datos de una persona generados aleatoriamente
 	- GET
 	- Parámetros:
@@ -192,9 +192,9 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```	
-		
-- **/profiles/company**	
+		```
+
+- **/profiles/company**
 	- Devuelve una lista de datos de una empresa generados aleatoriamente
 	- GET
 	- Parámetros:
@@ -235,9 +235,9 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```	
-		
-- **/bank/account**	
+		```
+
+- **/bank/account**
 	- Devuelve una lista de cuentas bancarias generadas aleatoriamente
 	- GET
 	- Parámetros:
@@ -255,8 +255,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```			
-		
+		```
+
 - **/bank/card**
 	- Devuelve una lista de tarjetas de crédito generadas aleatoriamente
 	- GET
@@ -275,22 +275,22 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```				
-		
+		```
+
 - **/bank/validateiban**
 	- Comprueba si un IBAN es valido
 	- GET
 	- Parámetros:
 		- iban: IBAN a validar. Ejemplo: ES8921032698618414341240
-	- Resultado: "OK" si iban es válido. "ERROR" en otro caso.	
-	
+	- Resultado: "OK" si iban es válido. "ERROR" en otro caso.
+
 - **/bank/validatecard**
 	- Comprueba si un número de tarjeta de crédito es valido
 	- GET
 	- Parámetros:
 		- card: Tarjeta a validar. Ejemplo: 4544363578091115
-	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.	
-	
+	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.
+
 - **/text/word**
 	- Devuelve una lista de palabras generadas aleatoriamente.
 	- GET
@@ -304,7 +304,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
     		"Ministri potuit manus fundamentum palaestra massa traditio textus magnitudo vetus magnus familiaris gradus debebat auxilium facere officina aedificium valores praefectus temperatura unus regina carolus etiam",
 		    ...
 		]
-		```		
+		```
 - **/text/characters**
 	- Devuelve una lista de palabras generadas aleatoriamente con el tamaño máximo de carácteres especificado.
 	- GET
@@ -318,8 +318,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "Coche noche alma abrió algo físico empresarios vez qué mala utilizar golpe formas mismo juventud plantas medicina ahí finales siempre suelo sesión teoría síntomas proceso actor histórico sábado causa mesa acierto cifra semanas familia literatura sino ",
 		    ...
 		]
-		```		
-		
+		```
+
 - **/text/paragraphs**
 	- Devuelve una lista que contine cada elemento un texto generado aleatoriamente con el número de parráfos indicado
 	- GET
@@ -333,8 +333,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 			"Campaign raul direction leave five empty produced has candidate banks another probably importance body lack differences land free formula mainly just american members negotiations waters position element material create bodies doctor june land solution note thing seven showed food first were woman face present camera then seen bedroom motif for fernandez sensation faith sound value entity construction state sculpture where part pact good forces board precisely love reach symptoms should values attempt recognition below union fits difference wrist importance use which realization you.\nNext yours knows neck just exercise all scenario enrique should read same same angel opened who event attitude only value instant services airs knowledge processes final activity identity news street spokesperson image court cultural nothing your free present construction television english professor enrique poetry full rome station purpose yes figure planned daughter relations thigh size huge face recollection socialists strong safety traditional import.\nEconomic player sequence green monday take saturday success intention kitchen meeting situation direct table choice construction also republic institution elbow reduction greater representatives information some problem instant tools maximum supposed to fifteen majority opinion commission basque letter motif art science nine difference produce operation achieve never good ensures the screen those building classes opinion from types relation york function even economic should cup skin loss bodies pact be situation.",
 		    ...
 		]
-		```		
-		
+		```
+
 - **/vehicle/platenumber**
 	- Devuelve una lista de matriculas de vehiculos de España.
 	- GET
@@ -352,8 +352,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "8419NTJ",
 		    "6110LBW"
 		]
-		```						
-			
+		```
+
 - **/vehicle/vin**
 	- Devuelve una lista de números de bastidor.
 	- GET
@@ -370,15 +370,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "2GTJC39G533ZAFAUH",
 		    "1G6DN57U67TLBSWKZ"
 		]
-		```							
-				
+		```
+
 - **/vehicle/validatevin**
 	- Comprueba si un número de bastidor es válido.
 	- GET
 	- Parámetros:
 		- vin: Número de bastidor. Ejemplo: 1FTWF32Y191LCYKS0
-	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.	
-					
+	- Resultado: "OK" si tarjeta es válida. "ERROR" en otro caso.
+
 
 - **/misc/email**
 	- Devuelve una lista de emails
@@ -396,8 +396,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "NuC9xyr6A1eNYf2pY4Bj7aOz_@comcast.net",
 		    "msbCsyk4LfplwNCjpXgwok0ST@yahoo.com"
 		]
-		```	
-		
+		```
+
 - **/misc/password**
 	- Devuelve una lista de passwords
 	- GET
@@ -418,8 +418,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "QEKBHqqSCHKbE#NUURRE,RkFA",
 		    "mWgLiN)ACRID(QCYGhTJCMCTD"
 		]
-		```			
-		
+		```
+
 - **/misc/phonenumber**
 	- Devuelve una lista de telefonos
 	- GET
@@ -437,7 +437,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "942557223",
 		    "624322863"
 		]
-		```				
+		```
 
 - **/misc/city**
 	- Devuelve una lista de ciudades aleatoria
@@ -455,7 +455,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "Aldehuela de Jerte",
 		    "Fruiz"
 		]
-		```			
+		```
 
 - **/misc/zipcode**
 	- Devuelve una lista de códigos postales
@@ -473,8 +473,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "31492",
 		    "09290"
 		]
-		```	
-		
+		```
+
 - **/misc/imei**
 	- Devuelve una lista de códigos IMEI
 	- GET
@@ -491,8 +491,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "31492",
 		    "09290"
 		]
-		```		
-		
+		```
+
 - **/misc/ccaa**
 	- Devuelve una lista de CCAA de España
 	- GET
@@ -509,8 +509,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```		
-		
+		```
+
 - **/misc/provincias**
 	- Devuelve una lista de provincias de España dentro de la CCAA indicada
 	- GET
@@ -529,8 +529,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```			
-		
+		```
+
 - **/misc/municipios**
 	- Devuelve una lista de municipios de España dentro de la Provincia indicada
 	- GET
@@ -549,15 +549,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```			
-		
+		```
+
 - **/misc/address**
 	- Devuelve los datos de una lista de domicilios.
 	- GET
 	- Parámetros:
 		- results: Número de resultados a devolver. Defecto 10, máximo valor 1000.
 		- ineccaa: Opcional. Código INE de la CCAA si queremos filtrar por una concreta.
-		- ineprovincia: Opcional. Coódigo INE de la provincia si queremos filtrar por una concreta. 
+		- ineprovincia: Opcional. Coódigo INE de la provincia si queremos filtrar por una concreta.
 		- inemunicipio: Opcional. Coódigo INE del municipio si queremos filtrar por uno concreto. NOTA: El INE del municipio no puede identificar un municipio por si solo, requiere de al menos la provincia.
 		- km: Opcional. y/n si se quiere forzar que esté o no esté el valor de kilometro. Valor no indicado: aparece aleatoriamente.
 		- bloque: Opcional. y/n si se quiere forzar que esté o no esté el valor de bloque. Valor no indicado: aparece aleatoriamente.
@@ -590,7 +590,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```									
+		```
 
 - **/misc/voucher**
 	- Devuelve una lista de códigos promocionales formateados
@@ -616,7 +616,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "JJ-tB-32srb-hf7-x2XY-GG",
 		    "JJ-#0-GmzD1-1k0-0#cG-GG"
 		]
-		```		
+		```
 
 - **/misc/uuid**
 	- Devuelve una lista de UUIDs
@@ -637,8 +637,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "5be7e30a-01b4-4a34-820e-9e7e1097cf09",
 		    "b5b13d49-4949-429f-aa07-392dbcdf1682"
 		]
-		```	
-		
+		```
+
 - **/misc/catastral**
 	- Devuelve una lista de referencias catastrales de ejemplo.
 	- GET
@@ -659,15 +659,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "5172254P298W153977SD",
 		    "06029X331693665469BQ"
 		]
-		```	
-		
+		```
+
 - **/misc/validatecatastral**
 	- Comprueba si una referencia catastral es válida (Formato adecuado, no comprueba que exista en catastro).
 	- GET
 	- Parámetros:
 		- catastral: Referencia catastral. Ejemplo: 31044Z932050006628FU
-	- Resultado: "OK" si la referencia es válida. "ERROR" en otro caso.	
-		
+	- Resultado: "OK" si la referencia es válida. "ERROR" en otro caso.
+
 - **/misc/cups**
 	- Devuelve una lista de CUPS (Código Universal del Punto de Suministro).
 	- GET
@@ -688,15 +688,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "ES0024352265237641XT",
 		    "ES0363084377144784RN"
 		]
-		```	
-		
+		```
+
 - **/misc/validatecups**
 	- Comprueba si un CUPS (Código Universal del Punto de Suministro) es válido. (Formato adecuado).
 	- GET
 	- Parámetros:
 		- cups: CUPS. Ejemplo: ES0223678468476634WK
-	- Resultado: "OK" si el CUPS es válido. "ERROR" en otro caso.	
-	
+	- Resultado: "OK" si el CUPS es válido. "ERROR" en otro caso.
+
 - **/misc/lei**
 	- Devuelve una lista de LEIs (Identificador de Entidad Legal) (Solo de españa).
 	- GET
@@ -716,14 +716,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "9598GN0Y8V4UTOU51C81",
 		    "9598I0VFB776E9RA5192"
 		]
-		```	
-		
+		```
+
 - **/misc/validatelei**
 	- Comprueba si un LEI (Identificador de Entidad Legal) es válido. (Formato adecuado).
 	- GET
 	- Parámetros:
 		- lei: LEI. Ejemplo: 9598009DZMHWCT7D0W77
-	- Resultado: "OK" si el LEI es válido. "ERROR" en otro caso.		
+	- Resultado: "OK" si el LEI es válido. "ERROR" en otro caso.
 
 - **/misc/isin**
 	- Devuelve una lista de ISIN (International Securities Identification Numbering) (Solo de españa).
@@ -744,15 +744,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "ES0LG92O0XA0",
 		    "ES052RHOH566"
 		]
-		```	
-		
+		```
+
 - **/misc/validateisin**
 	- Comprueba si un ISIN (International Securities Identification Numbering) es válido. (Formato adecuado).
 	- GET
 	- Parámetros:
 		- isin: ISIN. Ejemplo: ES055XBM8IE4
-	- Resultado: "OK" si el ISIN es válido. "ERROR" en otro caso.	
-	
+	- Resultado: "OK" si el ISIN es válido. "ERROR" en otro caso.
+
 - **/misc/nss**
 	- Devuelve una lista de NSS (Número Seguridad Social).
 	- GET
@@ -772,14 +772,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "032248887354",
 		    "474450537957"
 		]
-		```	
-		
+		```
+
 - **/misc/validatenss**
 	- Comprueba si un NSS (Número Seguridad Social) es válido.
 	- GET
 	- Parámetros:
 		- nss: NSS. Ejemplo: 047063802539
-	- Resultado: "OK" si el NSS es válido. "ERROR" en otro caso.		
+	- Resultado: "OK" si el NSS es válido. "ERROR" en otro caso.
 
 - **/number/random**
 	- Devuelve una lista de números aleatorios
@@ -804,7 +804,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "62",
 		    "79"
 		]
-		```	
+		```
 
 - **/number/coin**
 	- Obtener una lista de lanzamientos de moneda
@@ -827,8 +827,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "X",
 		    "O"
 		]
-		```	
-		
+		```
+
 - **/number/dice**
 	- Obtener una lista de lanzamientos de dado
 	- GET
@@ -848,8 +848,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "2",
 		    "3"
 		]
-		```			
-		
+		```
+
 - **/number/gauss**
 	- Devuelve una lista aleatoria de numeros por el método gauss
 	- GET
@@ -872,8 +872,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "0,57328",
 		    "0,54248"
 		]
-		```			
-		
+		```
+
 - **/number/calculator**
 	- Realiza una operacion de calculadora con los parametros dados
 	- GET
@@ -883,7 +883,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- number2: Segundo número (en las operaciones donde es necesario)
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
 	- Resultado: Cadena con el número resultante de la operación. Ejemplo: "6,64385619".
-		
+
 - **/number/proportion**
 	- Realiza la operacion de una regla de tres directa o indirecta: a -> b , c -> x , para despegar X.
 	- GET
@@ -894,7 +894,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- direct: Opcional. y/n si es directa o indirecta. Por defecto y.
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
 	- Resultado: Valor de X. Ejemplo: "6,64".
-		
+
 - **/number/area**
 	- Calcular el area de algunas formas trigonometricas
 	- GET
@@ -904,22 +904,22 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 			- cuadrado: Longitud de lado.
 			- rectangulo: Ancho.
 			- triangulo: Base.
-			- paralelogramo: Base.		
+			- paralelogramo: Base.
 			- trapezoide: Base superior (corta/menor)
-			- circulo: Radio		
+			- circulo: Radio
 			- elipse: Eje corto o menor (similar al radio en círculos)
 		- numberB: Valor B. Opcional para las formas que lo requieran. Según cada forma implica un valor.
-			- rectangulo: Alto.		
+			- rectangulo: Alto.
 			- triangulo: Altura vertical.
 			- paralelogramo: Altura vertical.
 			- trapezoide: Base inferior (larga/mayor)
 			- elipse: Eje largo o mayor (similar al radio en círculos)
 		- numberC: Valor C. Opcional para las formas que lo requieran. Según cada forma implica un valor.
-			- trapezoide: Altura vertical		
+			- trapezoide: Altura vertical
 		- direct: Opcional. y/n si es directa o indirecta. Por defecto y.
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
 	- Resultado: Valor de X. Ejemplo: "6,64".
-		
+
 - **/number/degreesToRadians**
 	- Convertir grados en radianes
 	- GET
@@ -927,7 +927,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- degrees: Grados
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
 	- Resultado: Valor de X. Ejemplo: "6,64".
-	
+
 - **/number/radiansToDegrees**
 	- Convertir grados en radianes
 	- GET
@@ -935,7 +935,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- radians: Radianes
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
 	- Resultado: Valor de X. Ejemplo: "6,64".
-	
+
 - **/number/trigonometric**
 	- Calcular funciones trigonometricas
 	- GET
@@ -945,7 +945,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- typeNumber: Tipo de numero: radianes, grados
 		- decimals: Opcional. Número de posisiones decimales a mostrar. Por defecto 2.
 	- Resultado: Cadena con el número resultante de la operación. Ejemplo: "6,64385619".
-	
+
 - **/number/baseConverter**
 	- Conversor de base numerica
 	- GET
@@ -954,7 +954,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- baseFrom: Base de origen. Desde 2 a 36. Incorrecto tomara 10.
 		- baseTo: Base de destino. Desde 2 a 36. Incorrecto tomara 10.
 	- Resultado: Cadena con el número resultante de la operación. Ejemplo: "1cki".
-	
+
 - **/number/arabicToRoman**
 	- Convertir un numero a romano
 	- GET
@@ -967,8 +967,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	- GET
 	- Parámetros:
 		- number: Número romano
-	- Resultado: Valor en número arábigo. Ejemplo: "19".	
-	
+	- Resultado: Valor en número arábigo. Ejemplo: "19".
+
 - **/barcodes/code128**
 	- Generar código de barras 128
 	- POST
@@ -977,7 +977,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- height: Opcional. Alto imagen (pixeles)
 	- Body: el texto a convertir.
 	- Resultado: image/png
-	
+
 - **/barcodes/ean13**
 	- Generar código de barras EAN13
 	- GET
@@ -986,7 +986,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- height: Opcional. Alto imagen (pixeles)
 	- El texto a convertir se pasa en la URL.
 	- Resultado: image/png
-	
+
 - **/barcodes/upca**
 	- Generar código de barras UPCA
 	- GET
@@ -995,7 +995,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- height: Opcional. Alto imagen (pixeles)
 	- El texto a convertir se pasa en la URL.
 	- Resultado: image/png
-	
+
 - **/barcodes/upce**
 	- Generar código de barras UPCE
 	- GET
@@ -1003,7 +1003,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- width: Opcional. Ancho imagen (pixeles)
 		- height: Opcional. Alto imagen (pixeles)
 	- El texto a convertir se pasa en la URL.
-	- Resultado: image/png		
+	- Resultado: image/png
 
 - **/barcodes/pdf417**
 	- Generar código de barras PDF147
@@ -1013,7 +1013,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- height: Opcional. Alto imagen (pixeles)
 	- Body: el texto a convertir.
 	- Resultado: image/png
-	
+
 - **/barcodes/qrcode**
 	- Generar código de QR
 	- POST
@@ -1023,8 +1023,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- topText: Opcional. Texto que aparece por encima del código QR.
 		- bottomtext: Opcional. Texto que aparece por encima del código QR.
 	- Body: el texto a convertir.
-	- Resultado: image/png	
-	
+	- Resultado: image/png
+
 - **/file/base64**
 	- Codificar en base 64
 	- POST
@@ -1038,18 +1038,18 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- file: archivo a codificar
 		- name: nombre del archivo
 	- Resultado: Cadena codificada
-	
+
 - **/file/decode64**
 	- Decodificar de base 64
 	- POST
 	- Body: texto a decodificar.
-	- Resultado: Cadena decodificada	
-	
+	- Resultado: Cadena decodificada
+
 - **/file/decode64file**
 	- Decodificar de base 64 (archivo)
 	- POST
 	- Body: texto a decodificar.
-	- Resultado: Archivo en si decodificado	
+	- Resultado: Archivo en si decodificado
 
 - **/file/hashtypes**
 	- Devuelve una lista de los algoritmos de hash válidos para ser utilizados en el servicio `/file/hash`
@@ -1074,7 +1074,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		        "descripcion": "SHA-512 con longitud de 512-bit"
 		    }
 		]
-		```		
+		```
 
 - **/file/hash**
 	- Obtener el hash de un archivo
@@ -1093,7 +1093,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 	- Resultado: Archivo zip en si mismo.
 
 
-- **/color/color**	
+- **/color/color**
 	- Devuelve una lista de colores generadas aleatoriamente
 	- GET
 	- Parámetros:
@@ -1109,15 +1109,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```	
-		
+		```
+
 - **/color/hexToRgb**
 	- Convertir color hexadecimal en RGB
 	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 	- Resultado: Valor RGB. Ejemplo: "rgb(63,117,87)".
-				
+
 
 - **/color/rgbToHex**
 	- Convertir color RGB a hexadecimal
@@ -1127,7 +1127,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- green: Valor verde.
 		- blue: Valor azul.
 	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
-	
+
 - **/color/lighten**
 	- Aclarar un color
 	- GET
@@ -1143,7 +1143,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Valor de ocurecimiento 0-100.
 	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
-				
+
 - **/color/hue**
 	- Aplicar matíz a un color
 	- GET
@@ -1151,7 +1151,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Valor de corrección de matíz. -1.0 - 1.0
 	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
-		
+
 - **/color/saturate**
 	- Aplicar saturazión a un color
 	- GET
@@ -1159,7 +1159,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Valor de corrección de saturación. -1.0 - 1.0
 	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
-				
+
 - **/color/brightness**
 	- Aplicar correción de brillo a un color
 	- GET
@@ -1167,15 +1167,15 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- hexa: Color hexadecimal (con o sin #)
 		- amount: Porcentaje de corrección de brillo. 0 - 100
 	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
-		
+
 - **/color/invert**
 	- Invertir un color
 	- GET
 	- Parámetros:
 		- hexa: Color hexadecimal (con o sin #)
 	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
-			
-- **/color/alpha**	
+
+- **/color/alpha**
 	- Aplicar un canal alpha a un color
 	- GET
 	- Parámetros:
@@ -1190,8 +1190,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "alpha": 127,
 		    "hex": "#6b39927f"
 		}
-		```	
-				
+		```
+
 - **/color/mix**
 	- Mezclar dos colores
 	- GET
@@ -1200,8 +1200,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- hexa2: Color 2 hexadecimal (con o sin #)
 		- amount: Porcentaje de aplicación del color 2 sobre el 1. 0 - 100
 	- Resultado: Valor hexadecimal. Ejemplo: "#3f7557".
-	
-- **/color/gradient**	
+
+- **/color/gradient**
 	- Obtener una lista de gradientes de colores
 	- GET
 	- Parámetros:
@@ -1220,9 +1220,9 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```		
-		
-- **/color/monochrome**	
+		```
+
+- **/color/monochrome**
 	- Obtener una lista de gradientes de colores monocromáticos
 	- GET
 	- Parámetros:
@@ -1240,8 +1240,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    },
 		    ...
 		]
-		```				
-			
+		```
+
 
 - **/date/birthdate**
 	- Devuelve una lista de fechas de nacimiento (Edades entre 18-100)
@@ -1259,7 +1259,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "01/12/1988",
 		    "19/02/2004"
 		]
-		```	
+		```
 
 - **/date/futuredate**
 	- Devuelve una lista de fechas de a futuro (Entre 1-100 años futuros)
@@ -1277,7 +1277,7 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "29/07/2081",
 		    "13/05/2086"
 		]
-		```	
+		```
 
 - **/date/age**
 	- Calcula la edad con la fecha de nacimiento (con respecto al momento actual en que se consulta)
@@ -1300,8 +1300,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "minutosRelativos": 17,
 		    "segundosRelativos": 38
 		}
-		```				
-			
+		```
+
 - **/date/datediff**
 	- Calcula la diferencia entre dos fechas
 	- GET
@@ -1324,8 +1324,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "minutosRelativos": 17,
 		    "segundosRelativos": 38
 		}
-		```		
-		
+		```
+
 - **/date/dateoperation**
 	- Realiza una suma o resta sobre una fecha
 	- GET
@@ -1339,14 +1339,14 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		- minutes: Minutos a incrementar/decrementar.
 		- seconds: Segundos a incrementar/decrementar.
 	- Resultado: Fecha resultante. Formato "dd/MM/yyyy HH:mm:ss". Ejemplo "02/05/1984 14:00:00".
-	
+
 - **/date/dayofweek**
 	- Comprueba el día de la semana para una fecha dada
 	- GET
 	- Parámetros:
 		- date: Fecha. Formato "dd/MM/yyyy HH:mm:ss".
 	- Resultado: Día de la semana. Ejemplo "Lunes".
-		
+
 - **/date/unixtimeToTime**
 	- Dado un tiempo unix UTC, calcula las fecha/tiempo correspondiente en UTC y local.
 	- GET
@@ -1359,8 +1359,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "fechaUTC": "2024-10-29T10:53:12",
 		    "fechaLocal": "2024-10-29T11:53:12"
 		}
-		```		
-		
+		```
+
 - **/date/timeToUnixtime**
 	- Dado un fecha/tiempo local (Europe/Madrid) obtiene el tiempo unix UTC correspondiente
 	- GET
@@ -1373,8 +1373,8 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "fechaUTC": "2024-10-29T10:53:12",
 		    "fechaLocal": "2024-10-29T11:53:12"
 		}
-		```		
-		
+		```
+
 - **/date/holyWeek**
 	- Devuelve las fechas Semana Santa (Pascua) de un año
 	- GET
@@ -1394,9 +1394,9 @@ Las peticiones deberán incluir en el Header una key de nombre **"X-API-KEY"**, 
 		    "fechaLunesPeriodoVacacional": "2024-03-25T11:00:00.000+00:00",
 		    "fechaDomingoPeriodoVacacional": "2024-04-07T10:00:00.000+00:00"
 		}
-		```				
-			
-			
+		```
+
+
 
 ## Solventar SilentExitException exception lanzada al lanzar la aplicación en debug eclipse
 
@@ -1409,7 +1409,7 @@ Parece ser un bug de la version de spring-boot-devtools.
 
 Para solventarlo, en el debug configurations, dentro de Arguments, VM arguments se ha puesto "-Dspring.devtools.restart.enabled=false".
 
-					
+
 ## Docker - Render
 
 Se incluye un Dockerfile que permite desplegar el servicio en Render:
@@ -1429,4 +1429,15 @@ Se incluye un Dockerfile que permite desplegar el servicio en Render:
 Esta aplicación utiliza las siguientes dependencias de terceras partes
 - [iso-17442-java](https://github.com/EDumdum/iso-17442-java) - MIT license
 - [ZXing Library](https://github.com/zxing/zxing) - Apache-2.0 license
-					
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la licencia Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
+
+**Resumen:**
+- Eres libre de usar, copiar, modificar y distribuir este software para fines no comerciales, siempre que otorgues el crédito adecuado al autor original ("jpromocion").
+- Para cualquier uso comercial de este software o de trabajos derivados, debes obtener el permiso expreso y por escrito de "jpromocion".
+- El software se proporciona "tal cual", sin garantía de ningún tipo.
+
+Para más detalles, consulta el archivo [LICENSE](./LICENSE) y la licencia oficial [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode).
+
