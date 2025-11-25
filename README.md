@@ -1,6 +1,9 @@
 # rest-j-generadores
 
 ![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-green.svg)
+![Spring 3](https://img.shields.io/badge/Spring-3-orange)
+![Java 17](https://img.shields.io/badge/Java-17-orange)
+[![Dona PayPal](https://img.shields.io/badge/Dona-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=S2CX67ZD5C97C)
 
 Api RestFul para generar datos
 
